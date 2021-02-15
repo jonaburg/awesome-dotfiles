@@ -1,0 +1,65 @@
+#!/bin/env sh
+
+## Downloads Typical Data Pool to Temp Locations
+download(){
+destination='/home/jon/.config/awesome/tmp/airquality/aq'
+# if last access date 1 day old or more, then curl new data
+#[ "$(stat -c %y $file | cut -d ' ' -f1 )" != "$(date '+%Y-%m-%d')" ]  &&
+# if last access date 50 min old, curl new data.
+[[ "$(date +%s) - 3000" -gt "$(stat -c %Y $destination)" ]] &&
+#download results of whole table to $destination
+curl -s https://www.iqair.com/us/switzerland/grisons/landquart > $destination
+}
+
+#download results of whole table to /tmp/aq
+##
+index(){
+download
+tablesource='/home/jon/.config/awesome/tmp/airquality/aq'
+destination='/home/jon/.config/awesome/tmp/airquality/aqi'
+#display confirmed cases, output selection to /tmp/ccount
+# Switzerland record for `CH: infected`
+sed 's/</\n/g' $tablesource | grep 'Main pollutant' -A8 | tail -1 | awk {'print $3'} > $destination
+echo $destination
+}
+
+particle(){
+download
+tablesource='/home/jon/.config/awesome/tmp/airquality/aq'
+destination='/home/jon/.config/awesome/tmp/airquality/aqp'
+# Switzerland record for `CH: recovered`
+sed 's/</\n/g' $tablesource | grep 'Main pollutant' -A37 | tail -1 | awk {'print $3'} > $destination
+}
+
+value(){
+download
+tablesource='/home/jon/.config/awesome/tmp/airquality/aq'
+destination='/home/jon/.config/awesome/tmp/airquality/aqv'
+#grep World /tmp/coronach | sed 's/│ /;/g ; s/║ /;/g ; s/ //g' | awk -F';' {'print $3,"☣"$4'} | cut -d'(' -f2 | tr ')' ':' > $destination
+# global record for `infected`
+sed 's/</\n/g' $tablesource | grep 'Main pollutant' -A45 | tail -1 | awk {'print $3'} > $destination
+}
+
+humidity(){
+download
+tablesource='/home/jon/.config/awesome/tmp/airquality/aq'
+destination='/home/jon/.config/awesome/tmp/humidity'
+#grep World /tmp/coronach | sed 's/│ /;/g ; s/║ /;/g ; s/ //g' | awk -F';' {'print $3,"☣"$4'} | cut -d'(' -f2 | tr ')' ':' > $destination
+# global record for `infected`
+sed 's/>/\n/g' $tablesource | grep Humidity -A2 | tail -1  | awk -F'<' {'print $1'} > $destination
+}
+
+temperature(){
+download
+tablesource='/home/jon/.config/awesome/tmp/airquality/aq'
+destination='/home/jon/.config/awesome/tmp/temperature'
+sed 's/</\n/g' $tablesource | grep -A3 -m1 'Temperature'  | tail -2 | head -1 | awk -F'>' {'print $2'} > $destination
+}
+
+index
+particle
+value
+humidity
+temperature
+
+"$@"
