@@ -908,7 +908,6 @@ mybars = awful.wibox(
          bg = theme.bg_focus,
          height = dpi(33),
          width = s.workarea.width,
-        ontop = false,
         visible = true,
       --  shape = gears.shape.rectangle
          --shape = goodhexa
@@ -956,22 +955,22 @@ cornertag:setup {
          --mybars.y = 50
          mybars.y = 10
          mybars.x = 25
-         mybars:struts({left=0, right=0, top=0, bottom=0})
         ----- {{ CORNER TAGS}}
          cornertag.height = 30
          cornertag.y = 60
          cornertag.x = 25
-         cornertag:struts({left=0, right=0, top=0, bottom=0})
 
 
     end
 
---    if s.index ~= 1
---    then
---         mybars.width = 325
---         mybars.y = 50
---         mybars.x = s.workarea.width
---    end
+    -- for little 5:4 monitor -- makes it super ugly but eh. at least it works for now.
+    if s.index == 2
+    then
+        ----- {{ CORNER BARS}}
+         mybars.width = 325
+         mybars.height = 55
+
+    end
 
 function tagbar_hor(s)
 	if s.index == 1
