@@ -42,8 +42,8 @@ local airquality = wibox.container.background(mascarpone_widget, "#9593c8") -- m
 --            emailbg:set_bg("#D9574F")
 
 
-local refresh_data = [[bash -c "airquality"]]
-local aqi_val = [[bash -c "cat /tmp/aqi"]]
+local refresh_data = [[bash -c "/home/jon/.config/awesome/scripts/airquality"]]
+local aqi_val = [[bash -c "cat /home/jon/.config/awesome/tmp/airquality/aqi"]]
 
 
 -- ensuring the icon will have black fg text.

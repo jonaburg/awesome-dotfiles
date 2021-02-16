@@ -46,7 +46,7 @@ local temperature = wibox.container.background(mascarpone_widget, "#c8b093") -- 
 
 
 --local refresh_data = [[bash -c "airquality"]]
-local aqi_val = [[bash -c "cat /tmp/temperature"]]
+local aqi_val = [[bash -c "cat  /home/jon/.config/awesome/tmp/temperature"]]
 
 
 -- ensuring the icon will have black fg text.

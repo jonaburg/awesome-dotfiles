@@ -20,7 +20,6 @@ destination='/home/jon/.config/awesome/tmp/airquality/aqi'
 #display confirmed cases, output selection to /tmp/ccount
 # Switzerland record for `CH: infected`
 sed 's/</\n/g' $tablesource | grep 'Main pollutant' -A8 | tail -1 | awk {'print $3'} > $destination
-echo $destination
 }
 
 particle(){
