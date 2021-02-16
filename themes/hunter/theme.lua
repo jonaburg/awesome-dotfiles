@@ -648,6 +648,7 @@ end
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {
          bg_focus = "#B6BD68" ,
+         spacing = 4,
           font = theme.taglist_font,
           icons = {
                  "/home/jon/.config/awesome/themes/jontheme/icons/titlebar/slot.png",
@@ -656,8 +657,8 @@ end
                  "/home/jon/.config/awesome/themes/jontheme/icons/titlebar/slot.png"
                }
         })
-    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
-    s.mytag = wibox.container.margin(mytaglistcont, dpi(5), dpi(5), dpi(5), dpi(5))
+--    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
+    s.mytag = wibox.container.margin(s.mytaglist, dpi(5), dpi(5), dpi(5), dpi(5))
     mytagholder = wibox.container.background(s.mytag, theme.bg_focus, gears.shape.rectangle)
 
 -- on tag change
@@ -879,6 +880,7 @@ screen[1].mywibox = awful.wibar(
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             --s.mytag,
+            --s.cornertaglist,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
@@ -1004,21 +1006,20 @@ function tagbar_hor(s)
         },
     }
 
--- tagbar struts widget.. -- {{{{}}}} --- NEED TO WORK ON STRUTS/TIMING
+-- tagbar struts widget.. -- {{{{}}}} --- NEED TO WORK ON STRUTS/TIMING && bug where it displaces other widgets.
 --screen[1].tstrut = awful.wibox(
 --        {
 --         screen = s,
---         position = "bottom",
+--       --  position = "bottom",
 --         bg = "#000000" .. "00"
 --        }
 --    )
---
 --local function tagbarstrutup()
---    screen[1].tstrut.visible = true
+----    screen[1].tstrut.visible = true
 --         screen[1].tstrut:struts({left=0, right=0, top=0, bottom=80})
 --end
 --local function tagbarstrutdown()
---   screen[1].tstrut.visible = false
+----   screen[1].tstrut.visible = false
 --         screen[1].tstrut:struts({left=0, right=0, top=0, bottom=0})
 --end
 --awesome.connect_signal("bringup", function()
