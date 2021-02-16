@@ -830,6 +830,7 @@ end
 --   s.myleftwibox = wibox({screen = s, x=1240, y=s.workarea.height, width = s.workarea.width, height = dpi(32), fg = theme.fg_normal, bg = theme.bg_normal, ontop = true, visible = true, type = "dock" })
 
 
+
 -- Create the main taskbar wibox.
 screen[1].mywibox = awful.wibar(
    -- screen[1].mywibox = wibox(
@@ -864,8 +865,9 @@ screen[1].mywibox = awful.wibar(
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
         musicwidget,
-	    ddcshiftholder_3k,
-	    redshiftholder_3k,
+	bat,
+	ddcshiftholder_3k,
+	redshiftholder_3k,
         volumewidget,
  --       vmholder, --  currently not using any vms
         temperatureholder,
@@ -880,13 +882,45 @@ screen[1].mywibox = awful.wibar(
         systrayholder,
         },
     }
+
+screen[1].myhealthbars = awful.wibox(
+        {
+         screen = s,
+        -- height = dpi(32),
+        -- width = s.workarea.width - 40,
+      --   y = 1440,
+      --   x = 900,
+        ontop = true,
+        visible = true,
+--         shape = gears.shape.rectangle
+        }
+)
+    screen[1].myhealthbars:setup {
+   -- s.myleftwibox:setup {
+        layout = wibox.layout.align.horizontal,
+        { -- Right widgets
+            layout = wibox.layout.fixed.horizontal,
+	ddcshiftholder_3k,
+	redshiftholder_3k,
+        volumewidget,
+        }
+    }
+
+
+
 -- if main screen then indent topbar down.
     if s.index == 1
     then
-         screen[1].mywibox.height = dpi(38)
-         --screen[1].mywibox.width = s.workarea.width - 50
-         --screen[1].mywibox.y = 10
-         --screen[1].mywibox:struts({left=0, right=0, top=45, bottom=0})
+    --     screen[1].mywibox.height = dpi(38)
+    --     screen[1].mywibox.width = s.workarea.width - 50
+    --     screen[1].mywibox.y = 10
+    --     screen[1].mywibox:struts({left=0, right=0, top=45, bottom=0})
+
+         screen[1].myhealthbars.height = dpi(38)
+         screen[1].myhealthbars.width = s.workarea.width - 50
+         screen[1].myhealthbars.y = 30
+         screen[1].myhealthbars:struts({left=0, right=0, top=0, bottom=0})
+
     end
 
 function tagbar_hor(s)
