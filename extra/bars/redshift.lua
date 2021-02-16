@@ -14,9 +14,9 @@ local watch = require("awful.widget.watch")
 local wibox = require("wibox")
 
 
-local GET_WARMTH_CMD = '/home/jon/.local/bin/utilities/shifter value'
-local INC_WARMTH_CMD = '/home/jon/.local/bin/utilities/shifter warmer'
-local DEC_WARMTH_CMD = '/home/jon/.local/bin/utilities/shifter colder'
+local GET_WARMTH_CMD = '/home/jon/.config/awesome/scripts/shifter value'
+local INC_WARMTH_CMD = '/home/jon/.config/awesome/scripts/shifter warmer'
+local DEC_WARMTH_CMD = '/home/jon/.config/awesome/scripts/shifter colder'
 
 local widget = {}
 

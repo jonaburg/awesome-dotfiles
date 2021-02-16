@@ -61,9 +61,8 @@ function(widget, stdout, stderr, exitreason, exitcode)
       --      emailbg:set_bg("#Bd78D2") -- placehold bright pink
       --      emailbg:set_bg("#c893c5") -- annoying pink
      --       emailbg:set_bg("#CC9DEC") -- slightly mauve pnink
-            emailbg:set_bg("#D2A2DE") -- pso pink
-     --       emailbg:set_bg("#BF7979") -- nord salmon
-            --emailbg:set_bg("#863848") -- old blood
+       --     emailbg:set_bg("#D2A2DE") -- pso pink
+            emailbg:set_bg("#bea7c3") -- triadic pink
         end
     end
 )

@@ -38,7 +38,9 @@ local mascarpone_widget = wibox.widget {
 	layout = wibox.layout.fixed.horizontal,
 }
 --local humidity = wibox.container.background(mascarpone_widget, "#7289DA") -- deep purp
-local humidity = wibox.container.background(mascarpone_widget, "#93c5c8") -- deep purp
+--local humidity = wibox.container.background(mascarpone_widget, "#93c5c8") -- light blue
+--local humidity = wibox.container.background(mascarpone_widget, "#456687") -- darker blue
+local humidity = wibox.container.background(mascarpone_widget, "#7d88a6") -- darker blue
 
 --	        textbox_widget:set_text( " 📨 ")
 --	        textbox_widget:set_markup(markup("#000000", " 📨 "))

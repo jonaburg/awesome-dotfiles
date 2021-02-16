@@ -40,23 +40,26 @@ local temperature = require('extra.geographic.temperature')
 
 
 --theme.font          = "sf mono 12"
---theme.taglist_font  = "sf mono 12"
+--theme.taglist_font  = "sf mono 14"
 --theme.mpd_font  = "sf mono 10"
 --theme.tasklist_font = "sf mono 12"
 
 
 theme.font          = "Iosevka 12"
-theme.taglist_font  = "Iosevka 12"
+theme.taglist_font  = "Iosevka 16"
+--theme.taglist_font  = "Linux Biolinum 18"
 theme.mpd_font  = "Open Sans 10"
 --theme.tasklist_font = "Linux Biolinum 12"
-theme.tasklist_font = "sf mono 13"
---theme.tasklist_font = "Iosevka 14"
+--theme.tasklist_font = "sf mono 13"
+theme.tasklist_font = "Iosevka 14"
 
 
 theme.fg_normal                                 = "#bababa"
 theme.fg_focus					= "#e33a6e"
 --theme.bg_focus                                  = "#242424"
 theme.bg_focus                                  = "#141c29" -- midnight blue
+--theme.bg_focus                                  = "#93c5c8" -- bright  blue
+--theme.bg_focus                                  = "#7289DA" -- ephemeral blue
 --theme.bg_focus = "#B6BD68"
 
 theme.bg_normal                                 = "#141414"
@@ -192,7 +195,8 @@ local clock_widget_text_icon1 = wibox.widget {
 local clock_widget_icon1 = wibox.widget {
 	clock_widget_text_icon1,
 	--bg = "#E7D469",
-	bg = "#c3c997",
+	--bg = "#c3c997",
+	bg = "#c3bea7",
 	fg = "#000000",
 	widget = wibox.container.background,
 }
@@ -204,7 +208,8 @@ local clock_widget_text_icon2 = wibox.widget {
 local clock_widget_icon2 = wibox.widget {
 	clock_widget_text_icon2,
 	--bg = "#05C6E2", -- bright overbearing blue
-	bg = "#97c3c9",
+	--bg = "#97c3c9",
+	bg = "#a7c3be",
 	fg = "#000000",
 	widget = wibox.container.background,
 }
@@ -312,7 +317,8 @@ theme.volume = lain.widget.alsabar({
     notification_preset = { font = "Monospace 14"},
     --togglechannel = "IEC958,3",
     --width = dpi(80), height = dpi(50), border_width = dpi(0),ticks = false, tick_size=3, -- 1080p monitor divisions
-    width = dpi(100), height = dpi(50), border_width = dpi(0),ticks = false, tick_size=3,
+    --width = dpi(100), height = dpi(50), border_width = dpi(0),ticks = false, tick_size=3,
+    width = dpi(500), height = dpi(15), border_width = dpi(0),ticks = false, tick_size=3, -- max width for all bars is equiv to this width.
     colors = {
         --background = "#383838",
         --background = "#C2C3C2",
@@ -327,7 +333,7 @@ theme.volume = lain.widget.alsabar({
     },
 })
 theme.volume.bar.paddings = dpi(0)
-theme.volume.bar.margins = dpi(8)
+theme.volume.bar.margins = dpi(1)
 theme.volume.bar:buttons(awful.util.table.join(
     awful.button({}, 3, function() -- left click
         awful.spawn(string.format("%s -e alsamixer", terminal))
@@ -354,7 +360,8 @@ theme.volume.bar:buttons(awful.util.table.join(
     ))
 
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
-volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(10), dpi(10))
+--volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(10), dpi(10))
+volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(75), dpi(2), dpi(10))
 
 -- CPU
 local cpu = lain.widget.cpu({
@@ -375,7 +382,8 @@ local cpu_widget_icon_handle = wibox.widget {
 	--bg = "#93C8b0", -- pale green
 	--bg = "#7289da", -- nice violet
 	--bg = "#88aadd", -- yellowish
-	bg = "#7289DA", -- yellowish
+	--bg = "#7289DA", -- deep purple
+	bg = "#9593c8", -- royal purple
 	fg = "#000000",
 	widget = wibox.container.background,
 }
@@ -403,21 +411,6 @@ local net = lain.widget.net({
 })
 local netbg = wibox.container.background(net.widget, theme.bg_focus, gears.shape.rectangle)
 local networkwidget = wibox.container.margin(netbg, dpi(0), dpi(0), dpi(5), dpi(5))
-
-
--- Weather
-theme.weather = lain.widget.weather({
-    city_id = 2643743, -- placeholder (London)
-    notification_preset = { font = "Inconsolata 10", fg = theme.fg_normal },
-    weather_na_markup = markup.fontfg(theme.font2, "#fffedb", "N/A "),
-    settings = function()
-        descr = weather_now["weather"][1]["description"]:lower()
-        units = math.floor(weather_now["main"]["temp"])
---        widget:set_markup(markup.fontfg(theme.font, "#eca4c4", descr .. "🌤 @ " .. units .. "°C "))
---        widget:set_markup(markup.fontfg(theme.font, "#fffedb", "🌤" .. units .. "°C   "))
-        widget:set_markup(markup.fontfg(theme.font, "#fffedb",  units .. "°C" .. " 🌤" ))
-    end
-})
 
 
 -- Launcher
@@ -516,7 +509,7 @@ function theme.at_screen_connect(s)
 --    end
 --end
 
--- System Tray
+-- System Tray --- this hides the system tray as its packed inside of this widget. --
 --systrayholder = wibox.container.margin(wibox.widget.systray0 dpi(16), dpi(16), dpi(7),dpi(7)) -- sytstray
 mysystray = wibox.widget.systray()
 mysystray.visible = false
@@ -541,12 +534,18 @@ gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- 
 -- temperature holder
 temperatureholder = wibox.container.margin(temperature, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- humidity holder
-humidityholder = wibox.container.margin(humidity, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+humidityholder = wibox.container.margin(humidity, dpi(0), dpi(10), dpi(5),dpi(5)) -- c893c5 vm
 -- Air quality holder
-airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(10), dpi(5),dpi(5)) -- c893c5 vm
+airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
 ---------------------------------------}}}}
-
+local cornershifter = gears.color({
+	type = "linear",
+	from = { dpi(12), 0},
+	to   = { dpi(182), 20},
+	--stops = { {0.15, "#A75374" .. "20"}, {0.75, "#FF1b4d" .. "75"} }
+	stops = { {0.15, "#A75374" .. "30"}, {0.85, "#FFF577" .. "95"} } -- deep red to gold gradient
+})
 
 local bluelingrad = gears.color({
 	type = "linear",
@@ -573,11 +572,13 @@ local brightgrad = gears.color({
 })
 
 -- DDCshift Bar
-local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(8), dpi(8)) -- 1080p
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(35), dpi(1), dpi(1)) -- 1080p
+--local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(8), dpi(8)) -- 1080p
 local ddcshiftholder_3k = wibox.container.background(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=10, shape = 'hexagon',}), theme.bg_focus, gears.shape.rectangle) --background
 ddcshiftholder_3k = wibox.container.margin(ddcshiftholder_3k, dpi(3), dpi(3), dpi(9), dpi(9)) -- margin
 -- Redshift Bar
-local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(8), dpi(8)) -- 1080p
+local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(55), dpi(0), dpi(0)) -- 1080p
+--local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(8), dpi(8)) -- 1080p
 local redshiftholder_3k = wibox.container.background(redshift({ main_color = bluelingrad, background_color = "#343434", margins=10, shape = 'hexagon',}), theme.bg_focus, gears.shape.rectangle) --background
 redshiftholder_3k = wibox.container.margin(redshiftholder_3k, dpi(3), dpi(2), dpi(9), dpi(9)) -- margin
 
@@ -587,10 +588,28 @@ local goodhexa = function(cr, width, height)
 --    gears.shape.hexagon(cr, 50, 50)
 --    gears.shape.transform(gears.shape.hexagon) : translate(0,5)(cr,70,50)
     gears.shape.transform(gears.shape.hexagon) : rotate_at(35,24,math.pi)(cr,70,47)
-
-
 --    goodhexa.transform(shape.hexagon) : translate(0,15)(cr,70,20)
 end
+
+local goodparal = function(cr, width, height)
+--      gears.shape.transform(gears.shape.parallelogram) : scale(0.1, 1)(cr,540,70)
+--    gears.shape.partially_rounded_rect(cr, 140, 140, true)
+--      gears. shape.partially_rounded_rect(cr, 300, 50, false, false, true, false, 30)
+        --gears.shape.rectangular_tag(cr, 300, 50)
+--        gears.shape.transform(gears.shape.rectangular_tag) : rotate_at(150,35,3*math.pi/3) (cr,300,70) -- decent
+        --gears.shape.transform(gears.shape.rectangular_tag) : rotate_at(150,35, 3*math.pi/3) (cr,300,70)
+        gears.shape.transform(gears.shape.rectangular_tag) : rotate_at(150,25, 3*math.pi/3) (cr,305,100)
+    --gears.shape.transform(gears.shape.hexagon) : translate(10,25)(cr,20,70)
+--    gears.shape.hexagon(cr, 320, 50)
+
+end
+
+local cornerparal = function(cr, width, height)
+        gears.shape.transform(gears.shape.rectangular_tag) : rotate_at(97,15, 3*math.pi/3) (cr,215,45)
+end
+
+
+
 local realagon = function(cr, width, height)
     local temp = 0
     if width > height then temp = height else temp = width end
@@ -629,7 +648,7 @@ end
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {
          bg_focus = "#B6BD68" ,
-          font = "Iosevka 14",
+          font = theme.taglist_font,
           icons = {
                  "/home/jon/.config/awesome/themes/jontheme/icons/titlebar/slot.png",
                  "/home/jon/.config/awesome/themes/jontheme/icons/titlebar/slot.png",
@@ -638,7 +657,8 @@ end
                }
         })
     mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
-    s.mytag = wibox.container.margin(mytaglistcont, dpi(1), dpi(1), dpi(2), dpi(2))
+    s.mytag = wibox.container.margin(mytaglistcont, dpi(5), dpi(5), dpi(5), dpi(5))
+    mytagholder = wibox.container.background(s.mytag, theme.bg_focus, gears.shape.rectangle)
 
 -- on tag change
 --screen[1]:connect_signal("tag::history::update", function() -- if only desired on screen1..
@@ -847,6 +867,7 @@ screen[1].mywibox = awful.wibar(
 --         x = 900,
         --ontop = true,
         visible = true,
+         shape = gears.shape.rectangle
 --         shape = gears.shape.rectangle
         }
     )
@@ -857,20 +878,17 @@ screen[1].mywibox = awful.wibar(
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            s.mytag,
+            --s.mytag,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
         musicwidget,
-	    ddcshiftholder_3k,
-	    redshiftholder_3k,
-        volumewidget,
  --       vmholder, --  currently not using any vms
         temperatureholder,
-        humidityholder,
         airqualityholder,
+        humidityholder,
         gpuholder,
         cpuwidget,
 	    emailholder,
@@ -880,14 +898,78 @@ screen[1].mywibox = awful.wibar(
         systrayholder,
         },
     }
--- if main screen then indent topbar down.
+-- Create the bars "player" widget
+mybars = awful.wibox(
+   -- screen[1].mywibox = wibox(
+        {
+         screen = s,
+         bg = theme.bg_focus,
+         height = dpi(33),
+         width = s.workarea.width,
+        ontop = false,
+        visible = true,
+      --  shape = gears.shape.rectangle
+         --shape = goodhexa
+         shape = goodparal
+        }
+    )
+mybars:setup {
+        layout = wibox.layout.align.horizontal,
+        { layout = wibox.layout.fixed.vertical,
+	    ddcshiftholder,
+	    redshiftholder,
+        volumewidget,
+        }
+    }
+-- cornertag widget (under corner bars)
+cornertag = awful.wibox(
+        {
+         screen = s,
+         bg = "#000000" .. "00";
+         height = dpi(33),
+         width = s.workarea.width,
+        ontop = false,
+        visible = true,
+--        shape = cornerparal
+        }
+    )
+cornertag:setup {
+        layout = wibox.layout.fixed.horizontal,
+         mytagholder
+    }
+-- if main screen then indent topbar down. (specific to main 3k monitor)
     if s.index == 1
     then
+        ----- {{ TOP BAR}}
          screen[1].mywibox.height = dpi(38)
          --screen[1].mywibox.width = s.workarea.width - 50
-         --screen[1].mywibox.y = 10
-         --screen[1].mywibox:struts({left=0, right=0, top=45, bottom=0})
+         screen[1].mywibox.width = s.workarea.width - 355
+         screen[1].mywibox.y = 10
+         screen[1].mywibox.x = 330
+         screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
+        ----- {{ CORNER BARS}}
+         --mybars.width = s.workarea.width - 70
+         mybars.width = 325
+         mybars.height = 55
+         --mybars.y = 50
+         mybars.y = 10
+         mybars.x = 25
+         mybars:struts({left=0, right=0, top=0, bottom=0})
+        ----- {{ CORNER TAGS}}
+         cornertag.height = 30
+         cornertag.y = 60
+         cornertag.x = 25
+         cornertag:struts({left=0, right=0, top=0, bottom=0})
+
+
     end
+
+--    if s.index ~= 1
+--    then
+--         mybars.width = 325
+--         mybars.y = 50
+--         mybars.x = s.workarea.width
+--    end
 
 function tagbar_hor(s)
 	if s.index == 1
@@ -921,9 +1003,34 @@ function tagbar_hor(s)
             s.mylayoutbox,
         },
     }
-end
-end
 
+-- tagbar struts widget.. -- {{{{}}}} --- NEED TO WORK ON STRUTS/TIMING
+--screen[1].tstrut = awful.wibox(
+--        {
+--         screen = s,
+--         position = "bottom",
+--         bg = "#000000" .. "00"
+--        }
+--    )
+--
+--local function tagbarstrutup()
+--    screen[1].tstrut.visible = true
+--         screen[1].tstrut:struts({left=0, right=0, top=0, bottom=80})
+--end
+--local function tagbarstrutdown()
+--   screen[1].tstrut.visible = false
+--         screen[1].tstrut:struts({left=0, right=0, top=0, bottom=0})
+--end
+--awesome.connect_signal("bringup", function()
+-- tagbarstrutup()
+--end)
+--awesome.connect_signal("bringdown", function()
+-- tagbarstrutdown()
+--end)
+-- ENOUGHF STRUTS
+
+end
+end
 
 ----------- TITLEBAR DROPDOWN  -----------------------------------------------------
 --function titlebar_hor(s)
