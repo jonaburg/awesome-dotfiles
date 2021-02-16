@@ -25,7 +25,7 @@ theme.lain_icons                                = os.getenv("HOME") .. "/.config
 
 -- bars --
 local redshift = require('extra.bars.redshift')
-local ddcshift = require('extra.bars.ddcshift')
+local ddcshift = require('extra.bars.brightbar')
 -- sliding bars --
 local tagbar = require('extra.slidebars.tagbar')
 local titlebar = require('extra.slidebars.titlebar')

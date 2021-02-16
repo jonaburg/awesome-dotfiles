@@ -26,11 +26,11 @@ local scratch = require("extra.scratch")
 screen_width = awful.screen.focused().geometry.width
 screen_height = awful.screen.focused().geometry.height
 -- expose addono
-local revelation=require("revelation")
+--local revelation=require("revelation")
 -- termgrp addon
 
 -- radical menues/addon
-local radical = require("radical")
+--local radical = require("radical")
 
 --local termgrp = require('termgrp')
 --	termgrp.terminal = "st"
