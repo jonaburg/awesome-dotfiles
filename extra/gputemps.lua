@@ -1,5 +1,5 @@
 -------------------------------------------------
--- air quality monitor
+-- nvidia gpu monitor
 -------------------------------------------------
 local awful = require("awful")
 local wibox = require("wibox")
@@ -12,7 +12,7 @@ local my_table = awful.util.table or gears.table
 local testwidget_widget = {}
 
 local textbox_widget = wibox.widget {
-    text = '  ', -- windows icon
+    text = ' ♨ ', -- windows icon
 	font = "Iosevka 12",
 	widget = wibox.widget.textbox,
 	}
@@ -33,9 +33,9 @@ local mascarpone_widget = wibox.widget {
 	textbox_notify_widget_box,
 	layout = wibox.layout.fixed.horizontal,
 }
---local airquality = wibox.container.background(mascarpone_widget, "#9FBD8D") -- muggy green
---local airquality = wibox.container.background(mascarpone_widget, "#9593c8") -- royal purp
-local airquality = wibox.container.background(mascarpone_widget, "#88a67d") -- minish cap greenish
+
+--local gputempshunter = wibox.container.background(mascarpone_widget, "#7a526b") -- mauve-ish
+local gputempshunter = wibox.container.background(mascarpone_widget, "#7a6552") -- greenish
 
 --	        textbox_widget:set_text( " 📨 ")
 --	        textbox_widget:set_markup(markup("#000000", " 📨 "))
@@ -43,21 +43,17 @@ local airquality = wibox.container.background(mascarpone_widget, "#88a67d") -- m
 --            emailbg:set_bg("#D9574F")
 
 
-local refresh_data = [[bash -c "/home/jon/.config/awesome/scripts/airquality"]]
-local aqi_val = [[bash -c "cat /home/jon/.config/awesome/tmp/airquality/aqi"]]
-
+local watchstatus = [[bash -c "nvidia-smi --format=csv --query-gpu=temperature.gpu | tail -1"]]
 
 -- ensuring the icon will have black fg text.
-textbox_widget:set_markup(markup("#000000", "  "))
-
-watch(refresh_data, 3600)
+textbox_widget:set_markup(markup("#000000", " ♨ "))
 
 -- automatically scans for VM status..
 watch(
-aqi_val, 3590,
+watchstatus, 20,
 function(widget, stdout, stderr, exitreason, exitcode)
-  local val = tostring(stdout)
-            textbox_notify_widget:set_text(val)
+  local util = tostring(stdout)
+            textbox_notify_widget:set_text(util)
       --  if string.find(vm_status, "paused") then
       --      textbox_notify_widget:set_text(' __ ')
       --  end
@@ -73,23 +69,4 @@ function(widget, stdout, stderr, exitreason, exitcode)
 )
 
 
--- notification for britbongs
-function show_brit()
-    awful.spawn.easy_async([[bash -c 'cat /tmp/coronauk']],
-        function(stdout, stderr, reason, exit_code)
-            naughty.notify{
-                text = stdout,
-                title = "court writ yer honor",
-                timeout = 30, hover_timeout = 5,
-                width = 1250,
-		font = "Iosevka 10",
-		fg = ("#ff0000"),
-		bg = ("#000000" .. "35"),
-		position = 'top_middle',
-		icon = overlay,
-            }
-        end
-    )
-end
-
-return airquality
+return gputempshunter

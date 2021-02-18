@@ -33,6 +33,7 @@ local titlebar = require('extra.slidebars.titlebar')
 local email = require('extra.emailhunter')
 local vm = require('extra.vmhunter')
 local gpuhunter = require('extra.gpuhunter')
+local gputemps = require('extra.gputemps')
 -- geographic environment widgets --
 local airquality = require('extra.geographic.airquality')
 local humidity = require('extra.geographic.humidity')
@@ -383,7 +384,9 @@ local cpu_widget_icon_handle = wibox.widget {
 	--bg = "#7289da", -- nice violet
 	--bg = "#88aadd", -- yellowish
 	--bg = "#7289DA", -- deep purple
-	bg = "#9593c8", -- royal purple
+	--bg = "#9593c8", -- royal purple
+	--bg = "#4e5f6e", -- dark grey blue
+	bg = "#52677a", -- lighter green
 	fg = "#000000",
 	widget = wibox.container.background,
 }
@@ -527,8 +530,9 @@ emailholder = wibox.container.margin(email, dpi(10), dpi(0), dpi(5),dpi(5)) -- e
 -- Computer stats Widgets --------------{{
 -- WINDOWS VM identifier.
 vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
--- GPU HOLDER
+-- GPU HOLDER(s)
 gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
 -- Physical Environment Widgets-------- {{
 -- temperature holder
@@ -659,7 +663,7 @@ end
         })
 --    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
     s.mytag = wibox.container.margin(s.mytaglist, dpi(5), dpi(5), dpi(5), dpi(5))
-    mytagholder = wibox.container.background(s.mytag, theme.bg_focus, gears.shape.rectangle)
+    mytagholder = wibox.container.background(s.mytag, theme.bg_normal, gears.shape.rectangle)
 
 -- on tag change
 --screen[1]:connect_signal("tag::history::update", function() -- if only desired on screen1..
@@ -891,8 +895,9 @@ screen[1].mywibox = awful.wibar(
         temperatureholder,
         airqualityholder,
         humidityholder,
-        gpuholder,
         cpuwidget,
+        gpuholder,
+        gputempsholder,
 	    emailholder,
     --    spr_small,
 	    clockwidget,
