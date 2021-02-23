@@ -25,7 +25,7 @@ theme.lain_icons                                = os.getenv("HOME") .. "/.config
 
 -- bars --
 local redshift = require('extra.bars.redshift')
-local ddcshift = require('extra.bars.ddcshift')
+local ddcshift = require('extra.bars.brightbar')
 -- sliding bars --
 local tagbar = require('extra.slidebars.tagbar')
 local titlebar = require('extra.slidebars.titlebar')
@@ -853,6 +853,7 @@ end
 
    --s.myleftwibox = wibox({screen = s, x=s.workarea.width, y =s.workarea.height, width = dpi(6), height = s.workarea.height, fg = theme.fg_normal, bg = theme.bg_normal, position = "top", ontop = true, visible = true, type = "dock" })
 --   s.myleftwibox = wibox({screen = s, x=1240, y=s.workarea.height, width = s.workarea.width, height = dpi(32), fg = theme.fg_normal, bg = theme.bg_normal, ontop = true, visible = true, type = "dock" })
+
 
 
 -- Create the main taskbar wibox.
