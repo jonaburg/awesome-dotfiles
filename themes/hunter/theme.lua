@@ -58,7 +58,8 @@ theme.tasklist_font = "Iosevka 14"
 theme.fg_normal                                 = "#bababa"
 theme.fg_focus					= "#e33a6e"
 --theme.bg_focus                                  = "#242424"
-theme.bg_focus                                  = "#141c29" -- midnight blue
+--theme.bg_focus                                  = "#141c29" -- midnight blue
+theme.bg_focus                                  = "#161b1d" -- blueish
 --theme.bg_focus                                  = "#93c5c8" -- bright  blue
 --theme.bg_focus                                  = "#7289DA" -- ephemeral blue
 --theme.bg_focus = "#B6BD68"
@@ -73,14 +74,15 @@ theme.bg_urgent                                 = "#D9574F"
 theme.border_width                              = dpi(2)
 theme.border_normal                             = "#252525"
 --theme.border_focus                              = "#ADAFFF" .. "15"
-theme.border_focus                              = "#c3c997" .. "15"
+--theme.border_focus                              = "#c3c997" .. "15"
+theme.border_focus                              = "#84cee8" .. "95" -- blue
 
 
 --taglist colors
 theme.taglist_fg_focus = "#000000"
 --theme.taglist_bg_empty = "#f5f5f6" -- light
---theme.taglist_bg_empty = "#c2c3c2" -- darker
-theme.taglist_bg_empty = "#A5A5A6" -- evendarker
+theme.taglist_bg_empty = "#c2c3c2" -- darker
+--theme.taglist_bg_empty = "#A5A5A6" -- evendarker
 theme.taglist_fg_empty = "#000000"
 theme.taglist_bg_occupied = "#6c8797"
 theme.taglist_fg_occupied = "#000000"
@@ -99,8 +101,8 @@ theme.tasklist_bg_normal                        = "#141414"
 --theme.tasklist_fg_focus                         = "#b6deaf"
 --theme.tasklist_fg_focus                         = "#e33a6e"
 --theme.tasklist_fg_focus                         = "#c5c69a"
- --  theme.tasklist_fg_focus                         = "#ADAFFF" --Light purple
-   theme.tasklist_fg_focus                         = "#F9A256" --Light Orange
+   theme.tasklist_fg_focus                         = "#ADAFFF" --Light purple
+--   theme.tasklist_fg_focus                         = "#F9A256" --Light Orange
 --   theme.tasklist_fg_focus                         = "#000000" -- BLACK
 --theme.tasklist_fg_focus                         = "#96d58b"
 theme.menu_height                               = dpi(20)
@@ -367,7 +369,9 @@ volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(75), dpi(2), dpi
 -- CPU
 local cpu = lain.widget.cpu({
 	settings = function()
-        widget:set_markup(markup.fontbg(theme.font, "#A5A5A6", cpu_now.usage .. "% "))
+        --widget:set_markup(markup.fontbg(theme.font, "#A5A5A6", cpu_now.usage .. "% "))
+        --widget:set_markup(markup.fontbg(theme.font, "#f5f5f6", cpu_now.usage .. "% "))
+        widget:set_markup(markup.fontbg(theme.font, "#c2c3c2", cpu_now.usage .. "% "))
 	end
 })
 
@@ -392,7 +396,9 @@ local cpu_widget_icon_handle = wibox.widget {
 }
 local cpu_bg_handle = wibox.widget {
 	cpu,
-    bg = "#A5A5A6",
+    --bg = "#A5A5A6",
+    --bg = "#f5f5f6",
+    bg = "#c2c3c2",
 	fg = "#000000",
 	widget = wibox.container.background,
 }
@@ -576,12 +582,12 @@ local brightgrad = gears.color({
 })
 
 -- DDCshift Bar
-local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(35), dpi(1), dpi(1)) -- 1080p
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=10, shape = 'hexagon',}), dpi(5), dpi(1), dpi(1), dpi(1)) -- 1080p
 --local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(8), dpi(8)) -- 1080p
 local ddcshiftholder_3k = wibox.container.background(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=10, shape = 'hexagon',}), theme.bg_focus, gears.shape.rectangle) --background
 ddcshiftholder_3k = wibox.container.margin(ddcshiftholder_3k, dpi(3), dpi(3), dpi(9), dpi(9)) -- margin
 -- Redshift Bar
-local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(55), dpi(0), dpi(0)) -- 1080p
+local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(1), dpi(0), dpi(0)) -- 1080p
 --local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(8), dpi(8)) -- 1080p
 local redshiftholder_3k = wibox.container.background(redshift({ main_color = bluelingrad, background_color = "#343434", margins=10, shape = 'hexagon',}), theme.bg_focus, gears.shape.rectangle) --background
 redshiftholder_3k = wibox.container.margin(redshiftholder_3k, dpi(3), dpi(2), dpi(9), dpi(9)) -- margin
@@ -893,6 +899,7 @@ screen[1].mywibox = awful.wibar(
             layout = wibox.layout.fixed.horizontal,
         musicwidget,
  --       vmholder, --  currently not using any vms
+	 bat.widget,
         temperatureholder,
         airqualityholder,
         humidityholder,
@@ -948,23 +955,23 @@ cornertag:setup {
     if s.index == 1
     then
         ----- {{ TOP BAR}}
-         screen[1].mywibox.height = dpi(38)
+         screen[1].mywibox.height = dpi(36)
          --screen[1].mywibox.width = s.workarea.width - 50
-         screen[1].mywibox.width = s.workarea.width - 355
+         screen[1].mywibox.width = s.workarea.width - 330
          screen[1].mywibox.y = 10
-         screen[1].mywibox.x = 330
+         screen[1].mywibox.x = 320
          screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
         ----- {{ CORNER BARS}}
          --mybars.width = s.workarea.width - 70
          mybars.width = 325
-         mybars.height = 55
+         mybars.height = 65
          --mybars.y = 50
          mybars.y = 10
-         mybars.x = 25
+         mybars.x = 10
         ----- {{ CORNER TAGS}}
          cornertag.height = 30
          cornertag.y = 60
-         cornertag.x = 25
+         cornertag.x = 10
 
 
     end

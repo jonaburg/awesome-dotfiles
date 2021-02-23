@@ -23,8 +23,9 @@ local textbox_notify_widget = wibox.widget {
 	}
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
---	bg = "#c3c2c3", -- dark
-	bg = "#A5A5A6", -- even darker
+--	bg = "#f5f5f6", -- light
+	bg = "#c3c2c3", -- dark
+--	bg = "#A5A5A6", -- even darker
 	fg = "#000000",
 	widget = wibox.container.background,
 }
