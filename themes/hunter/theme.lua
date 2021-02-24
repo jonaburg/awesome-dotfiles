@@ -686,18 +686,18 @@ end
 
          fg_focus = "#c2c3c2" .. "80",
          fg_occupied = "#c2c3c2" .. "80",
-        bg_focus = tagbarselcolor,
+        bg_focus = "#b3b3b2",
+        --bg_focus = tagbarselcolor,
         --shape = gears.shape.rounded_rect
         --shape = gears.shape.hexagon
         --shape = goodhexa
-        shape = goodhexa
     },
     layout   = {
         spacing = 30,
         spacing_widget = {
             color  = '#dddddd' .. "00",
             bg  = '#ff0000' .. "00",
-            shape  = gears.shape.hexagon,
+--            shape  = gears.shape.hexagon,
             widget = wibox.widget.separator,
         },
         layout  = wibox.layout.fixed.horizontal
@@ -857,7 +857,7 @@ end
 
 -- Create the main taskbar wibox.
 screen[1].mywibox = awful.wibar(
-   -- screen[1].mywibox = wibox(
+  --  screen[1].mywibox = wibox(
         {
         --position = "top",
          screen = s,
@@ -905,21 +905,18 @@ screen[1].mywibox = awful.wibar(
         systrayholder,
         },
     }
--- Create the bars "player" widget
-mybars = awful.wibox(
-   -- screen[1].mywibox = wibox(
+---- Create the bars "player" widget
+screen[1].mybars = awful.wibox(
         {
          screen = s,
-         bg = theme.bg_focus,
+         bg = theme.bg_normal,
          height = dpi(33),
          width = s.workarea.width,
-        visible = true,
-      --  shape = gears.shape.rectangle
-         --shape = goodhexa
+         visible = true,
          shape = goodparal
         }
     )
-mybars:setup {
+screen[1].mybars:setup {
         layout = wibox.layout.align.horizontal,
         { layout = wibox.layout.fixed.vertical,
 	    ddcshiftholder,
@@ -953,13 +950,11 @@ cornertag:setup {
          screen[1].mywibox.y = 10
          screen[1].mywibox.x = 330
          screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
-        ----- {{ CORNER BARS}}
-         --mybars.width = s.workarea.width - 70
-         mybars.width = 325
-         mybars.height = 55
-         --mybars.y = 50
-         mybars.y = 10
-         mybars.x = 25
+        ----- {{ HEALTH BARS}}
+         screen[1].mybars.width = 325
+         screen[1].mybars.height = 55
+         screen[1].mybars.y = 10
+         screen[1].mybars.x = 25
         ----- {{ CORNER TAGS}}
          cornertag.height = 30
          cornertag.y = 60
@@ -969,13 +964,14 @@ cornertag:setup {
     end
 
     -- for little 5:4 monitor -- makes it super ugly but eh. at least it works for now.
-    if s.index == 2
-    then
-        ----- {{ CORNER BARS}}
-         mybars.width = 325
-         mybars.height = 55
-
-    end
+--    if s.index == 2
+--    then
+--        ----- {{ CORNER BARS}}
+--         mybars.width = 325
+--         mybars.x = 325
+--         mybars.height = 55
+--
+--    end
 
 function tagbar_hor(s)
 	if s.index == 1
@@ -986,13 +982,13 @@ function tagbar_hor(s)
      screen = s,
      position = "bottom",
      --size = 60,
-     size = 80,
+     size = 40,
      ontop = true,
     -- size_activator = 5,
     -- show_delay = 0.25,
      hide_delay = 0.2,
-     easing = 5,
-     delta = 90,
+     easing = 1,
+     delta = 10,
 }
  screen[1].mytagbar:setup {
         layout = wibox.layout.align.horizontal,
@@ -1009,7 +1005,6 @@ function tagbar_hor(s)
             s.mylayoutbox,
         },
     }
-
 -- tagbar struts widget.. -- {{{{}}}} --- NEED TO WORK ON STRUTS/TIMING && bug where it displaces other widgets.
 --screen[1].tstrut = awful.wibox(
 --        {
@@ -1036,7 +1031,6 @@ function tagbar_hor(s)
 
 end
 end
-
 ----------- TITLEBAR DROPDOWN  -----------------------------------------------------
 --function titlebar_hor(s)
 --	if s.index == 1
