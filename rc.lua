@@ -87,28 +87,17 @@ awful.spawn.with_shell(
 -- {{{ Variable definitions
 
 local themes = {
-    "blackburn",       -- 1
-    "copland",         -- 2
-    "dremora",         -- 3
-    "holo",            -- 4
-    "multicolor",      -- 5
-    "powerarrow",      -- 6
-    "powerarrow-dark", -- 7
-    "rainbow",         -- 8
-    "steamburn",       -- 9
-    "vertex",          -- 10
-    "jontheme",        -- 11 -- broken
-    "winter",          -- 12 -- broken
-    "spring",          -- 13 --broken?
-    "spring2",         -- 14
-    "ethos",           -- 15
-    "focus",           -- 16
-    "hunter",          -- 17
-    "hunterbadbar",          -- 18
-    "cesious", -- 19
+    "jontheme",        -- 1 -- broken
+    "winter",          -- 2 -- broken
+    "spring",          -- 3 --broken?
+    "spring2",         -- 4 -- broken
+    "ethos",           -- 5 -- broken
+    "focus",           -- 6
+    "hunter",          -- 7
+    "concencolor",     -- 8
 }
 
-local chosen_theme = themes[17]
+local chosen_theme = themes[7]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "st"

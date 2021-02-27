@@ -22,8 +22,8 @@ theme.icon_dir                                  = os.getenv("HOME") .. "/.config
 theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/focus/wall.png"
 theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/focus"
 
-	local redshift = require("extra.redshift")
-	local email = require("extra.emailhorizontal")
+--	local redshift = require("extra.redshift")
+--	local email = require("extra.emailhorizontal")
 
 
 theme.font          = "Open Sans 10"
@@ -471,8 +471,8 @@ local brightgrad = gears.color({
 })
 
 -- Redshift Bar
-redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = barcolor, margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
-
+--redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = barcolor, margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
+--
     -- Tags
   --  awful.layout.layouts = {layouts[1],layouts[2],layouts[1],layouts[1],layouts[1],layouts[1]},
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
@@ -531,9 +531,9 @@ redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, bac
 --            mpd_icon,
 --            bar,
 --            spr_very_small,
-	    redshiftholder,
+--	    redshiftholder,
 	    volumewidget,
-	    emailholder,
+--	    emailholder,
             spr_small,
 --       	    cpuwidget,
 	    clockwidget,
