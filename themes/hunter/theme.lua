@@ -22,7 +22,6 @@ theme.wallpaper                                 = os.getenv("HOME") .. "/.config
 theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/hunter"
 
 ------ personal widgets ----- {{
-
 -- bars --
 local redshift = require('extra.bars.redshift')
 local ddcshift = require('extra.bars.ddcshift')
@@ -44,7 +43,6 @@ local temperature = require('extra.geographic.temperature')
 --theme.taglist_font  = "sf mono 14"
 --theme.mpd_font  = "sf mono 10"
 --theme.tasklist_font = "sf mono 12"
-
 
 theme.font          = "Iosevka 12"
 theme.taglist_font  = "Iosevka 16"
@@ -75,12 +73,16 @@ theme.border_normal                             = "#252525"
 --theme.border_focus                              = "#ADAFFF" .. "15"
 theme.border_focus                              = "#c3c997" .. "15"
 
+-- widget value colors
+theme.widget_value_bg = "#A5A5A6"
+widget_value_bg = "#A5A5A6"
+theme.my_color = "#ff0000"
 
 --taglist colors
 theme.taglist_fg_focus = "#000000"
 --theme.taglist_bg_empty = "#f5f5f6" -- light
---theme.taglist_bg_empty = "#c2c3c2" -- darker
-theme.taglist_bg_empty = "#A5A5A6" -- evendarker
+theme.taglist_bg_empty = "#c2c3c2" -- darker
+--theme.taglist_bg_empty = "#A5A5A6" -- evendarker
 theme.taglist_fg_empty = "#000000"
 theme.taglist_bg_occupied = "#6c8797"
 theme.taglist_fg_occupied = "#000000"
@@ -93,14 +95,11 @@ theme.taglist_fg_empty_base = "#000000"
 theme.taglist_bg_occupied_base = "#6c8797"
 theme.taglist_fg_occupied_base = "#000000"
 
---theme.tasklist_bg_normal                        = "#222222"
-theme.tasklist_bg_normal                        = "#141414"
---theme.tasklist_fg_focus                         = "#4CB7DB"
---theme.tasklist_fg_focus                         = "#b6deaf"
---theme.tasklist_fg_focus                         = "#e33a6e"
---theme.tasklist_fg_focus                         = "#c5c69a"
+theme.tasklist_bg_normal                        = "#000000"
+--theme.tasklist_bg_normal                        = "#141414"
  --  theme.tasklist_fg_focus                         = "#ADAFFF" --Light purple
-   theme.tasklist_fg_focus                         = "#F9A256" --Light Orange
+ --  theme.tasklist_fg_focus                         = "#F9A256" --Light Orange
+   theme.tasklist_fg_focus                         = "#FFFFFF" -- WHITE
 --   theme.tasklist_fg_focus                         = "#000000" -- BLACK
 --theme.tasklist_fg_focus                         = "#96d58b"
 theme.menu_height                               = dpi(20)
@@ -108,8 +107,6 @@ theme.menu_width                                = dpi(160)
 theme.menu_icon_size                            = dpi(32)
 theme.awesome_icon                              = theme.icon_dir .. "/awesome_icon_white.png"
 theme.awesome_icon_launcher                     = theme.icon_dir .. "/awesome_icon.png"
---theme.taglist_squares_sel                       = theme.icon_dir .. "/square_sel.png"
---theme.taglist_squares_unsel                     = theme.icon_dir .. "/square_unsel.png"
 theme.taglist_squares_sel                       = theme.icon_dir .. "/icons/stopsel.png"
 theme.taglist_squares_unsel                     = theme.icon_dir .. "/icons/stopsel2.png"
 theme.spr_small                                 = theme.icon_dir .. "/spr_small.png"
@@ -132,23 +129,11 @@ theme.calendar                                  = theme.icon_dir .. "/cal.png"
 theme.cpu                                       = theme.icon_dir .. "/cpu.png"
 theme.net_up                                    = theme.icon_dir .. "/net_up.png"
 theme.net_down                                  = theme.icon_dir .. "/net_down.png"
---theme.layout_tile                               = theme.icon_dir .. "/tile.png"
-    --theme.layout_tile                               = theme.confdir .. "/icons/masterslave.png"
-    theme.layout_tile                               = theme.confdir .. "/icons/tile.png"
-    theme.layout_cascade                            = theme.confdir .. "/icons/magnifier.png"
-    theme.layout_uselesstile                        = theme.confdir .. "/icons/centerwork.png"
-    theme.layout_strutwide                        = theme.confdir .. "/icons/tile.png"
-    theme.layout_strutcenter                        = theme.confdir .. "/icons/centerwork.png"
---theme.layout_tileleft                           = theme.icon_dir .. "/tileleft.png"
---theme.layout_tilebottom                         = theme.icon_dir .. "/tilebottom.png"
---theme.layout_tiletop                            = theme.icon_dir .. "/tiletop.png"
---theme.layout_fairv                              = theme.icon_dir .. "/fairv.png"
---theme.layout_fairh                              = theme.icon_dir .. "/fairh.png"
---theme.layout_spiral                             = theme.icon_dir .. "/spiral.png"
---theme.layout_dwindle                            = theme.icon_dir .. "/dwindle.png"
---theme.layout_max                                = theme.icon_dir .. "/max.png"
---theme.layout_fullscreen                         = theme.icon_dir .. "/fullscreen.png"
---theme.layout_magnifier                          = theme.icon_dir .. "/magnifier.png"
+theme.layout_tile                               = theme.confdir .. "/icons/tile.png"
+theme.layout_cascade                            = theme.confdir .. "/icons/magnifier.png"
+theme.layout_uselesstile                        = theme.confdir .. "/icons/centerwork.png"
+theme.layout_strutwide                        = theme.confdir .. "/icons/tile.png"
+theme.layout_strutcenter                        = theme.confdir .. "/icons/centerwork.png"
 theme.layout_floating                           = theme.icon_dir .. "/floating.png"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
@@ -184,10 +169,10 @@ local space3 = markup.font("Roboto 3", " ")
 local mytextclock = wibox.widget.textclock(markup("#000000", " %Y-%m-%d "))
 mytextclock.font = theme.font
 local clock_icon = wibox.widget.imagebox(theme.clock)
-local clockbg = wibox.container.background(mytextclock, theme.taglist_bg_empty, gears.shape.rectangle)
+local clockbg = wibox.container.background(mytextclock, theme.widget_value_bg, gears.shape.rectangle)
 local mytextclock2 = wibox.widget.textclock(markup("#000000", " %H:%M" ))
 mytextclock2.font = theme.font
-local clockbg2 = wibox.container.background(mytextclock2, theme.taglist_bg_empty, gears.shape.rectangle)
+local clockbg2 = wibox.container.background(mytextclock2, theme.widget_value_bg, gears.shape.rectangle)
 local clock_widget_text_icon1 = wibox.widget {
 	text = " 📅 ",
 	font = "Iosevka 12",
@@ -215,10 +200,10 @@ local clock_widget_icon2 = wibox.widget {
 	widget = wibox.container.background,
 }
 local full_clock_widget = wibox.widget {
-	clock_widget_icon1,
-	clockbg,
-	clock_widget_icon2,
-	clockbg2,
+	clock_widget_icon1, -- calendar icon
+	clockbg, -- calendar
+	clock_widget_icon2, -- clock icon
+	clockbg2, -- clock
 	layout = wibox.layout.fixed.horizontal,
 }
 local clockwidget = wibox.container.margin(full_clock_widget, dpi(0), dpi(0), dpi(5), dpi(5))
@@ -321,14 +306,7 @@ theme.volume = lain.widget.alsabar({
     --width = dpi(100), height = dpi(50), border_width = dpi(0),ticks = false, tick_size=3,
     width = dpi(500), height = dpi(15), border_width = dpi(0),ticks = false, tick_size=3, -- max width for all bars is equiv to this width.
     colors = {
-        --background = "#383838",
-        --background = "#C2C3C2",
-        --background = "#A5A5A6",
-        --background = "#ABB1DD",
         background = "#343434",
-        --unmute     = "#80CCE6",
-        --unmute     = "#465DFF",
-        --unmute     = "#8c9aff",
         unmute     = "#7289DA",
         mute       = "#FF9F9F"
     },
@@ -386,7 +364,7 @@ local cpu_widget_icon_handle = wibox.widget {
 	--bg = "#7289DA", -- deep purple
 	--bg = "#9593c8", -- royal purple
 	--bg = "#4e5f6e", -- dark grey blue
-	bg = "#52677a", -- lighter green
+	bg = "#52677a", -- lighter blueish
 	fg = "#000000",
 	widget = wibox.container.background,
 }
@@ -531,6 +509,7 @@ emailholder = wibox.container.margin(email, dpi(10), dpi(0), dpi(5),dpi(5)) -- e
 -- WINDOWS VM identifier.
 vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- GPU HOLDER(s)
+--gpuhunter.bg = "#ff0000"
 gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
@@ -649,20 +628,82 @@ end
                            awful.button({}, 5, function () awful.layout.inc(-1) end)))
 
     layoutboxcontainer = wibox.container.margin(s.mylayoutbox, dpi(10), dpi(10), dpi(10), dpi(10))
+
+s.mytaglistn = awful.widget.taglist {
+    screen  = s,
+    filter  = awful.widget.taglist.filter.all,
+    style   = {
+        shape = gears.shape.rectangle,
+        bg_focus = "#A3C784", -- google green sel
+    },
+    layout   = {
+        spacing = 5,
+        spacing_widget = {
+            color  = theme.taglist_bg_empty,
+            shape  = gears.shape.rectangle,
+            widget = wibox.widget.separator,
+        },
+        layout  = wibox.layout.fixed.horizontal
+    },
+    widget_template = {
+        {
+            {
+                {
+                    {
+                        {
+                            id     = 'index_role',
+                            widget = wibox.widget.background,
+                        },
+                        margins = 3,
+                        widget  = wibox.container.margin,
+                    },
+                    {
+                        id     = 'icon_role',
+                        widget = wibox.widget.imagebox,
+                    },
+                    margins = 3,
+                    widget  = wibox.container.margin,
+                },
+                {
+                    id     = 'text_role',
+                    widget = wibox.widget.textbox,
+                },
+                layout = wibox.layout.fixed.horizontal,
+            },
+            left  = 1,
+            right = 1,
+            widget = wibox.container.margin
+        },
+        id     = 'background_role',
+        widget = wibox.container.background,
+        -- Add support for hover colors and an index label
+        create_callback = function(self, c3, index, objects) --luacheck: no unused args
+            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
+            self:connect_signal('mouse::enter', function()
+                if self.bg ~= '#B57582' then
+                    self.backup     = self.bg
+                    self.has_backup = true
+                end
+                self.bg = '#B57582'
+            end)
+            self:connect_signal('mouse::leave', function()
+                if self.has_backup then self.bg = self.backup end
+            end)
+        end,
+        update_callback = function(self, c3, index, objects) --luacheck: no unused args
+            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
+        end,
+    },
+    buttons = awful.util.taglist_buttons
+}
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {
-         bg_focus = "#B6BD68" ,
+         bg_focus = "#B6BD68",
          spacing = 4,
           font = theme.taglist_font,
-          icons = {
-                 "/home/jon/.config/awesome/themes/jontheme/icons/titlebar/slot.png",
-                 "/home/jon/.config/awesome/themes/jontheme/icons/titlebar/slot.png",
-                 "/home/jon/.config/awesome/themes/jontheme/icons/titlebar/slot.png",
-                 "/home/jon/.config/awesome/themes/jontheme/icons/titlebar/slot.png"
-               }
         })
 --    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
-    s.mytag = wibox.container.margin(s.mytaglist, dpi(5), dpi(5), dpi(5), dpi(5))
+    s.mytag = wibox.container.margin(s.mytaglistn, dpi(5), dpi(5), dpi(5), dpi(5))
     mytagholder = wibox.container.background(s.mytag, theme.bg_normal, gears.shape.rectangle)
 
 -- on tag change
@@ -687,17 +728,12 @@ end
          fg_focus = "#c2c3c2" .. "80",
          fg_occupied = "#c2c3c2" .. "80",
         bg_focus = "#b3b3b2",
-        --bg_focus = tagbarselcolor,
-        --shape = gears.shape.rounded_rect
-        --shape = gears.shape.hexagon
-        --shape = goodhexa
     },
     layout   = {
         spacing = 30,
         spacing_widget = {
             color  = '#dddddd' .. "00",
             bg  = '#ff0000' .. "00",
---            shape  = gears.shape.hexagon,
             widget = wibox.widget.separator,
         },
         layout  = wibox.layout.fixed.horizontal
@@ -760,74 +796,6 @@ end
             self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
         end,
     },
-
-
-
-   -- widget_template = {
-   --     {
-   --         {
-   --             {
-   --                 {
-   --                     {
-   --                         id     = 'index_role',
-   --                         widget = wibox.widget.textbox,
-   --                     },
-   --                     margins = 3,
-   --                     widget  = wibox.container.margin,
-   --                 },
-   --                 bg     = '#dddddd' .. "00",
-   --                 fg     = '#dddddd' .. "00",
-   --                 shape  = gears.shape.circle,
-   --                 widget = wibox.container.background,
-   --             },
-   --             {   {
-   --                    font = "iosevka 5",
-   --                    text     = ' ',
-   --                    widget = wibox.widget.textbox,
-   --                 },
-   --                 {
-   --                    font = "iosevka 5",
-   --                    text     = ' ',
-   --                    widget = wibox.widget.textbox,
-   --                 },
-   --                 {
-   --                     {
-   --                      --  font = "iosevka 5",
-   --                      --  id     = 'text_role', -- contains the actual text names of the tags
-   --                      --   widget = wibox.widget.textbox,
-   --                        id     = 'icon_role', -- contains the actual text names of the tags
-   --                        widget = wibox.widget.imagebox,
-   --                    },
-   --                       layout = wibox.layout.align.horizontal,
-   --                 },
-   --                 layout = wibox.layout.align.vertical,
-   --             },
-   --             layout = wibox.layout.fixed.horizontal,
-   --         },
-   --         left  = 18,
-   --         right = 18,
-   --         widget = wibox.container.margin
-   --     },
-   --     id     = 'background_role',
-   --     widget = wibox.container.background,
-   --     -- Add support for hover colors and an index label
-   --     create_callback = function(self, c3, index, objects) --luacheck: no unused args
-   --         self:get_children_by_id('index_role')[1].markup = '<b> '..c3.index..' </b>'
-   --         self:connect_signal('mouse::enter', function()
-   --             if self.bg ~= '#ff0000' .. "20" then
-   --                 self.backup     = self.bg
-   --                 self.has_backup = true
-   --             end
-   --             self.bg = '#ff0000' .. "40"
-   --         end)
-   --         self:connect_signal('mouse::leave', function()
-   --             if self.has_backup then self.bg = self.backup end
-   --         end)
-   --     end,
-   --     update_callback = function(self, c3, index, objects) --luacheck: no unused args
-   --         self:get_children_by_id('index_role')[1].markup = '<b> '..c3.index..' </b>'
-   --     end,
-   -- },
     buttons = awful.util.taglist_buttons
 }
 
@@ -944,7 +912,7 @@ cornertag:setup {
     if s.index == 1
     then
         ----- {{ TOP BAR}}
-         screen[1].mywibox.height = dpi(38)
+         screen[1].mywibox.height = dpi(36)
          --screen[1].mywibox.width = s.workarea.width - 50
          screen[1].mywibox.width = s.workarea.width - 355
          screen[1].mywibox.y = 10
