@@ -463,7 +463,7 @@ local tagbarcolor  = gears.color({
     to    = { 0, 0 },
     stops = { {0, "#000000"}, {0.9, "#141c29" .. "98"}} -- grey
 --    stops = { {0, "#000000"}, {0.9, "#505050" .. "95"}} -- grey
---    stops = { {0, "#000000"}, {0.9, "#4E78A3" .. "75"}} -- blueish (light)
+--    stops = { {0, "#000000"}, {0.0.5, "#4E78A3" .. "75"}} -- blueish (light)
 })
 
 --local tagbarbutton = gears.color({
@@ -483,8 +483,9 @@ local tagbarselcolor  = gears.color({
     type  = "linear",
     from  = { 0, 120 },
     to    = { 0, 0 },
-    --stops = { {0.9, "#b6Bd68" .. "80"}, {0, "#505050" .. "85"}} -- Green?
-    stops = { {0.9, "#f9a256" .. "80"}, {0, "#f9a256" .. "25"}}
+    --stops = { {0.9, "#b6Bd68"}, {4, "#d8dbff"}} -- Green?
+    stops = { {0.9, "#b6b6b6"}, {0.5, "#b6bd68"}} -- Green?
+    --stops = { {0.9, "#f9a256" .. "80"}, {0, "#f9a256" .. "25"}}
 
 })
 
@@ -692,14 +693,14 @@ end
 
          fg_focus = "#c2c3c2" .. "80",
          fg_occupied = "#c2c3c2" .. "80",
-        bg_focus = tagbarselcolor,
+        bg_focus = "#b3b3b3",
+        --bg_focus = tagbarselcolor,
         --shape = gears.shape.rounded_rect
         --shape = gears.shape.hexagon
         --shape = goodhexa
-        shape = goodhexa
     },
     layout   = {
-        spacing = 30,
+        spacing = 20,
         spacing_widget = {
             color  = '#dddddd' .. "00",
             bg  = '#ff0000' .. "00",
@@ -958,19 +959,19 @@ cornertag:setup {
          screen[1].mywibox.height = dpi(36)
          --screen[1].mywibox.width = s.workarea.width - 50
          screen[1].mywibox.width = s.workarea.width - 330
-         screen[1].mywibox.y = 10
+         screen[1].mywibox.y = 0
          screen[1].mywibox.x = 320
          screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
         ----- {{ CORNER BARS}}
          --mybars.width = s.workarea.width - 70
          mybars.width = 325
-         mybars.height = 65
+         mybars.height = 45
          --mybars.y = 50
-         mybars.y = 10
+         mybars.y = 0
          mybars.x = 10
         ----- {{ CORNER TAGS}}
          cornertag.height = 30
-         cornertag.y = 60
+         cornertag.y = 50
          cornertag.x = 10
 
 
@@ -994,13 +995,13 @@ function tagbar_hor(s)
      screen = s,
      position = "bottom",
      --size = 60,
-     size = 80,
+     size = 40,
      ontop = true,
     -- size_activator = 5,
     -- show_delay = 0.25,
      hide_delay = 0.2,
-     easing = 5,
-     delta = 90,
+     easing = 1,
+     delta = 10,
 }
  screen[1].mytagbar:setup {
         layout = wibox.layout.align.horizontal,
