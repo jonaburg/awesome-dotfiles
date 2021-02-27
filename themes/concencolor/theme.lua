@@ -1,5 +1,5 @@
 --[[
-	Hunter ver.
+	Concencolor (google inspired)
 --]]
 
 local gears = require("gears")
@@ -16,10 +16,10 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
-theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/hunter"
-theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/hunter/icons"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/hunter/wall.png"
-theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/hunter"
+theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/concencolor"
+theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/concencolor/icons"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/concencolor/wall.png"
+theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/concencolor"
 
 ------ personal widgets ----- {{
 -- bars --
@@ -49,9 +49,11 @@ theme.taglist_font  = "Iosevka 16"
 --theme.taglist_font  = "Linux Biolinum 18"
 theme.mpd_font  = "Open Sans 10"
 --theme.tasklist_font = "Linux Biolinum 12"
---theme.tasklist_font = "sf mono 13"
-theme.tasklist_font = "Iosevka 14"
+theme.tasklist_font = "sf mono 13"
+--theme.tasklist_font = "Iosevka 14"
 
+--theme.highlight = "#A3C784" -- google green
+theme.highlight = "#88A67D" -- google green
 
 theme.fg_normal                                 = "#bababa"
 theme.fg_focus					= "#e33a6e"
@@ -71,7 +73,9 @@ theme.bg_urgent                                 = "#D9574F"
 theme.border_width                              = dpi(2)
 theme.border_normal                             = "#252525"
 --theme.border_focus                              = "#ADAFFF" .. "15"
-theme.border_focus                              = "#c3c997" .. "15"
+--theme.border_focus                              = "#c3c997" .. "15"
+--theme.border_focus                              = "#7289DA"
+theme.border_focus                              = "#9fb0a6"
 
 -- widget value colors
 theme.widget_value_bg = "#A5A5A6"
@@ -95,14 +99,16 @@ theme.taglist_fg_empty_base = "#000000"
 theme.taglist_bg_occupied_base = "#6c8797"
 theme.taglist_fg_occupied_base = "#000000"
 
-theme.tasklist_bg_normal                        = "#141414"
- theme.tasklist_fg_focus                         = "#ADAFFF" --Light purple
+--theme.tasklist_bg_normal                        = "#141414"
+theme.tasklist_bg_normal                        = "#282E2A"
+-- theme.tasklist_fg_focus                         = "#ADAFFF" --Light purple
  --  theme.tasklist_fg_focus                         = "#F9A256" --Light Orange
  --  theme.tasklist_bg_focus                        = "#7289da"
-   theme.tasklist_bg_focus                          = "#141c29" -- midnight blue
---   theme.tasklist_bg_focus                          = "#668371" -- google green
+--   theme.tasklist_bg_focus                          = "#141c29" -- midnight blue
+--   theme.tasklist_bg_focus                          = googlegreen
+   theme.tasklist_bg_focus                          = "#668371" -- google green
 --   theme.tasklist_fg_focus                         = "#FFFFFF" -- WHITE
---   theme.tasklist_fg_focus                         = "#000000" -- BLACK
+   theme.tasklist_fg_focus                         = "#000000" -- BLACK
 --theme.tasklist_fg_focus                         = "#96d58b"
 theme.menu_height                               = dpi(20)
 theme.menu_width                                = dpi(160)
@@ -306,15 +312,15 @@ theme.volume = lain.widget.alsabar({
     --togglechannel = "IEC958,3",
     --width = dpi(80), height = dpi(50), border_width = dpi(0),ticks = false, tick_size=3, -- 1080p monitor divisions
     --width = dpi(100), height = dpi(50), border_width = dpi(0),ticks = false, tick_size=3,
-    width = dpi(500), height = dpi(15), border_width = dpi(0),ticks = false, tick_size=3, -- max width for all bars is equiv to this width.
+    width = dpi(150), height = dpi(15), border_width = dpi(0),ticks = false, tick_size=3, -- max width for all bars is equiv to this width.
     colors = {
         background = "#343434",
         unmute     = "#7289DA",
         mute       = "#FF9F9F"
     },
 })
-theme.volume.bar.paddings = dpi(0)
-theme.volume.bar.margins = dpi(1)
+theme.volume.bar.paddings = dpi(1)
+theme.volume.bar.margins = dpi(11)
 theme.volume.bar:buttons(awful.util.table.join(
     awful.button({}, 3, function() -- left click
         awful.spawn(string.format("%s -e alsamixer", terminal))
@@ -342,7 +348,7 @@ theme.volume.bar:buttons(awful.util.table.join(
 
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
 --volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(10), dpi(10))
-volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(80), dpi(4), dpi(4))
+volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(4), dpi(4))
 
 -- CPU
 local cpu = lain.widget.cpu({
@@ -472,6 +478,14 @@ local silverbar  = gears.color({
     stops = {{5.9, "#9c9c9c" }, {0.1, "#bbbbbb" }} -- a bit more matte.
 })
 
+local darksilverbar  = gears.color({
+    type  = "linear",
+    from  = { dpi(32), dpi(32) },
+    to    = { dpi(32), 0 },
+    --stops = {{5.9, "#121212" }, {0.1, "#848484" }} -- a bit more matte.
+    stops = {{5.9, "#717171" }, {0.1, "#383838" }} -- a bit more matte.
+})
+
 local googlegreen  = gears.color({
     type  = "linear",
     from  = { dpi(32), dpi(32) },
@@ -502,14 +516,14 @@ function theme.at_screen_connect(s)
 
 
 
----- Eminent-like task filtering
---local orig_filter = awful.widget.taglist.filter.all
----- Taglist label functions
---awful.widget.taglist.filter.all = function (t, args)
---    if t.selected or #t:clients() > 0 then
---        return orig_filter(t, args)
---    end
---end
+-- Eminent-like task filtering
+local orig_filter = awful.widget.taglist.filter.all
+-- Taglist label functions
+awful.widget.taglist.filter.all = function (t, args)
+    if t.selected or #t:clients() > 0 then
+        return orig_filter(t, args)
+    end
+end
 
 -- System Tray --- this hides the system tray as its packed inside of this widget. --
 --systrayholder = wibox.container.margin(wibox.widget.systray0 dpi(16), dpi(16), dpi(7),dpi(7)) -- sytstray
@@ -540,7 +554,7 @@ temperatureholder = wibox.container.margin(temperature, dpi(0), dpi(0), dpi(5),d
 -- humidity holder
 humidityholder = wibox.container.margin(humidity, dpi(0), dpi(10), dpi(5),dpi(5)) -- c893c5 vm
 -- Air quality holder
-airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(0), dpi(10),dpi(5)) -- c893c5 vm
 
 ---------------------------------------}}}}
 local cornershifter = gears.color({
@@ -577,15 +591,17 @@ local brightgrad = gears.color({
 
 -- DDCshift Bar
 --local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(35), dpi(1), dpi(1)) -- 1080p
-local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(35), dpi(1), dpi(1)) -- 1080p
---local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(8), dpi(8)) -- 1080p
-local ddcshiftholder_3k = wibox.container.background(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=10, shape = 'hexagon',}), theme.bg_focus, gears.shape.rectangle) --background
-ddcshiftholder_3k = wibox.container.margin(ddcshiftholder_3k, dpi(3), dpi(3), dpi(9), dpi(9)) -- margin
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'hexagon',}), dpi(4), dpi(4), dpi(4), dpi(0)) -- 1080p
 -- Redshift Bar
-local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(55), dpi(0), dpi(0)) -- 1080p
---local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(8), dpi(8)) -- 1080p
-local redshiftholder_3k = wibox.container.background(redshift({ main_color = bluelingrad, background_color = "#343434", margins=10, shape = 'hexagon',}), theme.bg_focus, gears.shape.rectangle) --background
-redshiftholder_3k = wibox.container.margin(redshiftholder_3k, dpi(3), dpi(2), dpi(9), dpi(9)) -- margin
+local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'hexagon',}), dpi(4), dpi(4), dpi(0), dpi(0)) -- 1080p
+
+
+local bar_holders = wibox.widget {
+	ddcshiftholder,
+    redshiftholder,
+	layout = wibox.layout.fixed.vertical,
+}
+local bar_holders = wibox.container.background(bar_holders,theme.bg_focus) -- retro green 2
 
 -- shapes
 -- hexagon nicely squeezed
@@ -656,7 +672,7 @@ s.mytaglistn = awful.widget.taglist {
     filter  = awful.widget.taglist.filter.all,
     style   = {
         shape = gears.shape.rectangle,
-        bg_focus = "#A3C784", -- google green sel
+        bg_focus = theme.highlight, -- google green sel
        -- bg_occupied = occupiedblue,
         bg_occupied = theme.taglist_bg_occupied
     },
@@ -744,11 +760,13 @@ s.mytaglistn = awful.widget.taglist {
 -- TAGBAR TAGLIST
     s.mytaglist3 = awful.widget.taglist {
     screen  = s,
-    filter  = awful.widget.taglist.filter.all,
+    --filter  = awful.widget.taglist.filter.all,
+    filter  = orig_filter,
     style   = {
          bg_empty = theme.taglist_bg_empty_base .. "00",
          fg_empty = "#c2c3c2" .. "80",
         bg_occupied = tagbarbutton,
+        --bg_occupied = googlegreen,
 
          fg_focus = "#c2c3c2" .. "80",
          fg_occupied = "#c2c3c2" .. "80",
@@ -831,9 +849,9 @@ s.mytaglistn = awful.widget.taglist {
 
     -- Create a tasklist widget
   --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.hexagon, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
-  --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
+  --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
   --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = googlegreen, shape = gears.shape.rectangle, align = "center" })
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
     s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(3), dpi(3), dpi(4), dpi(4))
 --    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
 
@@ -855,21 +873,11 @@ s.mytaglistn = awful.widget.taglist {
 screen[1].mywibox = awful.wibar(
   --  screen[1].mywibox = wibox(
         {
-        --position = "top",
          screen = s,
          height = dpi(32),
---         height = 50,
-         --height = 40,
          width = s.workarea.width,
-         --width = s.workarea.width - 50,
-         --type = "dock",
-  --       type = "bar",
---         y = 1440,
---         x = 900,
-        --ontop = true,
         visible = true,
          shape = gears.shape.rectangle
---         shape = gears.shape.rectangle
         }
     )
 --    s.myleftwibox = awful.wibar({ position = "top", screen = s, height = dpi(32), })
@@ -881,6 +889,8 @@ screen[1].mywibox = awful.wibar(
             layout = wibox.layout.fixed.horizontal,
             --s.mytag,
             --s.cornertaglist,
+            bar_holders,
+            volumewidget,
             s.mypromptbox,
         },
         s.mytasklistholder, -- Middle widget
@@ -901,25 +911,25 @@ screen[1].mywibox = awful.wibar(
         systrayholder,
         },
     }
----- Create the bars "player" widget
-screen[1].mybars = awful.wibox(
-        {
-         screen = s,
-         bg = theme.bg_normal,
-         height = dpi(33),
-         width = s.workarea.width,
-         visible = true,
-         shape = goodparal
-        }
-    )
-screen[1].mybars:setup {
-        layout = wibox.layout.align.horizontal,
-        { layout = wibox.layout.fixed.vertical,
-	    ddcshiftholder,
-	    redshiftholder,
-        volumewidget,
-        }
-    }
+-- Create the bars "player" widget
+--screen[1].mybars = awful.wibox(
+--        {
+--         screen = s,
+--         bg = theme.bg_normal,
+--         height = dpi(33),
+--         width = s.workarea.width,
+--         visible = true,
+--         shape = goodparal
+--        }
+--    )
+--screen[1].mybars:setup {
+--        layout = wibox.layout.align.horizontal,
+--        { layout = wibox.layout.fixed.vertical,
+--	    ddcshiftholder,
+--	    redshiftholder,
+--        volumewidget,
+--        }
+--    }
 -- cornertag widget (under corner bars)
 cornertag = awful.wibox(
         {
@@ -940,22 +950,22 @@ cornertag:setup {
     if s.index == 1
     then
         ----- {{ TOP BAR}}
-         screen[1].mywibox.height = dpi(36)
+         screen[1].mywibox.height = dpi(38)
          --screen[1].mywibox.width = s.workarea.width - 50
-         screen[1].mywibox.width = s.workarea.width - 355
+         screen[1].mywibox.width = s.workarea.width - 50
          screen[1].mywibox.y = 10
-         screen[1].mywibox.x = 330
+         screen[1].mywibox.x = 20
          screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
         ----- {{ HEALTH BARS}}
          --screen[1].mybars.width = 325
-         screen[1].mybars.width = 300
-         screen[1].mybars.height = 50
-         screen[1].mybars.y = 10
-         screen[1].mybars.x = 25
+--         screen[1].mybars.width = 300
+--         screen[1].mybars.height = 45
+--         screen[1].mybars.y = 0
+--         screen[1].mybars.x = 25
         ----- {{ CORNER TAGS}}
          cornertag.height = 30
-         cornertag.y = 60
-         cornertag.x = 25
+         cornertag.y = 55
+         cornertag.x = 22
 
 
     end
@@ -976,6 +986,8 @@ function tagbar_hor(s)
 --		screen[1].mytagbar = tagbar {
      --bg = "#282a36" .. "20",
      bg = tagbarcolor,
+      --bg = "#121212",
+     -- bg = darksilverbar,
      screen = s,
      position = "bottom",
      --size = 60,
