@@ -45,11 +45,11 @@ local temperature = require('extra.geographic.temperature')
 --theme.tasklist_font = "sf mono 12"
 
 theme.font          = "Iosevka 12"
-theme.taglist_font  = "Iosevka 16"
+theme.taglist_font  = "Iosevka 12"
 --theme.taglist_font  = "Linux Biolinum 18"
 theme.mpd_font  = "Open Sans 10"
 --theme.tasklist_font = "Linux Biolinum 12"
-theme.tasklist_font = "sf mono 13"
+theme.tasklist_font = "sf mono 12"
 --theme.tasklist_font = "Iosevka 14"
 
 --theme.highlight = "#A3C784" -- google green
@@ -66,6 +66,7 @@ theme.bg_focus                                  = "#141c29" -- midnight blue
 theme.bg_normal                                 = "#141414"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#D9574F"
+--theme.bg_urgent                                 = "#B57582"
 
 --theme.fg_urgent                                 = "#CC9393"
 --theme.bg_urgent                                 = "#006B8E"
@@ -320,7 +321,7 @@ theme.volume = lain.widget.alsabar({
     },
 })
 theme.volume.bar.paddings = dpi(1)
-theme.volume.bar.margins = dpi(11)
+theme.volume.bar.margins = dpi(1)
 theme.volume.bar:buttons(awful.util.table.join(
     awful.button({}, 3, function() -- left click
         awful.spawn(string.format("%s -e alsamixer", terminal))
@@ -347,8 +348,7 @@ theme.volume.bar:buttons(awful.util.table.join(
     ))
 
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
---volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(10), dpi(10))
-volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(4), dpi(4))
+volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(0), dpi(4))
 
 -- CPU
 local cpu = lain.widget.cpu({
@@ -372,7 +372,8 @@ local cpu_widget_icon_handle = wibox.widget {
 	--bg = "#7289DA", -- deep purple
 	--bg = "#9593c8", -- royal purple
 	--bg = "#4e5f6e", -- dark grey blue
-	bg = "#52677a", -- lighter blueish
+	--bg = "#52677a", -- lighter blueish
+	bg = "#52677a", -- purp
 	fg = "#000000",
 	widget = wibox.container.background,
 }
@@ -387,7 +388,7 @@ local full_cpu_widget = wibox.widget {
     cpu_bg_handle,
 	layout = wibox.layout.fixed.horizontal,
 }
-local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(0), dpi(5), dpi(5))
+local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(3), dpi(0), dpi(5), dpi(5))
 
 -- Net
 local netdown_icon = wibox.widget.imagebox(theme.net_down)
@@ -538,7 +539,7 @@ function hide_systray() mysystray.visible = false end
 
 
 -- EMAIL
-emailholder = wibox.container.margin(email, dpi(10), dpi(0), dpi(5),dpi(5)) -- email
+emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
 
 -- Computer stats Widgets --------------{{
 -- WINDOWS VM identifier.
@@ -550,11 +551,11 @@ gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5))
 
 -- Physical Environment Widgets-------- {{
 -- temperature holder
-temperatureholder = wibox.container.margin(temperature, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+temperatureholder = wibox.container.margin(temperature, dpi(0), dpi(0), dpi(5),dpi(2)) -- c893c5 vm
 -- humidity holder
-humidityholder = wibox.container.margin(humidity, dpi(0), dpi(10), dpi(5),dpi(5)) -- c893c5 vm
+humidityholder = wibox.container.margin(humidity, dpi(0), dpi(5), dpi(5),dpi(2)) -- c893c5 vm
 -- Air quality holder
-airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(0), dpi(5),dpi(2)) -- c893c5 vm
 
 ---------------------------------------}}}}
 local cornershifter = gears.color({
@@ -591,14 +592,15 @@ local brightgrad = gears.color({
 
 -- DDCshift Bar
 --local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(35), dpi(1), dpi(1)) -- 1080p
-local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'hexagon',}), dpi(4), dpi(4), dpi(4), dpi(0)) -- 1080p
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(-4), dpi(0)) -- 1080p
 -- Redshift Bar
-local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'hexagon',}), dpi(4), dpi(4), dpi(0), dpi(0)) -- 1080p
+local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(-4), dpi(0)) -- 1080p
 
 
 local bar_holders = wibox.widget {
 	ddcshiftholder,
     redshiftholder,
+    volumewidget,
 	layout = wibox.layout.fixed.vertical,
 }
 local bar_holders = wibox.container.background(bar_holders,theme.bg_focus) -- retro green 2
@@ -744,7 +746,7 @@ s.mytaglistn = awful.widget.taglist {
           font = theme.taglist_font,
         })
 --    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
-    s.mytag = wibox.container.margin(s.mytaglistn, dpi(5), dpi(5), dpi(5), dpi(5))
+    s.mytag = wibox.container.margin(s.mytaglistn, dpi(3), dpi(3), dpi(3), dpi(3))
     mytagholder = wibox.container.background(s.mytag, theme.bg_normal, gears.shape.rectangle)
 
 -- on tag change
@@ -852,7 +854,7 @@ s.mytaglistn = awful.widget.taglist {
   --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
 --    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = googlegreen, shape = gears.shape.rectangle, align = "center" })
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
-    s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(3), dpi(3), dpi(4), dpi(4))
+    s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(3), dpi(6), dpi(4), dpi(1))
 --    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
 
 
@@ -890,7 +892,7 @@ screen[1].mywibox = awful.wibar(
             --s.mytag,
             --s.cornertaglist,
             bar_holders,
-            volumewidget,
+         --   volumewidget,
         --    s.mypromptbox,
         },
         s.mytasklistholder, -- Middle widget
@@ -953,9 +955,10 @@ cornertag:setup {
         ----- {{ TOP BAR}}
          screen[1].mywibox.height = dpi(38)
          --screen[1].mywibox.width = s.workarea.width - 50
-         screen[1].mywibox.width = s.workarea.width - 50
+         screen[1].mywibox.width = s.workarea.width
          screen[1].mywibox.y = 0
-         screen[1].mywibox.x = 20
+         --screen[1].mywibox.x = 20
+         screen[1].mywibox.x = 0
          screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
         ----- {{ HEALTH BARS}}
          --screen[1].mybars.width = 325

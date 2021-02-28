@@ -40,7 +40,8 @@ local mascarpone_widget = wibox.widget {
 --local gpuhunter = wibox.container.background(mascarpone_widget, "#9FBD8D") -- nvidia green
 --local gpuhunter = wibox.container.background(mascarpone_widget, "#668371") -- retro green
 --local gpuhunter = wibox.container.background(mascarpone_widget, "#5f6e4e") -- retro pale blue
-local gpuhunter = wibox.container.background(mascarpone_widget, "#677a52") -- retro green 2
+--local gpuhunter = wibox.container.background(mascarpone_widget, "#677a52") -- retro green 2
+local gpuhunter = wibox.container.background(mascarpone_widget, "#617d7d") -- retro green 2
 
 local watchstatus = [[bash -c "nvidia-smi --format=csv --query-gpu=utilization.gpu | tail -1"]]
 

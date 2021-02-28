@@ -35,7 +35,8 @@ local mascarpone_widget = wibox.widget {
 }
 
 --local gputempshunter = wibox.container.background(mascarpone_widget, "#7a526b") -- mauve-ish
-local gputempshunter = wibox.container.background(mascarpone_widget, "#7a6552") -- greenish
+local gputempshunter = wibox.container.background(mascarpone_widget, "#7a6552") -- brown
+--local gputempshunter = wibox.container.background(mascarpone_widget, "#A6867D") -- bad salmon
 
 --	        textbox_widget:set_text( " 📨 ")
 --	        textbox_widget:set_markup(markup("#000000", " 📨 "))

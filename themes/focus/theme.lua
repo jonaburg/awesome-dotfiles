@@ -24,6 +24,7 @@ theme.lain_icons                                = os.getenv("HOME") .. "/.config
 
 --	local redshift = require("extra.redshift")
 --	local email = require("extra.emailhorizontal")
+local email = require('extra.emailhunter')
 
 
 theme.font          = "Open Sans 10"
@@ -470,6 +471,9 @@ local brightgrad = gears.color({
 	stops = { {0.1, "#FFFFFF" .. "50"}, {3.45, "#bdbdbd" .. "60"} }
 })
 
+-- EMAIL
+emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
+
 -- Redshift Bar
 --redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = barcolor, margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
 --
@@ -511,7 +515,7 @@ local brightgrad = gears.color({
 --            s.mylayoutbox,
 
             --spr_small,
-            --s.mypromptbox,
+            s.mypromptbox,
         },
 
         s.mytasklist, -- Middle widget
@@ -539,7 +543,7 @@ local brightgrad = gears.color({
 	    clockwidget,
             spr_small,
 --            volumewidget,
-            s.mylayoutbox,
+--            s.mylayoutbox,
             systrayholder,
       --      wibox.widget.systray(),
 --            volumewidget,
