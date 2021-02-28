@@ -554,7 +554,7 @@ temperatureholder = wibox.container.margin(temperature, dpi(0), dpi(0), dpi(5),d
 -- humidity holder
 humidityholder = wibox.container.margin(humidity, dpi(0), dpi(10), dpi(5),dpi(5)) -- c893c5 vm
 -- Air quality holder
-airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(0), dpi(10),dpi(5)) -- c893c5 vm
+airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
 ---------------------------------------}}}}
 local cornershifter = gears.color({
@@ -850,7 +850,7 @@ s.mytaglistn = awful.widget.taglist {
     -- Create a tasklist widget
   --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.hexagon, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
   --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
-  --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = googlegreen, shape = gears.shape.rectangle, align = "center" })
+--    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = googlegreen, shape = gears.shape.rectangle, align = "center" })
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
     s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(3), dpi(3), dpi(4), dpi(4))
 --    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
@@ -891,7 +891,7 @@ screen[1].mywibox = awful.wibar(
             --s.cornertaglist,
             bar_holders,
             volumewidget,
-            s.mypromptbox,
+        --    s.mypromptbox,
         },
         s.mytasklistholder, -- Middle widget
         { -- Right widgets
@@ -944,7 +944,8 @@ cornertag = awful.wibox(
     )
 cornertag:setup {
         layout = wibox.layout.fixed.horizontal,
-         mytagholder
+         mytagholder,
+            s.mypromptbox,
     }
 -- if main screen then indent topbar down. (specific to main 3k monitor)
     if s.index == 1
@@ -953,7 +954,7 @@ cornertag:setup {
          screen[1].mywibox.height = dpi(38)
          --screen[1].mywibox.width = s.workarea.width - 50
          screen[1].mywibox.width = s.workarea.width - 50
-         screen[1].mywibox.y = 10
+         screen[1].mywibox.y = 0
          screen[1].mywibox.x = 20
          screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
         ----- {{ HEALTH BARS}}
@@ -964,7 +965,7 @@ cornertag:setup {
 --         screen[1].mybars.x = 25
         ----- {{ CORNER TAGS}}
          cornertag.height = 30
-         cornertag.y = 55
+         cornertag.y = 45
          cornertag.x = 22
 
 
