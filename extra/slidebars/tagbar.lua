@@ -290,7 +290,7 @@ local function calc_bar_geometry(o)
     }
     local width = {
         ["top"] = o.screen_width,
-        ["bottom"] = o.screen_width / 2,
+        ["bottom"] = o.screen_width / 1.8,
         ["left"] = o.size,
         ["right"] = o.size,
     }

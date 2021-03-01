@@ -26,6 +26,9 @@ theme.lain_icons                                = os.getenv("HOME") .. "/.config
 --	local email = require("extra.emailhorizontal")
 local email = require('extra.emailhunter')
 
+local redshift = require('extra.bars.redshift')
+local ddcshift = require('extra.bars.ddcshift')
+
 
 theme.font          = "Open Sans 10"
 --theme.taglist_font  = "open sans 12"
@@ -475,7 +478,8 @@ local brightgrad = gears.color({
 emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
 
 -- Redshift Bar
---redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = barcolor, margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
+local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = barcolor, margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#c3c2c3", background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6)) -- 1080p
 --
     -- Tags
   --  awful.layout.layouts = {layouts[1],layouts[2],layouts[1],layouts[1],layouts[1],layouts[1]},
@@ -535,7 +539,8 @@ emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- em
 --            mpd_icon,
 --            bar,
 --            spr_very_small,
---	    redshiftholder,
+	    --redshiftholder,
+            ddcshiftholder,
 	    volumewidget,
 --	    emailholder,
             spr_small,

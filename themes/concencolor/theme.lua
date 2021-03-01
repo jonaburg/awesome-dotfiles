@@ -903,9 +903,11 @@ screen[1].mywibox = awful.wibar(
         temperatureholder,
         airqualityholder,
         humidityholder,
-        cpuwidget,
-        gpuholder,
+        -----------------------
         gputempsholder,
+        gpuholder,
+        cpuwidget,
+        ------------------
 	    emailholder,
     --    spr_small,
 	    clockwidget,
@@ -1008,6 +1010,13 @@ function tagbar_hor(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             s.mytag2,
+
+        --temperatureholder,
+        --airqualityholder,
+        --humidityholder,
+        --cpuwidget,
+        --gpuholder,
+        --gputempsholder,
 --            s.mypromptbox,
         },
 --        s.mytasklist, -- Middle widget
