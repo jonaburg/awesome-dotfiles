@@ -95,9 +95,10 @@ local themes = {
     "focus",           -- 6
     "hunter",          -- 7
     "concencolor",     -- 8
+    "focus-sensible",     -- 9
 }
 
-local chosen_theme = themes[6]
+local chosen_theme = themes[9]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "st"

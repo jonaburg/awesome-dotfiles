@@ -84,7 +84,8 @@ theme.tasklist_bg_normal                        = "#141414"
 --theme.tasklist_fg_focus                         = "#e33a6e"
 --theme.tasklist_fg_focus                         = "#c5c69a"
    --theme.tasklist_fg_focus                         = "#ADAFFF" --Light purple
-   theme.tasklist_fg_focus                         = "#88a67d" --paleish green
+   theme.tasklist_fg_focus                         = "#F4e0a3" --brighter white
+ --  theme.tasklist_fg_focus                         = "#88a67d" --paleish green
 --   theme.tasklist_fg_focus                         = "#000000" -- BLACK
 --theme.tasklist_fg_focus                         = "#96d58b"
 theme.menu_height                               = dpi(20)
@@ -165,7 +166,10 @@ local space3 = markup.font("Roboto 3", " ")
 -- Clock
 --local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%H:%M   " .. markup.font("Roboto 4", " ")))
 --local mytextclock = wibox.widget.textclock(markup("#fffede", "🕗 ") .. markup("#968F62", " %Y-%m-%d " .. markup("#C8ADFF", "%H:%M")))
-local mytextclock = wibox.widget.textclock(markup("#fffede", "🕗 ") .. markup("#968F62", " %Y-%m-%d " .. markup("#b599ff", "%H:%M")))
+
+--local mytextclock = wibox.widget.textclock(markup("#fffede", "🕗 ") .. markup("#968F62", " %Y-%m-%d " .. markup("#b599ff", "%H:%M"))) -- gold then purple
+local mytextclock = wibox.widget.textclock(markup("#fffede", "🕗 ") .. markup("#b0bee7", " %Y-%m-%d " .. markup("#Bee7b0", "%H:%M"))) -- blue then green
+
 --local mytextclock = wibox.widget.textclock(markup("#98ebc8", "🕗 ") .. markup("#fffede", " %Y-%m-%d %H:%M"))
 --local mytextclock = wibox.widget.textclock(markup("#98ebc8", "🕗 ") .. markup("#fffede", "%H:%M"))
 mytextclock.font = theme.font
@@ -486,6 +490,90 @@ local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#c3c2c3",
   --  awful.layout.layouts = {layouts[1],layouts[2],layouts[1],layouts[1],layouts[1],layouts[1]},
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
 
+
+s.mytaglistn = awful.widget.taglist {
+    screen  = s,
+    filter  = awful.widget.taglist.filter.all,
+    style   = {
+        shape = gears.shape.rectangle,
+        bg_focus = theme.highlight, -- google green sel
+       -- bg_occupied = occupiedblue,
+        bg_occupied = theme.taglist_bg_occupied
+    },
+    layout   = {
+        spacing = 5,
+        spacing_widget = {
+            color  = theme.taglist_bg_empty,
+            --color  = silverbar,
+            shape  = gears.shape.rectangle,
+            widget = wibox.widget.separator,
+        },
+        layout  = wibox.layout.fixed.horizontal
+    },
+    widget_template = {
+        {
+            {
+                {
+                    {
+                        {
+                            id     = 'index_role',
+                            widget = wibox.widget.background,
+                        },
+                        margins = 3,
+                        widget  = wibox.container.margin,
+                    },
+                    {
+                        id     = 'icon_role',
+                        widget = wibox.widget.imagebox,
+                    },
+                    margins = 3,
+                    widget  = wibox.container.margin,
+                },
+                {
+                    id     = 'text_role',
+                    widget = wibox.widget.textbox,
+                },
+                layout = wibox.layout.fixed.horizontal,
+            },
+            left  = 1,
+            right = 1,
+            widget = wibox.container.margin
+        },
+        id     = 'background_role',
+        widget = wibox.container.background,
+        -- Add support for hover colors and an index label
+        create_callback = function(self, c3, index, objects) --luacheck: no unused args
+            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
+            self:connect_signal('mouse::enter', function()
+                if self.bg ~= '#B57582' then
+                    self.backup     = self.bg
+                    self.has_backup = true
+                end
+                self.bg = '#B57582'
+            end)
+            self:connect_signal('mouse::leave', function()
+                if self.has_backup then self.bg = self.backup end
+            end)
+        end,
+        update_callback = function(self, c3, index, objects) --luacheck: no unused args
+            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
+        end,
+    },
+    buttons = awful.util.taglist_buttons
+}
+    -- Create a taglist widget
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {
+         bg_focus = "#B6BD68",
+         spacing = 4,
+          font = theme.taglist_font,
+        })
+--    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
+    s.mytag = wibox.container.margin(s.mytaglistn, dpi(3), dpi(3), dpi(3), dpi(3))
+    mytagholder = wibox.container.background(s.mytag, theme.bg_normal, gears.shape.rectangle)
+
+
+
+
     -- Create a promptbox for each screen
     --s.mypromptbox = awful.widget.prompt()
     s.mypromptbox = awful.widget.prompt()
@@ -493,16 +581,16 @@ local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#c3c2c3",
     -- We need one layoutbox per screen.
 
     s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(my_table.join(
-                           awful.button({}, 1, function () awful.layout.inc( 1) end),
-                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
-                           awful.button({}, 3, function () awful.layout.inc(-1) end),
-                           awful.button({}, 4, function () awful.layout.inc( 1) end),
-                           awful.button({}, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
-    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
-    s.mytag = wibox.container.margin(mytaglistcont, dpi(0), dpi(5), dpi(1), dpi(1))
+--    s.mylayoutbox:buttons(my_table.join(
+--                           awful.button({}, 1, function () awful.layout.inc( 1) end),
+--                           awful.button({}, 2, function () awful.layout.set( awful.layout.layouts[1] ) end),
+--                           awful.button({}, 3, function () awful.layout.inc(-1) end),
+--                           awful.button({}, 4, function () awful.layout.inc( 1) end),
+--                           awful.button({}, 5, function () awful.layout.inc(-1) end)))
+--    -- Create a taglist widget
+--    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
+--    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
+--    s.mytag = wibox.container.margin(mytaglistcont, dpi(0), dpi(5), dpi(1), dpi(1))
 
     -- Create a tasklist widget
     --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.hexagon, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
@@ -516,7 +604,8 @@ local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#c3c2c3",
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            s.mytag,
+            --s.mytag,
+            s.mytaglistn,
 --            s.mylayoutbox,
 
             --spr_small,
