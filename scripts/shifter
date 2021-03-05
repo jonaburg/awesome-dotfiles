@@ -21,7 +21,7 @@ colder(){
 if (( $num <= 6500 ))
 then
 	echo "$((num+=250))" > $value_path/RV
-	redshift -O ${num}
+	redshift -PO ${num}
 #	cat RV
 #	echo 'awesome.emit_signal("redshiftup", function() end)' | awesome-client
 #	dunstify -r 454 -u low "Colour Temperature :  $(<RV)"
@@ -34,7 +34,7 @@ warmer(){
 if (( $num >= 1500 ))
 then
 	echo "$((num-=250))" > $value_path/RV
-	redshift -O ${num}
+	redshift -PO ${num}
 #	echo 'awesome.emit_signal("redshiftup", function() end)' | awesome-client
 #	cat RV
 #	dunstify -r 454 -u low "Colour Temperature :  $(<RV)"

@@ -22,7 +22,7 @@ theme.wallpaper                                 = os.getenv("HOME") .. "/.config
 theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/focus-sensible"
 
 --local email = require('extra.emailhorizontal')
-local email = require('extra.emailhunter')
+local email = require('themes.focus-sensible.extra.email')
 local redshift = require('extra.bars.redshift')
 local ddcshift = require('extra.bars.ddcshift')
 
@@ -39,6 +39,12 @@ theme.tasklist_font = "Linux Biolinum 12"
 --theme.tasklist_font = "Times New Roman 12"
 --theme.tasklist_font = "Iosevka 10"
 
+-- email widget colors --
+--theme.emailbg = "#ff0000"
+theme.emailbg = "#dfffb7"
+
+theme.textbg  = "#000000"
+theme.textfg  = "#D8ffa3"
 
 theme.fg_normal                                 = "#bababa"
 theme.fg_focus					= "#e33a6e"
@@ -410,14 +416,15 @@ function show_systray() mysystray.visible = true end
 function hide_systray() mysystray.visible = false end
 
 
-function toggle_botbar() 
+function toggle_botbar()
     if notmywibox.visible == false then
          notmywibox.visible = true
          else notmywibox.visible = false
      end
     end
 
-emailholder = wibox.container.margin(email, dpi(0), dpi(0), dpi(5),dpi(5)) -- sytstray
+
+emailholder = wibox.container.margin(email, dpi(5), dpi(5), dpi(5),dpi(5)) -- sytstray
 
 local bluelingrad = gears.color({
 	type = "linear",
@@ -446,8 +453,8 @@ local brightgrad = gears.color({
 
 
 -- Redshift Bar
-local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = theme.bg_focus, margins=10, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
-local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#c3c2c3", background_color = "#343434", margins=10, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6)) -- 1080p
+local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = theme.bg_focus, margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#c3c2c3", background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6)) -- 1080p
 --
     -- Tags
   --  awful.layout.layouts = {layouts[1],layouts[2],layouts[1],layouts[1],layouts[1],layouts[1]},
