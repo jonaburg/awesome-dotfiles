@@ -1,6 +1,5 @@
 --[[
 	FOCUS_mbelish ver.
-
 --]]
 
 local gears = require("gears")
@@ -17,18 +16,18 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
-theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/focus"
-theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/focus/icons"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/focus/wall.png"
-theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/focus"
+theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/focus-sensible"
+theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/focus-sensible/icons"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/focus-sensible/wall.png"
+theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/focus-sensible"
 
---	local redshift = require("extra.redshift")
---	local email = require("extra.emailhorizontal")
+--local email = require('extra.emailhorizontal')
 local email = require('extra.emailhunter')
-
 local redshift = require('extra.bars.redshift')
 local ddcshift = require('extra.bars.ddcshift')
 
+local gpuhunter = require('extra.gpuhunter')
+local gputemps = require('extra.gputemps')
 
 theme.font          = "Open Sans 10"
 --theme.taglist_font  = "open sans 12"
@@ -41,53 +40,27 @@ theme.tasklist_font = "Linux Biolinum 12"
 --theme.tasklist_font = "Iosevka 10"
 
 
---theme.fg_normal                                 = "#FFFFFF"
 theme.fg_normal                                 = "#bababa"
---theme.fg_focus                                  = "#0099CC"
---theme.fg_focus                                  = "#c5c69a"
---theme.fg_focus                                  = "#121a26"
 theme.fg_focus					= "#e33a6e"
---theme.bg_focus                                  = "#303030"
 theme.bg_focus                                  = "#242424"
---theme.bg_focus                                  = "#141414"
---theme.bg_normal                                 = "#242424"
 theme.bg_normal                                 = "#141414"
 theme.fg_urgent                                 = "#CC9393"
 theme.bg_urgent                                 = "#006B8E"
+
 theme.border_width                              = dpi(2)
 theme.border_normal                             = "#252525"
---theme.border_focus                              = "#0099CC"
---theme.border_focus                              = "#c5c69a"
-
---theme.border_focus                              = "#FF6464" .. "55"
---theme.border_focus                              = "#FF0000" .. "25"
 theme.border_focus                              = "#ADAFFF" .. "15"
---theme.border_focus                              = "#e33a6e"
 
+   theme.tasklist_fg_focus                         = "#bee7b0" --yellow
+   theme.tasklist_bg_focus                         = "#1c1c1c" --yellow
 
 --taglist colors
 theme.taglist_fg_focus                          = "#FFFFFF"
 theme.taglist_bg_empty = "#0a0e15"
 --theme.taglist_bg_focus = "#121a26"
-theme.taglist_bg_focus = barcolor
 --theme.taglist_bg_occupied = "#121a26"
-theme.taglist_bg_occupied = barcolor
 theme.taglist_fg_occupied = "#b1afa0"
-
-
-
-
---theme.tasklist_bg_normal                        = "#222222"
 theme.tasklist_bg_normal                        = "#141414"
---theme.tasklist_fg_focus                         = "#4CB7DB"
---theme.tasklist_fg_focus                         = "#b6deaf"
---theme.tasklist_fg_focus                         = "#e33a6e"
---theme.tasklist_fg_focus                         = "#c5c69a"
-   --theme.tasklist_fg_focus                         = "#ADAFFF" --Light purple
-   theme.tasklist_fg_focus                         = "#F4e0a3" --brighter white
- --  theme.tasklist_fg_focus                         = "#88a67d" --paleish green
---   theme.tasklist_fg_focus                         = "#000000" -- BLACK
---theme.tasklist_fg_focus                         = "#96d58b"
 theme.menu_height                               = dpi(20)
 theme.menu_width                                = dpi(160)
 theme.menu_icon_size                            = dpi(32)
@@ -196,28 +169,6 @@ theme.cal = lain.widget.cal({
     }
 })
 
--- Mail IMAP check
---[[ commented because it needs to be set before use
-theme.mail = lain.widget.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        mail_notification_preset.fg = "#FFFFFF"
-        mail  = ""
-        count = ""
-
-        if mailcount > 0 then
-            mail = "Mail "
-            count = mailcount .. " "
-        end
-
-        widget:set_markup(markup.font(theme.font, markup(blue, mail) .. markup("#FFFFFF", count)))
-    end
-})
---]]
-
 -- MPD
 local mpd_icon = awful.widget.launcher({ image = theme.mpdl, command = theme.musicplr })
 local prev_icon = wibox.widget.imagebox(theme.prev)
@@ -287,13 +238,6 @@ local bat = lain.widget.bat({
     end
 })
 
--- / fs
---[[ commented because it needs Gio/Glib >= 2.54
-theme.fs = lain.widget.fs({
-    notification_preset = { bg = theme.bg_normal, font = "Monospace 9" },
-})
---]]
-
 -- ALSA volume bar
 theme.volume = lain.widget.alsabar({
     notification_preset = { font = "Monospace 14"},
@@ -336,20 +280,62 @@ theme.volume.bar:buttons(awful.util.table.join(
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
 volumewidget = wibox.container.margin(volumewidget, dpi(0), dpi(10), dpi(11), dpi(11))
 
+---- CPU
+--local cpu_icon = wibox.widget.imagebox(theme.cpu)
+--local cpu = lain.widget.cpu({
+--	settings = function()
+--        --widget:set_markup(markup.fontfg(theme.font, "#e33a6e", "💽 " ..  cpu_now.usage .. "%"))
+--        widget:set_markup(markup.fontfg(theme.font, "#CECECE", "💽 " ..  markup("#ff0000", cpu_now.usage .. "%")))
+--	end
+----    settings = function()
+----        widget:set_markup(space3 .. markup.font(theme.font, "CPU " .. cpu_now.usage
+----                          .. "% ") .. markup.font("Roboto 5", " "))
+----    end
+--})
+--local cpubg = wibox.container.background(cpu.widget, theme.bg_focus, gears.shape.rectangle)
+--local cpuwidget = wibox.container.margin(cpubg, dpi(5), dpi(10), dpi(5), dpi(5))
+
+
+
 -- CPU
-local cpu_icon = wibox.widget.imagebox(theme.cpu)
 local cpu = lain.widget.cpu({
 	settings = function()
-        --widget:set_markup(markup.fontfg(theme.font, "#e33a6e", "💽 " ..  cpu_now.usage .. "%"))
-        widget:set_markup(markup.fontfg(theme.font, "#CECECE", "💽 " ..  markup("#ff0000", cpu_now.usage .. "%")))
+        widget:set_markup(markup.fontbg(theme.font, "#A5A5A6", cpu_now.usage .. "% "))
 	end
---    settings = function()
---        widget:set_markup(space3 .. markup.font(theme.font, "CPU " .. cpu_now.usage
---                          .. "% ") .. markup.font("Roboto 5", " "))
---    end
 })
-local cpubg = wibox.container.background(cpu.widget, theme.bg_focus, gears.shape.rectangle)
-local cpuwidget = wibox.container.margin(cpubg, dpi(5), dpi(10), dpi(5), dpi(5))
+
+local cpu_widget_icon = wibox.widget {
+	--text = " 💽 ",
+	text = "    ",
+	font = "Iosevka 10",
+	widget = wibox.widget.textbox,
+}
+local cpu_widget_icon_handle = wibox.widget {
+	cpu_widget_icon,
+	--bg = "#02Ad9B", -- deep green
+	--bg = "#93C8b0", -- pale green
+	--bg = "#7289da", -- nice violet
+	--bg = "#88aadd", -- yellowish
+	--bg = "#7289DA", -- deep purple
+	--bg = "#9593c8", -- royal purple
+	--bg = "#4e5f6e", -- dark grey blue
+	bg = "#52677a", -- lighter blueish
+	fg = "#000000",
+	widget = wibox.container.background,
+}
+local cpu_bg_handle = wibox.widget {
+	cpu,
+    bg = "#A5A5A6",
+	fg = "#000000",
+	widget = wibox.container.background,
+}
+local full_cpu_widget = wibox.widget {
+	cpu_widget_icon_handle,
+    cpu_bg_handle,
+	layout = wibox.layout.fixed.horizontal,
+}
+local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(0), dpi(5), dpi(5))
+
 
 
 -- Net
@@ -364,28 +350,6 @@ local net = lain.widget.net({
 local netbg = wibox.container.background(net.widget, theme.bg_focus, gears.shape.rectangle)
 local networkwidget = wibox.container.margin(netbg, dpi(0), dpi(0), dpi(5), dpi(5))
 
----- Weather
---theme.weather = lain.widget.weather({
---    city_id = 2643743, -- placeholder (London)
---    notification_preset = { font = "Monospace 9", position = "bottom_right" },
---})
-
-
--- Weather
-theme.weather = lain.widget.weather({
-    city_id = 2643743, -- placeholder (London)
-    notification_preset = { font = "Inconsolata 10", fg = theme.fg_normal },
-    weather_na_markup = markup.fontfg(theme.font2, "#fffedb", "N/A "),
-    settings = function()
-        descr = weather_now["weather"][1]["description"]:lower()
-        units = math.floor(weather_now["main"]["temp"])
---        widget:set_markup(markup.fontfg(theme.font, "#eca4c4", descr .. "🌤 @ " .. units .. "°C "))
---        widget:set_markup(markup.fontfg(theme.font, "#fffedb", "🌤" .. units .. "°C   "))
-        widget:set_markup(markup.fontfg(theme.font, "#fffedb",  units .. "°C" .. " 🌤" ))
-    end
-})
-
-
 -- Launcher
 local mylauncher = awful.widget.button({ image = theme.awesome_icon_launcher })
 mylauncher:connect_signal("button::press", function() awful.util.mymainmenu:toggle() end)
@@ -399,13 +363,6 @@ local spr_side = wibox.widget.imagebox(theme.spr_side)
 local spr_left = wibox.widget.imagebox(theme.spr_left)
 local bar = wibox.widget.imagebox(theme.bar)
 local bottom_bar = wibox.widget.imagebox(theme.bottom_bar)
-
-local barcolor  = gears.color({
-    type  = "linear",
-    from  = { dpi(32), 0 },
-    to    = { dpi(32), dpi(32) },
-    stops = { {0, theme.bg_focus}, {0.25, "#505050"}, {1, theme.bg_focus} }
-})
 
 
 local silverbar  = gears.color({
@@ -444,15 +401,23 @@ mysystray = wibox.widget.systray()
 mysystray.visible = false
 systraybg = wibox.container.background(mysystray, "#ff0000", gears.shape.rectangle)
 systrayholder = wibox.container.margin(systraybg, dpi(16), dpi(16), dpi(7),dpi(7)) -- sytstray
+
 systrayholder:connect_signal("mouse::enter", function() show_systray() end)
 systrayholder:connect_signal("mouse::leave", function() hide_systray() end)
+systrayholder:connect_signal("mouse::enter", function() toggle_botbar() end)
+
 function show_systray() mysystray.visible = true end
 function hide_systray() mysystray.visible = false end
 
 
---emailholder = wibox.container.margin(email, dpi(0), dpi(10), dpi(5),dpi(5)) -- sytstray
-emailbg = wibox.container.background(email, theme.bg_focus, gears.shape.hexagon)
-emailholder = wibox.container.margin(emailbg, dpi(0), dpi(10), dpi(5),dpi(5)) -- sytstray
+function toggle_botbar() 
+    if notmywibox.visible == false then
+         notmywibox.visible = true
+         else notmywibox.visible = false
+     end
+    end
+
+emailholder = wibox.container.margin(email, dpi(0), dpi(0), dpi(5),dpi(5)) -- sytstray
 
 local bluelingrad = gears.color({
 	type = "linear",
@@ -479,12 +444,10 @@ local brightgrad = gears.color({
 	stops = { {0.1, "#FFFFFF" .. "50"}, {3.45, "#bdbdbd" .. "60"} }
 })
 
--- EMAIL
-emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
 
 -- Redshift Bar
-local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = barcolor, margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
-local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#c3c2c3", background_color = "#343434", margins=8, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6)) -- 1080p
+local redshiftholder = wibox.container.margin(redshift({ main_color = bluelingrad, background_color = theme.bg_focus, margins=10, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6))
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#c3c2c3", background_color = "#343434", margins=10, shape = 'hexagon',}), dpi(5), dpi(5), dpi(6), dpi(6)) -- 1080p
 --
     -- Tags
   --  awful.layout.layouts = {layouts[1],layouts[2],layouts[1],layouts[1],layouts[1],layouts[1]},
@@ -595,7 +558,15 @@ s.mytaglistn = awful.widget.taglist {
     -- Create a tasklist widget
     --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.hexagon, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
     --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.rectangle, align = "center" })
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
+
+
+-- GPU HOLDER(s)
+--gpuhunter.bg = "#ff0000"
+gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+
+
 
     -- Create the wibox
     screen[1].mywibox = awful.wibar({ position = "top", screen = s, height = dpi(32) })
@@ -629,10 +600,9 @@ s.mytaglistn = awful.widget.taglist {
 --            mpd_icon,
 --            bar,
 --            spr_very_small,
-	    --redshiftholder,
-            ddcshiftholder,
-	    volumewidget,
---	    emailholder,
+--	    redshiftholder,
+--            ddcshiftholder,
+--	    volumewidget,
             spr_small,
 --       	    cpuwidget,
 	    clockwidget,
@@ -647,65 +617,48 @@ s.mytaglistn = awful.widget.taglist {
     }
 
 
--- -- 	create side wibox
--- --    s.mysidewibox = awful.wibar({ position = "right", screen = s, width =60, x=0,y=0, border_width = dpi(0), height = s.workarea.height, type = "dock" })
---
---     screen[1].mysidewibox = awful.wibar ({ position = "right", screen = s, width =60, x=0,y=0, border_width = dpi(0), height = s.workarea.height, type = "dock" })
---
---     -- Add widgets to the bottom wibox
---     screen[1].mysidewibox:setup {
---         layout = wibox.layout.align.vertical,
---         { -- bottom widgets
---             layout = wibox.layout.fixed.vertical,
--- --            musicwidget2,
---             spr_side,
--- --            spr_side,
--- --            spr_side,
--- --	    calendarwidget2,
--- 	    theme.weather.widget,
---             cpuwidget,
--- 	    clockwidget2,
--- --            volumewidget,
---             wibox.widget.systray(),
--- --            wibox.widget.systray(),
---         },
---     }
---
+-- Create the bottom taskbar wibox.
+notmywibox = awful.wibar(
+        {
+        position = "bottom",
+         screen = s,
+         height = dpi(32),
+         width = s.workarea.width,
+        visible = true,
+         shape = gears.shape.rectangle
+        }
+    )
+    notmywibox:setup {
+        layout = wibox.layout.align.horizontal,
+        { -- Left widgets
+            layout = wibox.layout.fixed.horizontal,
+--            s.mytaglistn,
+--            s.mytag,
+            --s.cornertaglist,
+        s.mypromptbox,
+        },
+       {
+        layout = wibox.layout.fixed.horizontal,
+	    redshiftholder,
+        ddcshiftholder,
+	    volumewidget,
+        s.mytasklistholder, -- Middle widget
+        },
+        { -- Right widgets
+            layout = wibox.layout.fixed.horizontal,
+ --       vmholder, --  currently not using any vms
+ --       temperatureholder,
+ --       airqualityholder,
+ --       humidityholder,
+        cpuwidget,
+        gpuholder,
+        gputempsholder,
+	    emailholder,
+    --    spr_small,
+        },
+    }
+
+
+
 end
-
-
---    mogodo.mywibox = awful.wibar({ position = "left", screen = 0, height = dpi(32) })
-
---    -- Create the bottom wibox
---    s.mybottomwibox = awful.wibar({ position = "bottom", screen = 0, width =450, x=0,y=10, border_width = dpi(0), height = dpi(32), type = "dock" })
---    s.borderwibox = awful.wibar({ position = "bottom", screen = s, width =450,height = dpi(1), bg = theme.fg_focus, x = dpi(0), y = dpi(33)})
---
---    -- Add widgets to the bottom wibox
---    s.mybottomwibox:setup {
---        layout = wibox.layout.align.horizontal,
---        { -- Left widgets
---            layout = wibox.layout.fixed.horizontal,
-----            mylauncher,
---        },
-----        s.mytasklist, -- Middle widget
---        { -- Right widgets
---            layout = wibox.layout.fixed.horizontal,
---            spr_bottom_right,
---            netdown_icon,
---            networkwidget,
---            netup_icon,
---            bottom_bar,
---            cpu_icon,
---            cpuwidget,
---            bottom_bar,
---            calendar_icon,
---            calendarwidget,
---            bottom_bar,
---            clock_icon,
---            clockwidget,
---        },
---    }
-
-
-
 return theme

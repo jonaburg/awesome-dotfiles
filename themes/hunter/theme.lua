@@ -38,11 +38,10 @@ local airquality = require('extra.geographic.airquality')
 local humidity = require('extra.geographic.humidity')
 local temperature = require('extra.geographic.temperature')
 
-
 --theme.font          = "sf mono 12"
---theme.taglist_font  = "sf mono 14"
+--theme.taglist_font  = "sf mono 1hunter
 --theme.mpd_font  = "sf mono 10"
---theme.tasklist_font = "sf mono 12"
+--theme.tasklist_font = "sf mono 1
 
 theme.font          = "Iosevka 12"
 theme.taglist_font  = "Iosevka 16"
@@ -954,21 +953,23 @@ cornertag:setup {
          screen[1].mybars.x = 25
         ----- {{ CORNER TAGS}}
          cornertag.height = 30
-         cornertag.y = 60
+         cornertag.y = 60 -- top
          cornertag.x = 25
 
 
     end
 
     -- for little 5:4 monitor -- makes it super ugly but eh. at least it works for now.
---    if s.index == 2
---    then
---        ----- {{ CORNER BARS}}
---         mybars.width = 325
---         mybars.x = 325
---         mybars.height = 55
---
---    end
+    if s.index == 2
+    then
+        ----- {{ CORNER BARS}}
+         screen[1].mybars.visible = false
+ --        mybars.width = 325
+ --        mybars.x = 325
+ --        mybars.height = 55
+--         cornertag.y = 1400 -- bottom
+
+    end
 
 function tagbar_hor(s)
 	if s.index == 1

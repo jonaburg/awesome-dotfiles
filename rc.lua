@@ -32,6 +32,8 @@ local revelation=require("revelation")
 -- radical menues/addon
 local radical = require("radical")
 
+
+
 --local termgrp = require('termgrp')
 --	termgrp.terminal = "st"
 --	termgrp.dmenu = "rofi -dmenu"
@@ -96,6 +98,7 @@ local themes = {
     "hunter",          -- 7
     "concencolor",     -- 8
     "focus-sensible",     -- 9
+    "vertex",     -- 10
 }
 
 local chosen_theme = themes[9]
@@ -295,7 +298,6 @@ lain.layout.cascade.tile.ncol          = 2
 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme))
 -- }}}
-
 
 
 -- {{{ Menu
