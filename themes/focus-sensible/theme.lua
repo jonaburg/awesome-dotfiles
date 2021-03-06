@@ -306,7 +306,7 @@ volumewidget = wibox.container.margin(volumewidget, dpi(0), dpi(10), dpi(11), dp
 -- CPU
 local cpu = lain.widget.cpu({
 	settings = function()
-        widget:set_markup(markup.fontbg(theme.font, "#A5A5A6", cpu_now.usage .. "% "))
+        widget:set_markup(markup.fontbg(theme.font, "#3d3d3d", cpu_now.usage .. "% "))
 	end
 })
 
@@ -318,26 +318,19 @@ local cpu_widget_icon = wibox.widget {
 }
 local cpu_widget_icon_handle = wibox.widget {
 	cpu_widget_icon,
-	--bg = "#02Ad9B", -- deep green
-	--bg = "#93C8b0", -- pale green
-	--bg = "#7289da", -- nice violet
-	--bg = "#88aadd", -- yellowish
-	--bg = "#7289DA", -- deep purple
-	--bg = "#9593c8", -- royal purple
-	--bg = "#4e5f6e", -- dark grey blue
 	bg = "#52677a", -- lighter blueish
 	fg = "#000000",
 	widget = wibox.container.background,
 }
 local cpu_bg_handle = wibox.widget {
 	cpu,
-    bg = "#A5A5A6",
-	fg = "#000000",
+         bg = "#3d3d3d",
+	fg = "#c3c2c3",
 	widget = wibox.container.background,
 }
 local full_cpu_widget = wibox.widget {
 	cpu_widget_icon_handle,
-    cpu_bg_handle,
+        cpu_bg_handle,
 	layout = wibox.layout.fixed.horizontal,
 }
 local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(0), dpi(5), dpi(5))
@@ -471,11 +464,12 @@ s.mytaglistn = awful.widget.taglist {
         bg_occupied = theme.taglist_bg_occupied
     },
     layout   = {
-        spacing = 5,
+        spacing = 8,
         spacing_widget = {
             color  = theme.taglist_bg_empty,
             --color  = silverbar,
-            shape  = gears.shape.rectangle,
+            --shape  = gears.shape.rectangle,
+            shape  = gears.shape.hexagon,
             widget = wibox.widget.separator,
         },
         layout  = wibox.layout.fixed.horizontal
