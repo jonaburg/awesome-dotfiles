@@ -446,8 +446,7 @@ function theme.at_screen_connect(s)
         },
         { -- Middle widgets
             layout = wibox.layout.flex.horizontal,
-            max_widget_size = 1500,
-            mytextclock
+            mytextclock2,
         },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,

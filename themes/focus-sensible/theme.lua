@@ -26,8 +26,8 @@ local email = require('themes.focus-sensible.extra.email')
 local redshift = require('extra.bars.redshift')
 local ddcshift = require('extra.bars.ddcshift')
 
-local gpuhunter = require('extra.gpuhunter')
-local gputemps = require('extra.gputemps')
+local gpuhunter = require('themes.focus-sensible.extra.gpuhunter')
+local gputemps = require('themes.focus-sensible.extra.gputemps')
 
 theme.font          = "Open Sans 10"
 --theme.taglist_font  = "open sans 12"
@@ -625,6 +625,7 @@ notmywibox = awful.wibar(
          screen = s,
          height = dpi(32),
          width = s.workarea.width,
+     --    bg = "#171d23",
         visible = true,
          shape = gears.shape.rectangle
         }

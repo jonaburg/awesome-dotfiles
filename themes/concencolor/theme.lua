@@ -29,10 +29,10 @@ local ddcshift = require('extra.bars.ddcshift')
 local tagbar = require('extra.slidebars.tagbar')
 local titlebar = require('extra.slidebars.titlebar')
 -- indicator --
-local email = require('extra.emailhunter')
+local email = require('themes.concencolor.extra.email')
 local vm = require('extra.vmhunter')
-local gpuhunter = require('extra.gpuhunter')
-local gputemps = require('extra.gputemps')
+local gpuhunter = require('themes.concencolor.extra.gpuhunter')
+local gputemps = require('themes.concencolor.extra.gputemps')
 -- geographic environment widgets --
 local airquality = require('extra.geographic.airquality')
 local humidity = require('extra.geographic.humidity')
@@ -45,6 +45,8 @@ local temperature = require('extra.geographic.temperature')
 --theme.tasklist_font = "sf mono 12"
 
 theme.font          = "Iosevka 12"
+theme.widget_font          = "Iosevka 13"
+theme.calfont          = "Iosevka 14"
 theme.taglist_font  = "Iosevka 12"
 --theme.taglist_font  = "Linux Biolinum 18"
 theme.mpd_font  = "Open Sans 10"
@@ -55,6 +57,7 @@ theme.tasklist_font = "sf mono 12"
 --theme.highlight = "#A3C784" -- google green
 theme.highlight = "#88A67D" -- google green
 
+theme.email_alert = "#6FFFCB"
 theme.fg_normal                                 = "#bababa"
 theme.fg_focus					= "#e33a6e"
 --theme.bg_focus                                  = "#242424"
@@ -63,7 +66,7 @@ theme.bg_focus                                  = "#141c29" -- midnight blue
 --theme.bg_focus                                  = "#7289DA" -- ephemeral blue
 --theme.bg_focus = "#B6BD68"
 
-theme.bg_normal                                 = "#141414"
+theme.bg_normal                                 = "#141414" .. "99"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#D9574F"
 --theme.bg_urgent                                 = "#B57582"
@@ -79,18 +82,21 @@ theme.border_normal                             = "#252525"
 theme.border_focus                              = "#9fb0a6"
 
 -- widget value colors
-theme.widget_value_bg = "#A5A5A6"
+--theme.widget_value_bg = "#A5A5A6" -- greyish
+--theme.widget_value_bg = "#A5A5A6"
+theme.widget_value_bg = "#A5A5A6" .. "0"
 widget_value_bg = "#A5A5A6"
 theme.my_color = "#ff0000"
 
 --taglist colors
 theme.taglist_fg_focus = "#000000"
 --theme.taglist_bg_empty = "#f5f5f6" -- light
-theme.taglist_bg_empty = "#c2c3c2" -- darker
+theme.taglist_bg_empty = "#c2c3c2" .. "20" -- darker
 --theme.taglist_bg_empty = "#A5A5A6" -- evendarker
 theme.taglist_fg_empty = "#000000"
-theme.taglist_bg_occupied = "#6c8797"
-theme.taglist_fg_occupied = "#000000"
+theme.taglist_bg_occupied = "#6c8797" .. "65"
+--theme.taglist_fg_occupied = "#000000"
+theme.taglist_fg_occupied = "#c3c2c3"
 
 --taglist colors
 theme.taglist_fg_focus_base = "#000000"
@@ -134,6 +140,7 @@ theme.stop                                      = theme.icon_dir .. "/stop.png"
 theme.pause                                     = theme.icon_dir .. "/pause.png"
 theme.play                                      = theme.icon_dir .. "/play.png"
 theme.clock                                     = theme.icon_dir .. "/clock.png"
+theme.panelbg                                     = theme.icon_dir .. "/panel.png"
 theme.calendar                                  = theme.icon_dir .. "/cal.png"
 theme.cpu                                       = theme.icon_dir .. "/cpu.png"
 theme.net_up                                    = theme.icon_dir .. "/net_up.png"
@@ -175,12 +182,13 @@ local blue   = "#80CCE6"
 local space3 = markup.font("Roboto 3", " ")
 
 -- Clock
-local mytextclock = wibox.widget.textclock(markup("#000000", " %Y-%m-%d "))
-mytextclock.font = theme.font
+--local mytextclock = wibox.widget.textclock(markup("#c3c2c3", " %Y-%m-%d "))
+local mytextclock = wibox.widget.textclock(markup("#c3c2c3", "%a, %d. %b "))
+mytextclock.font = theme.calfont
 local clock_icon = wibox.widget.imagebox(theme.clock)
 local clockbg = wibox.container.background(mytextclock, theme.widget_value_bg, gears.shape.rectangle)
-local mytextclock2 = wibox.widget.textclock(markup("#000000", " %H:%M" ))
-mytextclock2.font = theme.font
+local mytextclock2 = wibox.widget.textclock(markup("#c3c2c3", " %H:%M" ))
+mytextclock2.font = theme.calfont
 local clockbg2 = wibox.container.background(mytextclock2, theme.widget_value_bg, gears.shape.rectangle)
 local clock_widget_text_icon1 = wibox.widget {
 	text = " 📅 ",
@@ -189,10 +197,7 @@ local clock_widget_text_icon1 = wibox.widget {
 }
 local clock_widget_icon1 = wibox.widget {
 	clock_widget_text_icon1,
-	--bg = "#E7D469",
-	--bg = "#c3c997",
-	bg = "#c3bea7",
-	fg = "#000000",
+	fg = "#c3c2c3",
 	widget = wibox.container.background,
 }
 local clock_widget_text_icon2 = wibox.widget {
@@ -204,14 +209,14 @@ local clock_widget_icon2 = wibox.widget {
 	clock_widget_text_icon2,
 	--bg = "#05C6E2", -- bright overbearing blue
 	--bg = "#97c3c9",
-	bg = "#a7c3be",
-	fg = "#000000",
+	--bg = "#a7c3be",
+	fg = "#c3c2c3",
 	widget = wibox.container.background,
 }
 local full_clock_widget = wibox.widget {
-	clock_widget_icon1, -- calendar icon
+--	clock_widget_icon1, -- calendar icon
 	clockbg, -- calendar
-	clock_widget_icon2, -- clock icon
+--	clock_widget_icon2, -- clock icon
 	clockbg2, -- clock
 	layout = wibox.layout.fixed.horizontal,
 }
@@ -232,8 +237,8 @@ theme.cal = lain.widget.cal({
     notification_preset = {
         fg = "#FFFFFF",
         bg = theme.bg_normal,
-        position = "top_right",
-        font = "Monospace 10"
+        position = "top_middle",
+        font = "Iosevka 14"
     }
 })
 
@@ -313,7 +318,7 @@ theme.volume = lain.widget.alsabar({
     --togglechannel = "IEC958,3",
     --width = dpi(80), height = dpi(50), border_width = dpi(0),ticks = false, tick_size=3, -- 1080p monitor divisions
     --width = dpi(100), height = dpi(50), border_width = dpi(0),ticks = false, tick_size=3,
-    width = dpi(150), height = dpi(15), border_width = dpi(0),ticks = false, tick_size=3, -- max width for all bars is equiv to this width.
+    width = dpi(150), height = dpi(1), border_width = dpi(0),ticks = false, tick_size=3, -- max width for all bars is equiv to this width.
     colors = {
         background = "#343434",
         unmute     = "#7289DA",
@@ -348,12 +353,12 @@ theme.volume.bar:buttons(awful.util.table.join(
     ))
 
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
-volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(0), dpi(4))
+volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(10), dpi(10))
 
 -- CPU
 local cpu = lain.widget.cpu({
 	settings = function()
-        widget:set_markup(markup.fontbg(theme.font, "#A5A5A6", cpu_now.usage .. "% "))
+        widget:set_markup(markup.font(theme.widget_font, "  " .. cpu_now.usage .. "% "))
 	end
 })
 
@@ -365,30 +370,25 @@ local cpu_widget_icon = wibox.widget {
 }
 local cpu_widget_icon_handle = wibox.widget {
 	cpu_widget_icon,
-	--bg = "#02Ad9B", -- deep green
-	--bg = "#93C8b0", -- pale green
-	--bg = "#7289da", -- nice violet
-	--bg = "#88aadd", -- yellowish
-	--bg = "#7289DA", -- deep purple
-	--bg = "#9593c8", -- royal purple
-	--bg = "#4e5f6e", -- dark grey blue
 	--bg = "#52677a", -- lighter blueish
-	bg = "#52677a", -- purp
+	--bg = "#52677a", -- purp
+	bg = "#7d88a6", -- purp
 	fg = "#000000",
 	widget = wibox.container.background,
 }
 local cpu_bg_handle = wibox.widget {
 	cpu,
-    bg = "#A5A5A6",
-	fg = "#000000",
+ --   bg = "#A5A5A6",
+	--fg = "#000000",
+	fg = "#7d88a6", -- purp
 	widget = wibox.container.background,
 }
 local full_cpu_widget = wibox.widget {
-	cpu_widget_icon_handle,
+	--cpu_widget_icon_handle,
     cpu_bg_handle,
 	layout = wibox.layout.fixed.horizontal,
 }
-local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(3), dpi(0), dpi(5), dpi(5))
+local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(0), dpi(5), dpi(5))
 
 -- Net
 local netdown_icon = wibox.widget.imagebox(theme.net_down)
@@ -592,9 +592,11 @@ local brightgrad = gears.color({
 
 -- DDCshift Bar
 --local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(35), dpi(1), dpi(1)) -- 1080p
-local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(-4), dpi(0)) -- 1080p
+--local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(-4), dpi(0)) -- 1080p
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(10), dpi(10)) -- 1080p
 -- Redshift Bar
-local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(-4), dpi(0)) -- 1080p
+--local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(-4), dpi(0)) -- 1080p
+local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(10), dpi(10)) -- 1080p
 
 
 local bar_holders = wibox.widget {
@@ -851,11 +853,12 @@ s.mytaglistn = awful.widget.taglist {
 
     -- Create a tasklist widget
   --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.hexagon, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
-  --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
+ --   s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
 --    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = googlegreen, shape = gears.shape.rectangle, align = "center" })
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
+  --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
     s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(3), dpi(6), dpi(4), dpi(1))
---    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
+   -- s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
 
 
     s.titletasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, {
@@ -878,6 +881,7 @@ screen[1].mywibox = awful.wibar(
          screen = s,
          height = dpi(32),
          width = s.workarea.width,
+         --bg = gears.color.create_png_pattern(theme.panelbg),
         visible = true,
          shape = gears.shape.rectangle
         }
@@ -887,32 +891,36 @@ screen[1].mywibox = awful.wibar(
     screen[1].mywibox:setup {
    -- s.myleftwibox:setup {
         layout = wibox.layout.align.horizontal,
+        expand = 'none',
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            --s.mytag,
-            --s.cornertaglist,
-            bar_holders,
-         --   volumewidget,
-        --    s.mypromptbox,
+         mytagholder,
+            s.mypromptbox,
+         --   s.mytasklistholder, -- Middle widget
+            max_widget_size = 50,
         },
-        s.mytasklistholder, -- Middle widget
+        {
+            layout = wibox.layout.flex.horizontal,
+            clockwidget,
+        },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-        musicwidget,
- --       vmholder, --  currently not using any vms
-        temperatureholder,
-        airqualityholder,
-        humidityholder,
-        -----------------------
+--        musicwidget,
+-- --       vmholder, --  currently not using any vms
+--       -- temperatureholder,
+--       -- airqualityholder,
+--       -- humidityholder,
+--        -----------------------
         gputempsholder,
         gpuholder,
         cpuwidget,
-        ------------------
+--        ------------------
 	    emailholder,
-    --    spr_small,
-	    clockwidget,
+--	--    clockwidget,
+        volumewidget,
         s.mylayoutbox,
         systrayholder,
+        --halign = 'right',
         },
     }
 -- Create the bars "player" widget
@@ -935,22 +943,22 @@ screen[1].mywibox = awful.wibar(
 --        }
 --    }
 -- cornertag widget (under corner bars)
-cornertag = awful.wibox(
-        {
-         screen = s,
-         bg = "#000000" .. "00";
-         height = dpi(33),
-         width = s.workarea.width,
-        ontop = false,
-        visible = true,
---        shape = cornerparal
-        }
-    )
-cornertag:setup {
-        layout = wibox.layout.fixed.horizontal,
-         mytagholder,
-            s.mypromptbox,
-    }
+--cornertag = awful.wibox(
+--        {
+--         screen = s,
+--         bg = "#000000" .. "00";
+--         height = dpi(33),
+--         width = s.workarea.width,
+--        ontop = false,
+--        visible = true,
+----        shape = cornerparal
+--        }
+--    )
+--cornertag:setup {
+--        layout = wibox.layout.fixed.horizontal,
+--         mytagholder,
+--            s.mypromptbox,
+--    }
 -- if main screen then indent topbar down. (specific to main 3k monitor)
     if s.index == 1
     then
@@ -961,7 +969,8 @@ cornertag:setup {
          screen[1].mywibox.y = 0
          --screen[1].mywibox.x = 20
          screen[1].mywibox.x = 0
-         screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
+         --screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
+         screen[1].mywibox:struts({left=0, right=0, top=45, bottom=0})
         ----- {{ HEALTH BARS}}
          --screen[1].mybars.width = 325
 --         screen[1].mybars.width = 300
@@ -969,9 +978,9 @@ cornertag:setup {
 --         screen[1].mybars.y = 0
 --         screen[1].mybars.x = 25
         ----- {{ CORNER TAGS}}
-         cornertag.height = 30
-         cornertag.y = 45
-         cornertag.x = 22
+--         cornertag.height = 30
+--         cornertag.y = 45
+--         cornertag.x = 22
 
 
     end
@@ -1003,7 +1012,7 @@ function tagbar_hor(s)
     -- show_delay = 0.25,
      hide_delay = 0.2,
      easing = 1,
-     delta = 10,
+     delta = 50,
 }
  screen[1].mytagbar:setup {
         layout = wibox.layout.align.horizontal,
@@ -1025,6 +1034,9 @@ function tagbar_hor(s)
 --            mykeyboardlayout,
 --            wibox.widget.systray(),
             s.mylayoutbox,
+	    ddcshiftholder,
+	    redshiftholder,
+--        volumewidget,
         },
     }
 -- tagbar struts widget.. -- {{{{}}}} --- NEED TO WORK ON STRUTS/TIMING && bug where it displaces other widgets.
