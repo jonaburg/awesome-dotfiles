@@ -141,6 +141,7 @@ theme.pause                                     = theme.icon_dir .. "/pause.png"
 theme.play                                      = theme.icon_dir .. "/play.png"
 theme.clock                                     = theme.icon_dir .. "/clock.png"
 theme.panelbg                                     = theme.icon_dir .. "/panel.png"
+theme.tagbarbg                                     = theme.icon_dir .. "/tagbar.png"
 theme.calendar                                  = theme.icon_dir .. "/cal.png"
 theme.cpu                                       = theme.icon_dir .. "/cpu.png"
 theme.net_up                                    = theme.icon_dir .. "/net_up.png"
@@ -353,7 +354,7 @@ theme.volume.bar:buttons(awful.util.table.join(
     ))
 
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
-volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(10), dpi(10))
+volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(12), dpi(12))
 
 -- CPU
 local cpu = lain.widget.cpu({
@@ -593,10 +594,10 @@ local brightgrad = gears.color({
 -- DDCshift Bar
 --local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = "#A5A5A6", background_color = "#343434", margins=5, shape = 'hexagon',}), dpi(5), dpi(35), dpi(1), dpi(1)) -- 1080p
 --local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(-4), dpi(0)) -- 1080p
-local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(10), dpi(10)) -- 1080p
+local ddcshiftholder = wibox.container.margin(ddcshift({ main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(12), dpi(12)) -- 1080p
 -- Redshift Bar
 --local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(-4), dpi(0)) -- 1080p
-local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(10), dpi(10)) -- 1080p
+local redshiftholder = wibox.container.margin(redshift({ main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}), dpi(4), dpi(4), dpi(12), dpi(12)) -- 1080p
 
 
 local bar_holders = wibox.widget {
@@ -829,11 +830,11 @@ s.mytaglistn = awful.widget.taglist {
         create_callback = function(self, c3, index, objects) --luacheck: no unused args
             self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
             self:connect_signal('mouse::enter', function()
-                if self.bg ~= '#ff0000' .. "20" then
+                if self.bg ~= '#B57582' then
                     self.backup     = self.bg
                     self.has_backup = true
                 end
-                self.bg = '#ff0000' .. "40"
+                self.bg = '#B57582'
             end)
             self:connect_signal('mouse::leave', function()
                 if self.has_backup then self.bg = self.backup end
@@ -855,9 +856,18 @@ s.mytaglistn = awful.widget.taglist {
   --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.hexagon, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
  --   s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
 --    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = googlegreen, shape = gears.shape.rectangle, align = "center" })
-  --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
-    s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(3), dpi(6), dpi(4), dpi(1))
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
+  --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
+    --s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(100), dpi(30), dpi(4), dpi(1))
+    s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(100), dpi(30), dpi(20), dpi(20))
+    --s.mytasklistholder.visible = false
+    s.mytasklistholder:connect_signal("mouse::enter", function() toggle_tasklistholder() end)
+    function toggle_tasklistholder()
+         if s.mytasklistholder.visible == true
+         then s.mytasklistholder.visible = false 
+         else s.mytasklistholder.visible = true end end
+
+
    -- s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
 
 
@@ -881,6 +891,7 @@ screen[1].mywibox = awful.wibar(
          screen = s,
          height = dpi(32),
          width = s.workarea.width,
+         bg = gears.color.create_png_pattern(theme.panelbg),
          --bg = gears.color.create_png_pattern(theme.panelbg),
         visible = true,
          shape = gears.shape.rectangle
@@ -896,7 +907,7 @@ screen[1].mywibox = awful.wibar(
             layout = wibox.layout.fixed.horizontal,
          mytagholder,
             s.mypromptbox,
-         --   s.mytasklistholder, -- Middle widget
+           -- s.mytasklistholder, -- Middle widget
             max_widget_size = 50,
         },
         {
@@ -971,6 +982,7 @@ screen[1].mywibox = awful.wibar(
          screen[1].mywibox.x = 0
          --screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
          screen[1].mywibox:struts({left=0, right=0, top=45, bottom=0})
+
         ----- {{ HEALTH BARS}}
          --screen[1].mybars.width = 325
 --         screen[1].mybars.width = 300
@@ -1000,7 +1012,8 @@ function tagbar_hor(s)
 		then screen[1].mytagbar = tagbar {
 --		screen[1].mytagbar = tagbar {
      --bg = "#282a36" .. "20",
-     bg = tagbarcolor,
+     --bg = tagbarcolor,
+     bg = gears.color.create_png_pattern(theme.tagbarbg),
       --bg = "#121212",
      -- bg = darksilverbar,
      screen = s,
@@ -1036,6 +1049,7 @@ function tagbar_hor(s)
             s.mylayoutbox,
 	    ddcshiftholder,
 	    redshiftholder,
+            s.mytasklistholder, -- Middle widget
 --        volumewidget,
         },
     }

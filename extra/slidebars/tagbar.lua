@@ -276,9 +276,9 @@ local function calc_bar_geometry(o)
        -- ["bottom"] = 0,
        -- ["bottom"] = o.screen_width / 3.3, -- 2/3mon (low res around 2k)
         --["bottom"] = o.screen_width * 0.98, -- 3 mon (around 4-5k)
-        ["bottom"] = o.screen_width / 4, -- single 3k screen
+--        ["bottom"] = o.screen_width / 4, -- single 3k screen
        -- ["bottom"] = o.screen_width * 1.03, -- 3 mon (around 4-5k)
-       -- ["bottom"] = o.screen_width * 1.07, -- 3 mon (around 4-5k)
+        ["bottom"] = o.screen_width / 7.07, -- 3 mon (around 4-5k)
         ["left"] = -o.size,
         ["right"] = o.screen_width,
     }
@@ -290,7 +290,7 @@ local function calc_bar_geometry(o)
     }
     local width = {
         ["top"] = o.screen_width,
-        ["bottom"] = o.screen_width / 1.8,
+        ["bottom"] = o.screen_width / 1.2,
         ["left"] = o.size,
         ["right"] = o.size,
     }
