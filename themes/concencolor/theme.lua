@@ -1046,10 +1046,10 @@ function tagbar_hor(s)
            layout = wibox.layout.fixed.horizontal,
 --            mykeyboardlayout,
 --            wibox.widget.systray(),
-            s.mylayoutbox,
+            --s.mylayoutbox,
+            s.mytasklistholder, -- Middle widget
 	    ddcshiftholder,
 	    redshiftholder,
-            s.mytasklistholder, -- Middle widget
 --        volumewidget,
         },
     }
