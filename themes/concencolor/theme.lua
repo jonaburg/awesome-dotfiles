@@ -303,12 +303,12 @@ end)))
 -- Battery
 local bat = lain.widget.bat({
     settings = function()
-        bat_header = " Bat "
+        bat_header = "  "
         bat_p      = bat_now.perc .. " "
         if bat_now.ac_status == 1 then
             bat_p = bat_p .. "Plugged "
         end
-        widget:set_markup(markup.font(theme.font, markup(blue, bat_header) .. bat_p))
+        widget:set_markup(markup.font(theme.font, markup(blue, bat_header) .. markup(blue, bat_p)))
     end
 })
 
@@ -731,6 +731,7 @@ s.mytaglistn = awful.widget.taglist {
                     self.has_backup = true
                 end
                 self.bg = '#B57582'
+                self.fg = '#000000'
             end)
             self:connect_signal('mouse::leave', function()
                 if self.has_backup then self.bg = self.backup end
@@ -859,13 +860,13 @@ s.mytaglistn = awful.widget.taglist {
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
   --  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
     --s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(100), dpi(30), dpi(4), dpi(1))
-    s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(100), dpi(30), dpi(20), dpi(20))
+    s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(30), dpi(30), dpi(10), dpi(10))
     --s.mytasklistholder.visible = false
-    s.mytasklistholder:connect_signal("mouse::enter", function() toggle_tasklistholder() end)
-    function toggle_tasklistholder()
-         if s.mytasklistholder.visible == true
-         then s.mytasklistholder.visible = false 
-         else s.mytasklistholder.visible = true end end
+   -- s.mytasklistholder:connect_signal("mouse::enter", function() toggle_tasklistholder() end)
+   -- function toggle_tasklistholder()
+   --      if s.mytasklistholder.visible == true
+   --      then s.mytasklistholder.visible = false
+   --      else s.mytasklistholder.visible = true end end
 
 
    -- s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.tasklist_bg_focus, shape = gears.shape.rectangle, align = "center" })
@@ -927,6 +928,7 @@ screen[1].mywibox = awful.wibar(
         cpuwidget,
 --        ------------------
 	    emailholder,
+	    bat.widget,
 --	--    clockwidget,
         volumewidget,
         s.mylayoutbox,
@@ -1029,9 +1031,11 @@ function tagbar_hor(s)
 }
  screen[1].mytagbar:setup {
         layout = wibox.layout.align.horizontal,
+	expand = 'none',
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            s.mytag2,
+            --s.mytag2,
+            s.mytasklistholder, -- Middle widget
 
         --temperatureholder,
         --airqualityholder,
@@ -1041,15 +1045,20 @@ function tagbar_hor(s)
         --gputempsholder,
 --            s.mypromptbox,
         },
+	{
+           layout = wibox.layout.flex.horizontal,
 --        s.mytasklist, -- Middle widget
+},
         { -- Right widgets
            layout = wibox.layout.fixed.horizontal,
+        temperatureholder,
+        airqualityholder,
+        humidityholder,
 --            mykeyboardlayout,
 --            wibox.widget.systray(),
             s.mylayoutbox,
 	    ddcshiftholder,
 	    redshiftholder,
-            s.mytasklistholder, -- Middle widget
 --        volumewidget,
         },
     }
