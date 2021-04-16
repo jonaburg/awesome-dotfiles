@@ -139,7 +139,10 @@ local smart_borders = require('smart_borders') {
     button_top_size = 60,
     button_maximize_size = 60,
     button_close_size = 60,
-    border_width = 2,
+    border_width = 3,
+
+    color_normal = "#252525",
+    color_focus = "#7289da",
 
    -- color_close_normal = {
    --     type = "linear",

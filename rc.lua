@@ -476,20 +476,14 @@ globalkeys = my_table.join(
 --        end,
 --        {description = "go back", group = "client"}),
 
---    -- Show/Hide Wibox
-    awful.key({ modkey }, "b", function ()
-            for s in screen do
---                s.mywibox.visible = not s.mywibox.visible
-                if s.mysidewibox then
-                    s.mysidewibox.visible = not s.mysidewibox.visible
-                end
--- for the top bar
---                if s.mywibox then
---                    s.mywibox.visible = not s.mywibox.visible
---                end
-            end
-        end,
-        {description = "toggle wibox", group = "awesome"}),
+--    -- sticky float top (follow all over)
+--    awful.key({ modkey }, "b", function (c)
+--	    c.sticky = not c.sticky
+--	    c.floating = not c.floating
+--	    c.ontop = not c.ontop
+--	   -- awful.client.moveresize(-900,-50,0,0,c)
+--    end,
+--        {description = "sticky", group = "awesome"}),
 
 --    awful.key({}, "Super_L", function() awesome.emit_signal("bringup", function() end) end,
 --    {description = "brings up slidebar", group = "client"}),
@@ -747,6 +741,17 @@ clientkeys = my_table.join(
               {description = "move to master", group = "client"}),
     awful.key({ modkey, "Shift"           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
+--    -- sticky float top (follow all over)
+    awful.key({ modkey }, "b", function (c)
+	  c.sticky = not c.sticky
+	  c.floating = not c.floating
+	  c.ontop = not c.ontop
+          c.width = c.screen.geometry.width* 1/3
+          c.x = c.screen.geometry.x+(0)
+          c.height = c.screen.geometry.height * 0.43
+          c.y = c.screen.geometry.height / 1.75
+    end,
+        {description = "sticky float top (follow all over (vid mode)", group = "awesome"}),
 
     awful.key({ modkey, "Shift" }, "u",
     function (c)
