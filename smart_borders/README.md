@@ -1,5 +1,6 @@
 smart_borders for awesomewm
 ==================
+CREDIT: https://github.com/intrntbrn/smart_borders
 
 <p align="center">
   <img src="https://s7.gifyu.com/images/smart_border_github.gif">
@@ -106,7 +107,7 @@ Customization:
 Snapping:
 ------------
 When `useless_gaps` are disabled it is very easy and fast to control clients by using the mouse since you only have to move your mouse to the edge of the screen to hit the client border.
-However, when `useless_gaps` are enabled it can be frustrating to hit the border. 
+However, when `useless_gaps` are enabled it can be frustrating to hit the border.
 Therefore `snapping` will snap to the closest client if you click on the desktop/wallpaper.
 
 <p align="center">
@@ -227,11 +228,11 @@ Custom Buttons:
 ------------
 Add a custom button to `buttons` (`marked` in this example):
 
-``` 
+```
 buttons = { "minimize", "maximize", "close", "marked" }
 ```
 
-Define the button: 
+Define the button:
 ```
 button_marked_name = "my fancy custom button",
 button_marked_size = "25",
@@ -245,7 +246,7 @@ Integration / Signals:
 ------------
 It is possible to use `smart_borders` features in other modules by emitting signals.
 
-E.g. you might want add the rightclick menu to your tasklist: 
+E.g. you might want add the rightclick menu to your tasklist:
 
 ```
 -- @TASKLIST_BUTTON@
