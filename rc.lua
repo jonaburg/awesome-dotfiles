@@ -24,17 +24,92 @@ local dpi           = require("beautiful.xresources").apply_dpi
 
 local scratch = require("extra.scratch")
 --local smart_borders = require('smart_borders') {show_button_tooltips = true}
+-- animation for scratch
+local bling = require("bling")
+local awestore = require("awestore")
+
+------------------------------------------------------------------------------------------------------------------------------ ANIMATIONS
+-- animation from top left --
+local anim_y = awestore.tweened(-1000, {
+	duration = 100,
+	--easing = awestore.easing.cubic_in_out
+	easing = awestore.easing.sine_in_out
+})
+local anim_x = awestore.tweened(-20, {
+	duration = 100,
+	--easing = awestore.easing.cubic_in_out
+	easing = awestore.easing.sine_in_out
+})
+-- animation from top left --
+local right_up_anim_y = awestore.tweened(-1000, {
+	duration = 140,
+	easing = awestore.easing.cubic_in_out
+})
+local right_up_anim_x = awestore.tweened(200, {
+	duration = 140,
+	easing = awestore.easing.cubic_in_out
+})
+
 
 screen_width = awful.screen.focused().geometry.width
 screen_height = awful.screen.focused().geometry.height
+
+local term_scratch = bling.module.scratchpad:new {
+    command = "st -n spad",           -- How to spawn the scratchpad
+    rule = { instance = "spad" },                     -- The rule that the scratchpad will be searched by
+    sticky = true,                                    -- Whether the scratchpad should be sticky
+    autoclose = true,                                 -- Whether it should hide itself when losing focus
+    floating = true,                                  -- Whether it should be floating
+    geometry = {x=25, y=50, height=900, width=1200}, -- The geometry in a floating state
+    reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
+    dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
+    awestore = {x = anim_x, y = anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
+}
+
+local pape_scratch = bling.module.scratchpad:new {
+    command = "/home/jon/.local/bin/utilities/quicklinks.sh",           -- How to spawn the scratchpad
+    --command = "st -n papes",           -- How to spawn the scratchpad
+    rule = { instance = "rofi" },                     -- The rule that the scratchpad will be searched by
+    sticky = true,                                    -- Whether the scratchpad should be sticky
+    autoclose = true,                                 -- Whether it should hide itself when losing focus
+    floating = true,                                  -- Whether it should be floating
+    geometry = {x=25, y=50, height=900, width=1200}, -- The geometry in a floating state
+    reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
+    dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
+    awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
+}
+
+local email_scratch = bling.module.scratchpad:new {
+    command = "st -n email",           -- How to spawn the scratchpad
+    rule = { instance = "email" },                     -- The rule that the scratchpad will be searched by
+    sticky = true,                                    -- Whether the scratchpad should be sticky
+    autoclose = true,                                 -- Whether it should hide itself when losing focus
+    floating = true,                                  -- Whether it should be floating
+    --geometry = {x=0, y=50, height=awful.screen.focused(), width=awful.screen.focused()}, -- The geometry in a floating state
+    geometry = {x=screen_width / 5 , y=50, height=(screen_height / 2), width=screen_width * 3/5} -- The geometry in a floating state
+    reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
+    dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
+    awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
+}
+
+--function open_scratchpad(pad)
+--  local s_geo = awful.screen.focused().geometry
+--  pad.geometry = {
+--    x = 10,
+--    y = 10,
+--    width = s_geo.width - 20,
+--    height = (s_geo.height - 10) / 2
+--  }
+--  pad:toggle()
+--end
+------------------------------------------------------------------------------------------------------------------------- FIN ANIM
+
 
 -- expose addono
 --local revelation=require("revelation")
 -- termgrp addon
 -- radical menues/addon
 --local radical = require("radical")
-
-
 
 --local termgrp = require('termgrp')
 --	termgrp.terminal = "st"
@@ -496,8 +571,18 @@ globalkeys = my_table.join(
               {description = "decrement useless gaps", group = "tag"}),
 
 -- Scratch
-    awful.key({ modkey, "Shift" }, "n", function () scratch.toggle("st -n scratch", { instance = "scratch" }) end,
+--    awful.key({ modkey, "Shift" }, "n", function () scratch.toggle("st -n scratch", { instance = "scratch" }) end,
+--              {description = "pop up scratchpad", group = "tag"}),
+
+-- term_scratch (Anim)
+    awful.key({ modkey, "Shift" }, "m", function () term_scratch:toggle() end,
               {description = "pop up scratchpad", group = "tag"}),
+-- pape_scratch (Anim)
+    awful.key({ modkey, "Shift" }, "n", function () pape_scratch:toggle() end,
+              {description = "pop up pape scratch", group = "tag"}),
+-- email_scratch (Anim)
+    awful.key({ modkey}, "e", function () email_scratch:toggle() end,
+              {description = "pop up email scratch", group = "tag"}),
 
     -- Dynamic tagging
 --    awful.key({ modkey, "Shift" }, "n", function () lain.util.add_tag() end,
@@ -735,8 +820,11 @@ clientkeys = my_table.join(
 
     awful.key({ modkey,    }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Shift" }, "space",  awful.client.floating.toggle                     ,
+
+    awful.key({ modkey, "Shift" }, "space",
+    awful.client.floating.toggle,
               {description = "toggle floating", group = "client"}),
+
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey, "Shift"           }, "o",      function (c) c:move_to_screen()               end,
