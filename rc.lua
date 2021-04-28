@@ -81,7 +81,7 @@ local coin_scratch = bling.module.scratchpad:new {
     sticky = true,                                    -- Whether the scratchpad should be sticky
     autoclose = true,                                 -- Whether it should hide itself when losing focus
     floating = true,                                  -- Whether it should be floating
-    geometry = {x=25, y=50, height=900, width=1200}, -- The geometry in a floating state
+    geometry = {x=25, y=50, height=300, width=1200}, -- The geometry in a floating state
     reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
     awestore = {x = right_anim_x, y = right_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
@@ -146,6 +146,16 @@ function open_music()
   music_scratch:toggle()
 end
 
+function open_coin()
+  local s_geo = awful.screen.focused().geometry
+  coin_scratch.geometry = {
+    x =0,
+    y = 50,
+    width = s_geo.width * 2/5,
+    height = s_geo.height - 50
+  }
+  coin_scratch:toggle()
+end
 
 
 ------------------------------------------------------------------------------------------------------------------------- FIN ANIM
@@ -621,7 +631,7 @@ globalkeys = my_table.join(
 --              {description = "pop up scratchpad", group = "tag"}),
 
 -- coin_scratch (Anim)
-    awful.key({ modkey}, "c", function () coin_scratch:toggle() end,
+    awful.key({ modkey}, "c", function () open_coin() end,
               {description = "pop up scratchpad", group = "tag"}),
 -- pape_scratch (Anim)
 --    awful.key({ modkey, "Shift" }, "n", function () pape_scratch:toggle() end,
@@ -1044,8 +1054,7 @@ awful.rules.rules = {
 
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
-      properties = { titlebars_enabled = false } },
-
+      properties = { titlebars_enabled = true } },
     -- Set Firefox to always map on the first tag on screen 1.
     { rule = { class = "Firefox" },
       properties = { screen = 1, tag = awful.util.tagnames[2] } },
@@ -1114,15 +1123,11 @@ client.connect_signal("request::titlebars", function(c)
 
     awful.titlebar(c, {size = dpi(16)}) : setup {
         { -- Left
-            awful.titlebar.widget.iconwidget(c),
+          --  awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
         },
         { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
             buttons = buttons,
             layout  = wibox.layout.flex.horizontal
         },

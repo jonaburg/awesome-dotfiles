@@ -27,7 +27,7 @@ local redshift = require('extra.bars.redshift')
 local ddcshift = require('extra.bars.ddcshift')
 -- sliding bars --
 local tagbar = require('extra.slidebars.tagbar')
-local titlebar = require('extra.slidebars.titlebar')
+local upper_titlebar = require('extra.slidebars.titlebar')
 -- indicator --
 local email = require('themes.concencolor.extra.email')
 local vm = require('extra.vmhunter')
@@ -53,7 +53,6 @@ theme.mpd_font  = "Open Sans 10"
 --theme.tasklist_font = "Linux Biolinum 12"
 theme.tasklist_font = "sf mono 12"
 --theme.tasklist_font = "Iosevka 14"
-
 --theme.highlight = "#A3C784" -- google green
 theme.highlight = "#88A67D" -- google green
 theme.green = "#c2e1a1" -- google green
@@ -63,6 +62,8 @@ theme.yellow = "#F4E8a8" -- google teal
 theme.blue = "#9ECDD2" -- google blue
 --theme.highlight = "#b6bfd5" -- google blueish
 --theme.highlight = "#9ECDD2" -- blueish
+
+
 
 theme.email_alert = "#6FFFCB"
 theme.fg_normal                                 = "#bababa"
@@ -126,66 +127,66 @@ theme.tasklist_bg_normal                        = "#282E2A"
    theme.tasklist_fg_focus                         = "#000000" -- BLACK
 --theme.tasklist_fg_focus                         = "#96d58b"
 
-local smart_borders = require('smart_borders') {
-	show_button_tooltips = true,
-	 button_positions = {"top"},
-    buttons = {"floating", "sticky", "top", "maximize", "close"},
-
-    layout = "fixed",
-    align_horizontal = "right",
-    button_size = 300,
-    button_floating_size = 90,
-    button_sticky_size = 60,
-    button_top_size = 60,
-    button_maximize_size = 60,
-    button_close_size = 60,
-    border_width = 2,
-
-    color_normal = "#252525",
-    color_focus = "#7289da",
-
-   -- color_close_normal = {
-   --     type = "linear",
-   --     from = {0, 0},
-   --     to = {60, 0},
-   --     stops = {{0, "#B57582"}, {1, "#56666f"}}
-   -- },
-    --color_close_focus =  "#B57582" ,
-    color_sticky_normal ="#56666f",
-    color_sticky_focus = theme.blue,
-    color_top_normal ="#56666f",
-    color_top_focus = theme.green,
-    color_maximize_normal ="#56666f",
-    color_maximize_focus =theme.yellow,
-    color_close_normal ="#56666f",
-    color_close_hover = {
-        type = "linear",
-        from = {0, 0},
-        to = {60, 0},
-        stops = {{0, "#FF9EA3"}, {1, "#a1bfcf"}}
-    },
-    color_floating_normal ="#56666f",
-    color_floating_focus = {
-        type = "linear",
-        from = {0, 0},
-        to = {40, 0},
-        stops = {{0, "#a1bfcf"}, {1, theme.purp}}
-    },
-    color_floating_hover = {
-        type = "linear",
-        from = {0, 0},
-        to = {40, 0},
-        stops = {{0, "#a1bfcf"}, {1, "#F7C6FF"}}
-    },
-
-    --snapping = true,
-    --snapping_center_mouse = true,
-
-    -- custom control example:
-    button_back = function(c)
-        -- set client as master
-        c:swap(awful.client.getmaster())
-    end,
+--local smart_borders = require('smart_borders') {
+--	show_button_tooltips = true,
+--	 button_positions = {"top"},
+--    buttons = {"floating", "sticky", "top", "maximize", "close"},
+--
+--    layout = "fixed",
+--    align_horizontal = "right",
+--    button_size = 300,
+--    button_floating_size = 90,
+--    button_sticky_size = 60,
+--    button_top_size = 60,
+--    button_maximize_size = 60,
+--    button_close_size = 60,
+--    border_width = 2,
+--
+--    color_normal = "#252525",
+--    color_focus = "#7289da",
+--
+--   -- color_close_normal = {
+--   --     type = "linear",
+--   --     from = {0, 0},
+--   --     to = {60, 0},
+--   --     stops = {{0, "#B57582"}, {1, "#56666f"}}
+--   -- },
+--    --color_close_focus =  "#B57582" ,
+--    color_sticky_normal ="#56666f",
+--    color_sticky_focus = theme.blue,
+--    color_top_normal ="#56666f",
+--    color_top_focus = theme.green,
+--    color_maximize_normal ="#56666f",
+--    color_maximize_focus =theme.yellow,
+--    color_close_normal ="#56666f",
+--    color_close_hover = {
+--        type = "linear",
+--        from = {0, 0},
+--        to = {60, 0},
+--        stops = {{0, "#FF9EA3"}, {1, "#a1bfcf"}}
+--    },
+--    color_floating_normal ="#56666f",
+--    color_floating_focus = {
+--        type = "linear",
+--        from = {0, 0},
+--        to = {40, 0},
+--        stops = {{0, "#a1bfcf"}, {1, theme.purp}}
+--    },
+--    color_floating_hover = {
+--        type = "linear",
+--        from = {0, 0},
+--        to = {40, 0},
+--        stops = {{0, "#a1bfcf"}, {1, "#F7C6FF"}}
+--    },
+--
+--    --snapping = true,
+--    --snapping_center_mouse = true,
+--
+--    -- custom control example:
+--    button_back = function(c)
+--        -- set client as master
+--        c:swap(awful.client.getmaster())
+--    end,
 
 ----- -- hot_corners
 -------    hot_corners_color = "#FD8489",
@@ -205,7 +206,7 @@ local smart_borders = require('smart_borders') {
 -------            end,
 -------        }
 -------    },
-}
+--}
 
 
 
@@ -267,6 +268,12 @@ theme.titlebar_maximized_button_normal_inactive = theme.default_dir.."/titlebar/
 theme.titlebar_maximized_button_focus_inactive  = theme.default_dir.."/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
+
+
+
+
+
+
 
 theme.musicplr = string.format("%s -e ncmpcpp", awful.util.terminal)
 
@@ -517,13 +524,13 @@ local barcolor  = gears.color({
     stops = { {0, theme.bg_focus}, {0.25, "#505050"}, {1, theme.bg_focus} }
 })
 
---local titlebarcolor  = gears.color({
+--local upper_titlebarcolor  = gears.color({
 --    type  = "linear",
 --    from  = { 0, 0 },
 --    to    = { 0, 120 },
 --    stops = { {0, "#000000"}, {0.9, "#505050" .. "00"}}
 --})
-local titlebarcolor = gears.color({
+local upper_titlebarcolor = gears.color({
     type = "radial",
     from = { 200, 30, 120 },
     to = { 2500, 80, 140 },
@@ -608,6 +615,10 @@ function theme.at_screen_connect(s)
     end
     gears.wallpaper.maximized(wallpaper, s, true)
 
+
+--Client Titlebar windows (taking gradient colors) --
+theme.titlebar_bg_focus = darksilverbar
+theme.titlebar_fg_focus = "#000000"
 
 
 -- Eminent-like task filtering
