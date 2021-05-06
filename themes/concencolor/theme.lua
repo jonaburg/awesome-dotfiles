@@ -127,6 +127,21 @@ theme.tasklist_bg_normal                        = "#282E2A"
    theme.tasklist_fg_focus                         = "#000000" -- BLACK
 --theme.tasklist_fg_focus                         = "#96d58b"
 
+-- Tag Preview
+
+theme.tag_preview_widget_border_radius = 0
+theme.tag_preview_client_border_radius = 0
+theme.tag_preview_client_opacity = 0.8
+theme.tag_preview_client_bg =  "#ff0000"
+theme.tag_preview_client_border_color = "#ff0000"
+theme.tag_preview_client_border_width = 3           -- The border width of each client
+theme.tag_preview_widget_bg = "#ff0000"
+theme.tag_preview_widget_border_width = 1
+theme.tag_preview_widget_margin = 0
+
+theme.fade_duration = 250
+
+
 --local smart_borders = require('smart_borders') {
 --	show_button_tooltips = true,
 --	 button_positions = {"top"},
@@ -841,6 +856,15 @@ s.mytaglistn = awful.widget.taglist {
         create_callback = function(self, c3, index, objects) --luacheck: no unused args
             self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
             self:connect_signal('mouse::enter', function()
+
+                -- BLING: Only show widget when there are clients in the tag
+                if #c3:clients() > 0 then
+                    -- BLING: Update the widget with the new tag
+                    awesome.emit_signal("bling::tag_preview::update", c3)
+                    -- BLING: Show the widget
+                    awesome.emit_signal("bling::tag_preview::visibility", s, true)
+                end
+
                 if self.bg ~= '#B57582' then
                     self.backup     = self.bg
                     self.has_backup = true
@@ -848,6 +872,10 @@ s.mytaglistn = awful.widget.taglist {
                 self.bg = '#B57582'
             end)
             self:connect_signal('mouse::leave', function()
+
+		         -- BLING: Turn the widget off
+                awesome.emit_signal("bling::tag_preview::visibility", s, false)
+
                 if self.has_backup then self.bg = self.backup end
             end)
         end,
@@ -945,6 +973,15 @@ s.mytaglistn = awful.widget.taglist {
         create_callback = function(self, c3, index, objects) --luacheck: no unused args
             self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
             self:connect_signal('mouse::enter', function()
+
+                -- BLING: Only show widget when there are clients in the tag
+                if #c3:clients() > 0 then
+                    -- BLING: Update the widget with the new tag
+                    awesome.emit_signal("bling::tag_preview::update", c3)
+                    -- BLING: Show the widget
+                    awesome.emit_signal("bling::tag_preview::visibility", s, true)
+                end
+
                 if self.bg ~= '#B57582' then
                     self.backup     = self.bg
                     self.has_backup = true
@@ -952,6 +989,10 @@ s.mytaglistn = awful.widget.taglist {
                 self.bg = '#B57582'
             end)
             self:connect_signal('mouse::leave', function()
+
+		         -- BLING: Turn the widget off
+                awesome.emit_signal("bling::tag_preview::visibility", s, false)
+
                 if self.has_backup then self.bg = self.backup end
             end)
         end,
@@ -1080,7 +1121,7 @@ function tagbar_hor(s)
      size = 40,
      ontop = true,
     -- size_activator = 5,
-    -- show_delay = 0.25,
+     show_delay = 0.25,
      hide_delay = 0.2,
      easing = 1,
      delta = 50,

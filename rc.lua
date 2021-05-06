@@ -20,7 +20,6 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
 
-
 local scratch = require("extra.scratch")
 --local smart_borders = require('smart_borders') {show_button_tooltips = true}
 
@@ -72,6 +71,7 @@ local left_anim_x = awestore.tweened(5000, {
 })
 screen_width = awful.screen.focused().geometry.width
 screen_height = awful.screen.focused().geometry.height
+
 local coin_scratch = bling.module.scratchpad:new {
     command = "st -n coin",           -- How to spawn the scratchpad
     rule = { instance = "coin" },                     -- The rule that the scratchpad will be searched by
@@ -150,6 +150,17 @@ function open_coin()
 end
 ------------------------------------------------------------------------------------------------------------------------- FIN ANIM
 
+--- tag previews --
+bling.widget.tag_preview.enable {
+	show_client_content = true,
+	x = 20,
+	y = 100,
+--	x = screen_width / 8,
+--	y = 1050,
+	scale = 0.25,
+	honor_padding = true,
+	honor_workarea = false
+}
 -- expose addono
 --local revelation=require("revelation")
 -- termgrp addon
