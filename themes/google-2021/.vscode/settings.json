@@ -1,0 +1,10 @@
+{
+    "git.ignoreLimitWarning": true,
+    "Lua.diagnostics.globals": [
+        "redshiftholder",
+        "screen"
+    ],
+    "Lua.diagnostics.disable": [
+        "undefined-global"
+    ]
+}

@@ -1,5 +1,5 @@
 --[[
-	Concencolor (google inspired)
+	Google-Based (2021)
 --]]
 
 local gears = require("gears")
@@ -16,10 +16,10 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
-theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/concencolor"
-theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/concencolor/icons"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/concencolor/wall.png"
-theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/concencolor"
+theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/google-2021"
+theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/google-2021/icons"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/google-2021/wall.png"
+theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/google-2021"
 
 ------ personal widgets ----- {{
 -- bars --
@@ -29,10 +29,10 @@ local ddcshift = require('extra.bars.ddcshift')
 local tagbar = require('extra.slidebars.tagbar')
 local upper_titlebar = require('extra.slidebars.titlebar')
 -- indicator --
-local email = require('themes.concencolor.extra.email')
+local email = require('themes.google-2021.extra.email')
 local vm = require('extra.vmhunter')
-local gpuhunter = require('themes.concencolor.extra.gpuhunter')
-local gputemps = require('themes.concencolor.extra.gputemps')
+local gpuhunter = require('themes.google-2021.extra.gpuhunter')
+local gputemps = require('themes.google-2021.extra.gputemps')
 -- geographic environment widgets --
 local airquality = require('extra.geographic.airquality')
 local humidity = require('extra.geographic.humidity')
@@ -68,148 +68,37 @@ theme.blue = "#9ECDD2" -- google blue
 theme.email_alert = "#6FFFCB"
 theme.fg_normal                                 = "#bababa"
 theme.fg_focus					= "#e33a6e"
---theme.bg_focus                                  = "#242424"
 theme.bg_focus                                  = "#141c29" -- midnight blue
---theme.bg_focus                                  = "#93c5c8" -- bright  blue
---theme.bg_focus                                  = "#7289DA" -- ephemeral blue
---theme.bg_focus = "#B6BD68"
 
 theme.bg_normal                                 = "#141414" .. "99"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#D9574F"
---theme.bg_urgent                                 = "#B57582"
 
---theme.fg_urgent                                 = "#CC9393"
---theme.bg_urgent                                 = "#006B8E"
-
---theme.border_width                              = dpi(2) -- normal
-theme.border_width                              = 0 -- with smart_borders ((watchout with strutwide.lua [c.border_width]))
-theme.border_normal                             = "#252525" .. "0"
---theme.border_focus                              = "#ADAFFF" .. "15"
---theme.border_focus                              = "#c3c997" .. "15"
-theme.border_focus                              = "#7289DA" .. "0"
---theme.border_focus                              = "#9fb0a6"
+theme.border_width                              = dpi(2) -- normal
+--theme.border_width                              = 0 -- with smart_borders
+theme.border_normal                             = "#252525"
+theme.border_focus                              = "#7289DA"
 
 -- widget value colors
---theme.widget_value_bg = "#A5A5A6" -- greyish
---theme.widget_value_bg = "#A5A5A6"
 theme.widget_value_bg = "#A5A5A6" .. "0"
 widget_value_bg = "#A5A5A6"
 theme.my_color = "#ff0000"
 
 --taglist colors
 theme.taglist_fg_focus = "#000000"
---theme.taglist_bg_empty = "#f5f5f6" -- light
 theme.taglist_bg_empty = "#c2c3c2" .. "20" -- darker
---theme.taglist_bg_empty = "#A5A5A6" -- evendarker
 theme.taglist_fg_empty = "#000000"
 theme.taglist_bg_occupied = "#6c8797" .. "65"
---theme.taglist_fg_occupied = "#000000"
 theme.taglist_fg_occupied = "#c3c2c3"
-
---taglist colors
 theme.taglist_fg_focus_base = "#000000"
---theme.taglist_bg_empty = "#f5f5f6" -- light
 theme.taglist_bg_empty_base = "#c2c3c2" -- darker
 theme.taglist_fg_empty_base = "#000000"
 theme.taglist_bg_occupied_base = "#6c8797"
 theme.taglist_fg_occupied_base = "#000000"
 
---theme.tasklist_bg_normal                        = "#141414"
 theme.tasklist_bg_normal                        = "#282E2A"
--- theme.tasklist_fg_focus                         = "#ADAFFF" --Light purple
- --  theme.tasklist_fg_focus                         = "#F9A256" --Light Orange
- --  theme.tasklist_bg_focus                        = "#7289da"
---   theme.tasklist_bg_focus                          = "#141c29" -- midnight blue
---   theme.tasklist_bg_focus                          = googlegreen
    theme.tasklist_bg_focus                          = "#668371" -- google green
---   theme.tasklist_fg_focus                         = "#FFFFFF" -- WHITE
    theme.tasklist_fg_focus                         = "#000000" -- BLACK
---theme.tasklist_fg_focus                         = "#96d58b"
-
---local smart_borders = require('smart_borders') {
---	show_button_tooltips = true,
---	 button_positions = {"top"},
---    buttons = {"floating", "sticky", "top", "maximize", "close"},
---
---    layout = "fixed",
---    align_horizontal = "right",
---    button_size = 300,
---    button_floating_size = 90,
---    button_sticky_size = 60,
---    button_top_size = 60,
---    button_maximize_size = 60,
---    button_close_size = 60,
---    border_width = 2,
---
---    color_normal = "#252525",
---    color_focus = "#7289da",
---
---   -- color_close_normal = {
---   --     type = "linear",
---   --     from = {0, 0},
---   --     to = {60, 0},
---   --     stops = {{0, "#B57582"}, {1, "#56666f"}}
---   -- },
---    --color_close_focus =  "#B57582" ,
---    color_sticky_normal ="#56666f",
---    color_sticky_focus = theme.blue,
---    color_top_normal ="#56666f",
---    color_top_focus = theme.green,
---    color_maximize_normal ="#56666f",
---    color_maximize_focus =theme.yellow,
---    color_close_normal ="#56666f",
---    color_close_hover = {
---        type = "linear",
---        from = {0, 0},
---        to = {60, 0},
---        stops = {{0, "#FF9EA3"}, {1, "#a1bfcf"}}
---    },
---    color_floating_normal ="#56666f",
---    color_floating_focus = {
---        type = "linear",
---        from = {0, 0},
---        to = {40, 0},
---        stops = {{0, "#a1bfcf"}, {1, theme.purp}}
---    },
---    color_floating_hover = {
---        type = "linear",
---        from = {0, 0},
---        to = {40, 0},
---        stops = {{0, "#a1bfcf"}, {1, "#F7C6FF"}}
---    },
---
---    --snapping = true,
---    --snapping_center_mouse = true,
---
---    -- custom control example:
---    button_back = function(c)
---        -- set client as master
---        c:swap(awful.client.getmaster())
---    end,
-
------ -- hot_corners
--------    hot_corners_color = "#FD8489",
--------    hot_corners_width = 10,
--------    hot_corners_height = 10,
--------    hot_corners = {
--------        ["top_right"] = {
--------            left_click = function()
--------                -- unfullscreen the focused client with left --click
--------                local c = client.focus
--------                if c and c.fullscreen then
--------                    c.fullscreen = false
--------                end
--------            end,
--------            middle_click = function()
--------                awesome.restart()
--------            end,
--------        }
--------    },
---}
-
-
-
 theme.menu_height                               = dpi(20)
 theme.menu_width                                = dpi(160)
 theme.menu_icon_size                            = dpi(32)
@@ -268,21 +157,10 @@ theme.titlebar_maximized_button_normal_inactive = theme.default_dir.."/titlebar/
 theme.titlebar_maximized_button_focus_inactive  = theme.default_dir.."/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
-
-
-
-awful.rules.rules = {
-	{ rule_any = { type = {"dialog", "normal" } },
-	properties = { titlebars_enabled = true } },
-}
-
-
 theme.musicplr = string.format("%s -e ncmpcpp", awful.util.terminal)
-
 local markup = lain.util.markup
 local blue   = "#80CCE6"
 local space3 = markup.font("Roboto 3", " ")
-
 -- Clock
 --local mytextclock = wibox.widget.textclock(markup("#c3c2c3", " %Y-%m-%d "))
 local mytextclock = wibox.widget.textclock(markup("#c3c2c3", "%a, %d. %b "))
@@ -733,12 +611,6 @@ local goodhexa = function(cr, width, height)
 end
 
 local goodparal = function(cr, width, height)
---      gears.shape.transform(gears.shape.parallelogram) : scale(0.1, 1)(cr,540,70)
---    gears.shape.partially_rounded_rect(cr, 140, 140, true)
---      gears. shape.partially_rounded_rect(cr, 300, 50, false, false, true, false, 30)
-        --gears.shape.rectangular_tag(cr, 300, 50)
---        gears.shape.transform(gears.shape.rectangular_tag) : rotate_at(150,35,3*math.pi/3) (cr,300,70) -- decent
-        --gears.shape.transform(gears.shape.rectangular_tag) : rotate_at(150,35, 3*math.pi/3) (cr,300,70)
         gears.shape.transform(gears.shape.rectangular_tag) : rotate_at(150,25, 3*math.pi/3) (cr,305,120)
     --gears.shape.transform(gears.shape.hexagon) : translate(10,25)(cr,20,70)
 --    gears.shape.hexagon(cr, 320, 50)
@@ -1033,9 +905,9 @@ screen[1].mywibox = awful.wibar(
             layout = wibox.layout.fixed.horizontal,
 --        musicwidget,
 -- --       vmholder, --  currently not using any vms
---       -- temperatureholder,
---       -- airqualityholder,
---       -- humidityholder,
+--        temperatureholder,
+--        airqualityholder,
+--        humidityholder,
 --        -----------------------
         gputempsholder,
         gpuholder,
@@ -1049,7 +921,7 @@ screen[1].mywibox = awful.wibar(
         --halign = 'right',
         },
     }
--- if main screen then indent topbar down. (specific to main 3k monitor)
+
     if s.index == 1
     then
         ----- {{ TOP BAR}}
@@ -1061,26 +933,16 @@ screen[1].mywibox = awful.wibar(
          screen[1].mywibox.x = 0
          --screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
          screen[1].mywibox:struts({left=0, right=0, top=45, bottom=0})
-
-
     end
 
 function tagbar_hor(s)
 	if s.index == 1
 		then screen[1].mytagbar = tagbar {
---		screen[1].mytagbar = tagbar {
-     --bg = "#282a36" .. "20",
-     --bg = tagbarcolor,
      bg = gears.color.create_png_pattern(theme.tagbarbg),
-      --bg = "#121212",
-     -- bg = darksilverbar,
      screen = s,
      position = "bottom",
-     --size = 60,
      size = 40,
      ontop = true,
-    -- size_activator = 5,
-    -- show_delay = 0.25,
      hide_delay = 0.2,
      easing = 1,
      delta = 50,
@@ -1108,12 +970,11 @@ function tagbar_hor(s)
             s.mytasklistholder, -- Middle widget
 	    ddcshiftholder,
 	    redshiftholder,
---        volumewidget,
         },
     }
+
 end
 end
 gears.timer.delayed_call(tagbar_hor, s)
-
 end
 return theme

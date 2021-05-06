@@ -54,11 +54,13 @@ end
 
 -- Client geometry correction depending on useless gap and window border
 local function size_correction(c, geometry, useless_gap)
-    geometry.width  = math.max(geometry.width  - 5 * c.border_width - useless_gap, 1)
-    geometry.height = math.max(geometry.height - 5 * c.border_width - useless_gap, 1)
+   -- geometry.width  = math.max(geometry.width  - 5 * c.border_width - useless_gap, 1)
+   -- geometry.height = math.max(geometry.height - 5 * c.border_width - useless_gap, 1)
+    geometry.width  = math.max(geometry.width  - 5 * 4 - useless_gap, 1)
+    geometry.height = math.max(geometry.height - 5 * 4 - useless_gap, 1)
     geometry.x = geometry.x + useless_gap / 1
     --geometry.y = geometry.y + useless_gap / 1 --- I added the - 20...
-    geometry.y = geometry.y - 5 + useless_gap / 1 --- I added the - 20...
+    geometry.y = geometry.y - 5 + useless_gap / 1 --- I added the - 20... -- adds a buffer at hte bottom..
 end
 
 --Check size factor for group of clients and calculate total
@@ -105,6 +107,7 @@ local function tile(p, orientation)
 
     -- Theme vars
     local useless_gap = beautiful.useless_gap_width or 0
+    --local global_border = beautiful.global_border_width or 0
     local global_border = beautiful.global_border_width or 0
 
     -- Aliases
@@ -140,7 +143,7 @@ local function tile(p, orientation)
     wa.y = wa.y + useless_gap / 2 + global_border
 
     if #cls == 1 then
-        local sg = beautiful.single_gap or { width = 0, height = 5 }
+        local sg = beautiful.single_gap or { width = 0, height = 0 }
         local correction = { x = sg.width / 2, y = sg.height / 2, width = - sg.width, height = - sg.height }
         for k, v in pairs(correction) do wa[k] = wa[k] + v end
     end

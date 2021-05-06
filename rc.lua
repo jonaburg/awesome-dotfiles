@@ -1,7 +1,5 @@
 --[[
-
 jon's awesomewm rip
-
 --]]
 
 -- {{{ Required libraries
@@ -22,11 +20,13 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
 
+
 local scratch = require("extra.scratch")
 --local smart_borders = require('smart_borders') {show_button_tooltips = true}
+
 -- animation for scratch
-local bling = require("bling")
-local awestore = require("awestore")
+local bling = require("bling")  -- required for [tag preview / sliding animations ]
+local awestore = require("awestore") -- required for modern async widget sidepanel sliding
 
 ------------------------------------------------------------------------------------------------------------------------------ ANIMATIONS
 -- animation from left --
@@ -70,11 +70,8 @@ local left_anim_x = awestore.tweened(5000, {
 	duration = 140,
 	easing = awestore.easing.cubic_in_out
 })
-
-
 screen_width = awful.screen.focused().geometry.width
 screen_height = awful.screen.focused().geometry.height
-
 local coin_scratch = bling.module.scratchpad:new {
     command = "st -n coin",           -- How to spawn the scratchpad
     rule = { instance = "coin" },                     -- The rule that the scratchpad will be searched by
@@ -86,7 +83,6 @@ local coin_scratch = bling.module.scratchpad:new {
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
     awestore = {x = right_anim_x, y = right_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
-
 local pape_scratch = bling.module.scratchpad:new {
     command = "st -n papes",           -- How to spawn the scratchpad
     rule = { instance = "papes" },                     -- The rule that the scratchpad will be searched by
@@ -98,7 +94,6 @@ local pape_scratch = bling.module.scratchpad:new {
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
     awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
-
 local email_scratch = bling.module.scratchpad:new {
     command = "st -n email",           -- How to spawn the scratchpad
     rule = { instance = "email" },                     -- The rule that the scratchpad will be searched by
@@ -111,7 +106,6 @@ local email_scratch = bling.module.scratchpad:new {
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
     awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
-
 local music_scratch = bling.module.scratchpad:new {
     command = "st -n music",           -- How to spawn the scratchpad
     rule = { instance = "music" },                     -- The rule that the scratchpad will be searched by
@@ -134,7 +128,6 @@ function open_email()
   }
   email_scratch:toggle()
 end
-
 function open_music()
   local s_geo = awful.screen.focused().geometry
   music_scratch.geometry = {
@@ -145,7 +138,6 @@ function open_music()
   }
   music_scratch:toggle()
 end
-
 function open_coin()
   local s_geo = awful.screen.focused().geometry
   coin_scratch.geometry = {
@@ -156,10 +148,7 @@ function open_coin()
   }
   coin_scratch:toggle()
 end
-
-
 ------------------------------------------------------------------------------------------------------------------------- FIN ANIM
-
 
 -- expose addono
 --local revelation=require("revelation")
@@ -227,14 +216,15 @@ local themes = {
     "spring",          -- 3 --broken?
     "spring2",         -- 4 -- broken
     "ethos",           -- 5 -- broken
-    "focus",           -- 6
-    "hunter",          -- 7
-    "concencolor",     -- 8
-    "focus-sensible",     -- 9
-    "vertex",     -- 10
+    "vertex",          -- 6
+    "focus",           -- 7
+    "hunter",          -- 8
+    "concencolor",     -- 9
+    "focus-sensible",  -- 10
+    "pioneer",         -- 12
+    "google-2021",     -- 13
 }
-
-local chosen_theme = themes[8]
+local chosen_theme = themes[9]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "st"
@@ -253,8 +243,8 @@ awful.layout.layouts = {
 --    awful.layout.suit.floating,
     lain.layout.strutwide,
     lain.layout.strutcenter,
-----    lain.layout.uselesstilecenter,
-----    awful.layout.suit.tile,
+--    lain.layout.uselesstilecenter,
+    awful.layout.suit.tile,
 ----    lain.layout.cascade,
 --    awful.layout.suit.spiral,
     --awful.layout.suit.magnifier,
@@ -537,7 +527,6 @@ globalkeys = my_table.join(
               {description = "view  previous nonempty", group = "tag"}),
     awful.key({ modkey }, ";", function () lain.util.tag_view_nonempty(1) end,
               {description = "view  previous nonempty", group = "tag"}),
-
     -- Default client focus
 --    awful.key({ altkey,           }, "j",
 --        function ()
@@ -1134,8 +1123,8 @@ client.connect_signal("request::titlebars", function(c)
         { -- Right
             awful.titlebar.widget.floatingbutton (c),
             awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
+            --awful.titlebar.widget.stickybutton   (c),
+            --awful.titlebar.widget.ontopbutton    (c),
             awful.titlebar.widget.closebutton    (c),
             layout = wibox.layout.fixed.horizontal()
         },
