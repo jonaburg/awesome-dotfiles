@@ -203,7 +203,6 @@ theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/
 theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
 
 
-
 awful.rules.rules = {
 	{ rule_any = { type = {"dialog", "normal" } },
 	properties = { titlebars_enabled = true } },
@@ -579,8 +578,7 @@ end
 --systrayholder = wibox.container.margin(wibox.widget.systray0 dpi(16), dpi(16), dpi(7),dpi(7)) -- sytstray
 mysystray = wibox.widget.systray()
 mysystray.visible = false
-systraybg = wibox.container.background(mysystray, "#ff0000", gears.shape.rectangle)
-systrayholder = wibox.container.margin(systraybg, dpi(5), dpi(5), dpi(7),dpi(7)) -- sytstray
+systrayholder = wibox.container.margin(mysystray, dpi(5), dpi(5), dpi(7),dpi(7)) -- sytstray
 systrayholder:connect_signal("mouse::enter", function() show_systray() end)
 systrayholder:connect_signal("mouse::leave", function() hide_systray() end)
 function show_systray() mysystray.visible = true end
@@ -921,8 +919,6 @@ s.mytaglistn = awful.widget.taglist {
     buttons = awful.util.taglist_buttons
 }
 
-
-
     local mytaglistcont2 = wibox.container.background(s.mytaglist3, "#ffffff" .. "00", gears.shape.rectangle)
     s.mytag2 = wibox.container.margin(mytaglistcont2, dpi(15), dpi(15), dpi(15), dpi(10))
 
@@ -1024,55 +1020,8 @@ screen[1].mywibox = awful.wibar(
 
     end
 
-function tagbar_hor(s)
-	if s.index == 1
-		then screen[1].mytagbar = tagbar {
---		screen[1].mytagbar = tagbar {
-     --bg = "#282a36" .. "20",
-     --bg = tagbarcolor,
-     bg = gears.color.create_png_pattern(theme.tagbarbg),
-      --bg = "#121212",
-     -- bg = darksilverbar,
-     screen = s,
-     position = "bottom",
-     --size = 60,
-     size = 40,
-     ontop = true,
-    -- size_activator = 5,
-     show_delay = 0.25,
-     hide_delay = 0.2,
-     easing = 1,
-     delta = 50,
-}
- screen[1].mytagbar:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mytag2,
-
-        --temperatureholder,
-        --airqualityholder,
-        --humidityholder,
-        --cpuwidget,
-        --gpuholder,
-        --gputempsholder,
---            s.mypromptbox,
-        },
---        s.mytasklist, -- Middle widget
-        { -- Right widgets
-           layout = wibox.layout.fixed.horizontal,
---            mykeyboardlayout,
---            wibox.widget.systray(),
-            --s.mylayoutbox,
-            s.mytasklistholder, -- Middle widget
-	    ddcshiftholder,
-	    redshiftholder,
---        volumewidget,
-        },
-    }
-end
-end
+-- need to wait a little in order to call this tagbar for the main screen.
+require("ui.bar")
 gears.timer.delayed_call(tagbar_hor, s)
-
 end
 return theme

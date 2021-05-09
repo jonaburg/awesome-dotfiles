@@ -22,7 +22,6 @@ local dpi           = require("beautiful.xresources").apply_dpi
 
 local scratch = require("extra.scratch")
 --local smart_borders = require('smart_borders') {show_button_tooltips = true}
-
 -- animation for scratch
 local bling = require("modules.bling")  -- required for [tag preview / sliding animations ]
 local awestore = require("awestore") -- required for modern async widget sidepanel sliding
@@ -666,6 +665,8 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+require("ui")
 
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
