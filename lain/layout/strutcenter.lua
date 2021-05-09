@@ -58,7 +58,7 @@ local function size_correction(c, geometry, useless_gap)
     geometry.height = math.max(geometry.height - 5 * c.border_width - useless_gap, 1)
     geometry.x = geometry.x + useless_gap / 1
     --geometry.y = geometry.y + useless_gap / 1 --- I added the - 20...
-    geometry.y = geometry.y - 5+ useless_gap / 1 --- I added the - 20...
+    geometry.y = geometry.y - 10+ useless_gap / 1 --- I added the - 20...
 end
 
 --Check size factor for group of clients and calculate total
@@ -136,7 +136,7 @@ local function tile(p, orientation)
     -- Workarea size correction depending on useless gap and global border
     wa.height = wa.height - 2 * global_border - useless_gap
     wa.width  = wa.width -  2 * global_border - useless_gap
-    wa.x = wa.x + useless_gap / 8 + global_border
+    wa.x = wa.x + useless_gap / 2 + global_border
     wa.y = wa.y + useless_gap / 2 + global_border
 
     if #cls == 1 then

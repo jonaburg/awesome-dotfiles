@@ -131,98 +131,16 @@ theme.tasklist_bg_normal                        = "#282E2A"
 
 theme.tag_preview_widget_border_radius = 0
 theme.tag_preview_client_border_radius = 0
-theme.tag_preview_client_opacity = 0.8
-theme.tag_preview_client_bg =  "#ff0000"
-theme.tag_preview_client_border_color = "#ff0000"
-theme.tag_preview_client_border_width = 3           -- The border width of each client
-theme.tag_preview_widget_bg = "#ff0000"
-theme.tag_preview_widget_border_width = 1
+theme.tag_preview_client_opacity = 0.95
+theme.tag_preview_client_bg =  "#000000"
+theme.tag_preview_client_border_color = "#121212"
+theme.tag_preview_client_border_width = 1           -- The border width of each client
+theme.tag_preview_widget_bg = "#ff0002"
+theme.tag_preview_widget_border_color = "#ffffff"   -- The border color of the widget
+theme.tag_preview_widget_border_width = 0.2
 theme.tag_preview_widget_margin = 0
 
 theme.fade_duration = 250
-
-
---local smart_borders = require('smart_borders') {
---	show_button_tooltips = true,
---	 button_positions = {"top"},
---    buttons = {"floating", "sticky", "top", "maximize", "close"},
---
---    layout = "fixed",
---    align_horizontal = "right",
---    button_size = 300,
---    button_floating_size = 90,
---    button_sticky_size = 60,
---    button_top_size = 60,
---    button_maximize_size = 60,
---    button_close_size = 60,
---    border_width = 2,
---
---    color_normal = "#252525",
---    color_focus = "#7289da",
---
---   -- color_close_normal = {
---   --     type = "linear",
---   --     from = {0, 0},
---   --     to = {60, 0},
---   --     stops = {{0, "#B57582"}, {1, "#56666f"}}
---   -- },
---    --color_close_focus =  "#B57582" ,
---    color_sticky_normal ="#56666f",
---    color_sticky_focus = theme.blue,
---    color_top_normal ="#56666f",
---    color_top_focus = theme.green,
---    color_maximize_normal ="#56666f",
---    color_maximize_focus =theme.yellow,
---    color_close_normal ="#56666f",
---    color_close_hover = {
---        type = "linear",
---        from = {0, 0},
---        to = {60, 0},
---        stops = {{0, "#FF9EA3"}, {1, "#a1bfcf"}}
---    },
---    color_floating_normal ="#56666f",
---    color_floating_focus = {
---        type = "linear",
---        from = {0, 0},
---        to = {40, 0},
---        stops = {{0, "#a1bfcf"}, {1, theme.purp}}
---    },
---    color_floating_hover = {
---        type = "linear",
---        from = {0, 0},
---        to = {40, 0},
---        stops = {{0, "#a1bfcf"}, {1, "#F7C6FF"}}
---    },
---
---    --snapping = true,
---    --snapping_center_mouse = true,
---
---    -- custom control example:
---    button_back = function(c)
---        -- set client as master
---        c:swap(awful.client.getmaster())
---    end,
-
------ -- hot_corners
--------    hot_corners_color = "#FD8489",
--------    hot_corners_width = 10,
--------    hot_corners_height = 10,
--------    hot_corners = {
--------        ["top_right"] = {
--------            left_click = function()
--------                -- unfullscreen the focused client with left --click
--------                local c = client.focus
--------                if c and c.fullscreen then
--------                    c.fullscreen = false
--------                end
--------            end,
--------            middle_click = function()
--------                awesome.restart()
--------            end,
--------        }
--------    },
---}
-
 
 
 theme.menu_height                               = dpi(20)
@@ -1005,7 +923,7 @@ s.mytaglistn = awful.widget.taglist {
 
 
 
-    local mytaglistcont2 = wibox.container.background(s.mytaglist3, "#ffffff" .. "00", gears.shape.hexagon)
+    local mytaglistcont2 = wibox.container.background(s.mytaglist3, "#ffffff" .. "00", gears.shape.rectangle)
     s.mytag2 = wibox.container.margin(mytaglistcont2, dpi(15), dpi(15), dpi(15), dpi(10))
 
     -- Create a tasklist widget
