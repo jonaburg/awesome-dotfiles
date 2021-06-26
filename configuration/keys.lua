@@ -510,8 +510,9 @@ client.connect_signal("request::default_keybindings", function()
 
             awful.key({modkey, shift}, "b", function(c)
                 c.floating = not c.floating
-                c.width = 400
-                c.height = 200
+		c.ontop = not c.ontop
+                c.width = 800
+                c.height = 500
                 awful.placement.bottom_right(c)
                 c.sticky = not c.sticky
             end, {description = "toggle keep on top", group = "client"}),

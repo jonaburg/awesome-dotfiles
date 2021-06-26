@@ -248,6 +248,12 @@ local googlegreen  = gears.color({
     stops = {{5.9, "#9fb0a6" }, {0.1, "#668371" }} -- a bit more matte.
 })
 
+local xpsilver  = gears.color({
+    type  = "linear",
+    from  = { dpi(32), dpi(32) },
+    to    = { dpi(32), 0 },
+    stops = {{5.9, "#9f9fb0" }, {0.1, "#838383" .. "20" }} -- a bit more matte.
+})
 
 local occupiedblue  = gears.color({
     type  = "linear",
@@ -260,7 +266,7 @@ local occupiedblue  = gears.color({
 })
 
 --Client Titlebar windows (taking gradient colors) --
-theme.titlebar_bg_focus = darkbluebar
+theme.titlebar_bg_focus = xpsilver
 theme.titlebar_fg_focus = "#000000"
 
 function theme.at_screen_connect(s)
@@ -570,9 +576,10 @@ s.mytaglistn = awful.widget.taglist {
 -- need to wait a little in order to call this tagbar for the main screen.
 require("ui.bars")
 
-
+-- create the upper main horizontal bar --
 main_upper_bar(s)
 
+-- create the bottom tagbar and its associated deps --
 gears.timer.delayed_call(create_taglist, s)
 gears.timer.delayed_call(tagbar_horizontal, s)
 end

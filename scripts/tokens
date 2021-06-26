@@ -1,6 +1,37 @@
 #!/bin/env bash
 
-curl -X GET "https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0x4b86e0295e7d32433ffa6411b82b4f4e56a581e1&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true" -H "accept: application/json" > ~/.config/awesome/tmp/dogira
+dogira() {
+  curl -X GET "https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0x4b86e0295e7d32433ffa6411b82b4f4e56a581e1&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true" -H "accept: application/json" > ~/.config/awesome/tmp/dogira
 
-cat ~/.config/awesome/tmp/dogira | jq .'[] | .usd'
+  cat ~/.config/awesome/tmp/dogira | jq .'[] | .usd'
+}
 
+feg() {
+  curl -X GET "https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0x389999216860ab8e0175387a0c90e5c52522c945&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true" -H "accept: application/json" | jq .'[] | .usd' > ~/.config/awesome/tmp/feg
+
+  cat ~/.config/awesome/tmp/feg
+}
+
+feg_portfolio() {
+  curl -X GET "https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0x389999216860ab8e0175387a0c90e5c52522c945&address=0x6F3275D8067b4Da2dC48e23a04a3Bf9cED351475&page=1&offset=100&sort=asc&apikey=6VS6J1YSYXCUAG3RYBNKAMFPN6XV8K1GSS" -H "accept: application/json" | jq .'[]' | tail -1 | sed 's\"\\g' | sed 's/.........$/.&/;t;s/^.$/.0&/' > ~/.config/awesome/tmp/feg_portfolio
+cat ~/.config/awesome/tmp/feg_portfolio
+
+
+}
+
+dogira_portfolio() {
+  curl -X GET "https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0x4b86e0295e7d32433ffa6411b82b4f4e56a581e1&address=0x6f3275d8067b4da2dc48e23a04a3bf9ced351475&page=1&offset=100&sort=asc&apikey=6vs6j1ysyxcuag3rybnkamfpn6xv8k1gss" -H "accept: application/json" | jq .'[]' | tail -1 | sed 's\"\\g' |  sed 's/..................$/.&/;t;s/^.$/.0&/' > ~/.config/awesome/tmp/dogira_portfolio
+cat ~/.config/awesome/tmp/dogira_portfolio
+}
+
+feg_in_usd() {
+	#sn=$(cat ~/.config/awesome/tmp/feg)
+
+	#a=$(( perl -e 'printf "%.4f\n", $sn * 559247188239.702339395'  ))
+	#echo "$sn"
+	perl -e $('printf "%.4f\n", '$(cat feg)' * '$(cat feg_portfolio)'')
+
+}
+
+
+"$@"
