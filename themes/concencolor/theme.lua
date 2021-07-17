@@ -111,7 +111,7 @@ theme.tag_preview_client_opacity = 0.95
 theme.tag_preview_client_bg =  "#000000"
 theme.tag_preview_client_border_color = "#121212"
 theme.tag_preview_client_border_width = 1           -- The border width of each client
-theme.tag_preview_widget_bg = "#ff0002"
+theme.tag_preview_widget_bg = "#6e7aa6" .. "25"
 theme.tag_preview_widget_border_color = "#ffffff"   -- The border color of the widget
 theme.tag_preview_widget_border_width = 0.2
 theme.tag_preview_widget_margin = 0
@@ -438,6 +438,20 @@ s.mytaglistn = awful.widget.taglist {
                     awesome.emit_signal("bling::tag_preview::update", c3)
                     -- BLING: Show the widget
                     awesome.emit_signal("bling::tag_preview::visibility", s, true)
+               else
+		       bling.widget.tag_preview.enable {
+			       show_client_content = true,
+			       x = 200,
+			       y = 100,
+			       scale = 0.5,
+			       honor_padding = true,
+			       honor_workarea = false,
+		       }
+                    -- BLING: Update the widget with the new tag
+                    awesome.emit_signal("bling::tag_preview::update", c3)
+                    -- BLING: Show the widget
+                    awesome.emit_signal("bling::tag_preview::visibility", s, true)
+
                 end
 
                 if self.bg ~= '#B57582' then
@@ -460,6 +474,9 @@ s.mytaglistn = awful.widget.taglist {
     },
     buttons = awful.util.taglist_buttons
 }
+
+
+
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {
          bg_focus = "#B6BD68",
@@ -568,16 +585,21 @@ s.mytaglistn = awful.widget.taglist {
     buttons = awful.util.taglist_buttons
 }
 
+
+---------------------------------------------------------------------------------
+
  -- Create a tasklist widget
  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
  s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(50), dpi(30), dpi(20), dpi(20))
 
 
--- need to wait a little in order to call this tagbar for the main screen.
+-- calls main source for bar widgets. after this, still need to wait a little in order to call this tagbar for the main screen.
 require("ui.bars")
 
 -- create the upper main horizontal bar --
 main_upper_bar(s)
+-- create the side panel(s) --
+side_panel(s)
 
 -- create the bottom tagbar and its associated deps --
 gears.timer.delayed_call(create_taglist, s)

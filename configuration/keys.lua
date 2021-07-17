@@ -23,6 +23,14 @@ require("awful.hotkeys_popup.keys")
 --local machi = require("module.layout-machi")
 --local bling = require("module.bling")
 
+-- swap_shift counter ()
+function swap_shift ()
+--	if awful.tag.selected(1).name == "1" then
+--          screen[1].tags[1]:swap(screen[2].tags[1])
+     screen[1].selected_tag:swap(screen[2].selected_tag)
+
+
+end
 
 
 -- Mouse Bindings
@@ -46,6 +54,11 @@ awful.keyboard.append_global_keybindings(
               {description = "view  previous nonempty", group = "tag"}),
     awful.key({ modkey }, ";", function () lain.util.tag_view_nonempty(1) end,
               {description = "view  previous nonempty", group = "tag"}),
+
+    awful.key({ modkey }, "v", function ()
+	   awesome.emit_signal("widgets::start::toggle") end,
+              {description = "show panel (left)", group = "awesome"}),
+
     -- Default client focus
 --    awful.key({ altkey,           }, "j",
 --        function ()
@@ -493,8 +506,6 @@ awful.keyboard.append_global_keybindings(
 client.connect_signal("request::default_keybindings", function()
     awful.keyboard.append_client_keybindings(
         {
-
-
             awful.key({ modkey, "Shift" }, "space", awful.client.floating.toggle,
                       {description = "toggle floating", group = "client"}),
             awful.key({modkey}, "f", function(c)
@@ -507,6 +518,9 @@ client.connect_signal("request::default_keybindings", function()
 
             awful.key({ modkey, "Shift"}, "o", function (c) c:move_to_screen() end,
                       {description = "move to screen", group = "client"}),
+
+--            awful.key({ modkey}, "v", function (c) swap_shift() end,
+--                      {description = "swap_shift tags", group = "client"}),
 
             awful.key({modkey, shift}, "b", function(c)
                 c.floating = not c.floating
