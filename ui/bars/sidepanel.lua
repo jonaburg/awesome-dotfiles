@@ -15,7 +15,12 @@ local vm = require('extra.vmhunter')
 local gpuhunter = require('themes.concencolor.extra.gpuhunter')
 local gputemps = require('themes.concencolor.extra.gputemps')
 
+-- ddcshift and redshift --
+local ddcshift = require('extra.bars.ddcshift')
+local redshift = require('extra.bars.redshift')
 
+-- psoman toggle icon --
+local side_toggle = require('extra.toggleside')
 
 --- WIDGETS
 local space3 = markup.font("Roboto 3", " ")
@@ -97,49 +102,33 @@ local full_cpu_widget = wibox.widget {
 	layout = wibox.layout.fixed.horizontal,
 }
 local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(0), dpi(5), dpi(5))
--- ALSA volume bar
-beautiful.volume = lain.widget.alsabar({
-    notification_preset = { font = "Monospace 14"},
-    width = dpi(150), height = dpi(1), border_width = dpi(0),ticks = false, tick_size=3, -- max width for all bars is equiv to this width.
-    colors = {
-        background = "#343434",
-        unmute     = "#7289DA",
-        mute       = "#FF9F9F"
-    },
+
+---------------------------------- [[Setting up ddcshift and redshift ]]---------------------------
+local cornershifter = gears.color({
+	type = "linear",
+	from = { dpi(12), 0},
+	to   = { dpi(182), 20},
+	stops = { {0.15, "#A75374" .. "30"}, {0.85, "#FFF577" .. "95"} } -- deep red to gold gradient
 })
-beautiful.volume.bar.paddings = dpi(1)
-beautiful.volume.bar.margins = dpi(1)
-beautiful.volume.bar:buttons(awful.util.table.join(
-    awful.button({}, 3, function() -- left click
-        awful.spawn(string.format("%s -e alsamixer", terminal))
-    end),
+local silverbar  = gears.color({
+    type  = "linear",
+    from  = { dpi(32), dpi(32) },
+    to    = { dpi(32), 0 },
+    stops = {{5.9, "#9c9c9c" }, {0.1, "#bbbbbb" }} -- a bit more matte.
+})
+local ddcshiftholder = wibox.container.margin(ddcshift({
+	main_color = silverbar, background_color = "#343434", margins=2, shape = 'rectangle',}),
+	dpi(20), dpi(40), dpi(2), dpi(2))
 
-    awful.button({}, 2, function() -- middle click
-        awful.spawn(string.format("%s -e ncmpcpp", terminal))
-    end),
+local redshiftholder = wibox.container.margin(redshift({
+	main_color = cornershifter, background_color = "#343434", margins=2, shape = 'rectangle',}),
+	dpi(20), dpi(40), dpi(2), dpi(2))
 
-    awful.button({}, 1, function() -- right click
-        os.execute(string.format("%s set %s toggle", beautiful.volume.cmd, beautiful.volume.togglechannel or beautiful.volume.channel))
-        beautiful.volume.update()
-    end),
-
-    awful.button({}, 4, function() -- scroll up
-        os.execute(string.format("%s set %s 1%%+", beautiful.volume.cmd, beautiful.volume.channel))
-        beautiful.volume.update()
-    end),
-
-    awful.button({}, 5, function() -- scroll down
-        os.execute(string.format("%s set %s 1%%-", beautiful.volume.cmd, beautiful.volume.channel))
-        beautiful.volume.update()
-    end)
-    ))
-
-local volumewidget = wibox.container.background(beautiful.volume.bar, beautiful.bg_focus, gears.shape.rectangle)
-volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(12), dpi(12))
 
 
 start_x = -451
---start_y = -1
+start_y = -1
+
 local panel_anim = awestore.tweened(-451, {
 	duration = 3500,
 	easing = awestore.easing.circ_in_out
@@ -152,59 +141,102 @@ local strut_anim = awestore.tweened(200, {
 panel_anim:subscribe(function(x) start_x = 0 end)
 
 -- signal to connect to, in order to autohide/unhide when called with "keybind" ----------
-awesome.connect_signal("widgets::start::toggle", function ()
+awesome.connect_signal("widget::panel::toggle", function ()
 	if not mysidepanel.visible then
 		mysidepanel.visible = true
+		mysidepanel2.visible = true
 		strut_anim:set(451)
-		panel_anim:set(-2000)
-        else mysidepanel.visible = false
+		panel_anim:set(-2 + beautiful.useless_gap)
+
+        else
 		strut_anim:set(0)
 		panel_anim:set(-451)
---		local unsub_strut
---		unsub_strut = strut_anim.ended:subscribe(function() unsub_strut() end)
---		local unsub_panel
---		unsub_panel = panel_anim.ended:subscribe(
---		function()
---			start.visible = false
---			unsub_panel()
---		end)
+	     mysidepanel.visible = false
+             mysidepanel2.visible = false
+
 	end
 end)
 
 
 -- Create the func -----------------------------------------------------------
 function side_panel(s)
--- Create the main taskbar wibox.
-mysidepanel = wibox(
-        {
-         screen = s,
-         height = s.workarea.height,
-         width = s.workarea.width / 3,
-	 x = 0,
-         --bg = gears.color.create_png_pattern(beautiful.panelbg), -- add a specific bounding image to this.
-         bg = "#c1c2c3" .. " 40",
-        visible = false,
-	ontop  = true,
-         shape = gears.shape.rectangle
-        }
-    )
-    mysidepanel:setup {
-        layout = wibox.layout.align.vertical,
-        expand = 'none',
-        {
-            layout = wibox.layout.flex.horizontal,
-            clockwidget,
-            gputempsholder,
-            gpuholder,
-        },
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-        cpuwidget,
-	emailholder,
-        volumewidget,
-        },
-    }
+    -- Create the first side_panel wibox. If there is only 1 monitor, there will only be this one..
+    -- make sure this is on screen 1 only. --
+    if s.index == 1
+	    then
+              mysidepanel = wibox(
+                      {
+                       screen = s,
+                       height = s.workarea.height,
+                       width = s.workarea.width / 3,
+                       x = 0,
+		               y = 45,
+                       bg = gears.color.create_png_pattern(beautiful.side_panel_darker_bg),
+                       visible = false,
+              	       ontop  = true,
+                       shape = gears.shape.rectangle
+                      }
+                  )
+                  mysidepanel:setup {
+                      layout = wibox.layout.align.vertical,
+                      expand = 'none',
+                      { -- top widgets
+                          layout = wibox.layout.fixed.vertical,
+                      },
+                      { -- middle widgets
+                          layout = wibox.layout.flex.vertical,
+                            cpuwidget,
+              	           emailholder,
+                            s.mytasklistholder, -- Middle widget
+                           clockwidget,
+                            side_toggle,
+                      },
+                      { -- bottom widgets
+                          layout = wibox.layout.flex.vertical,
+                          --s.mytasklistholder, -- Middle widget
+			              ddcshiftholder,
+			              redshiftholder,
+                          max_widget_size = 50
+                      },
+                  }
+    end
+-- side panel screen 2
+    if s.index == 2
+	    then
+              mysidepanel2 = wibox(
+                      {
+                       screen = s,
+                       height = s.workarea.height,
+                       width = s.workarea.width / 3,
+                       x = 0,
+                       y = 50,
+                       bg = gears.color.create_png_pattern(beautiful.side_panelbg),
+                       visible = false,
+              	       ontop  = true,
+                       shape = gears.shape.rectangle
+                      }
+                  )
+                  mysidepanel2:setup {
+                      layout = wibox.layout.align.vertical,
+                      expand = 'none',
+                      {
+                          layout = wibox.layout.flex.vertical,
+                          clockwidget,
+			  ddcshiftholder,
+			  redshiftholder,
+                          s.mytasklistholder, -- Middle widget
+
+                      },
+                      { -- Right widgets
+                        layout = wibox.layout.fixed.horizontal,
+                          cpuwidget,
+              	          emailholder,
+                      },
+                  }
 
     end
+
+
+end
 
 -- EOF ------------------------------------------------------------------------

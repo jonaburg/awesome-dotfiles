@@ -34,10 +34,12 @@ end
 
 
 -- Mouse Bindings
-awful.mouse.append_global_mousebindings({
-    awful.button({}, 4, awful.tag.viewprev),
-    awful.button({}, 5, awful.tag.viewnext)
-})
+--awful.mouse.append_global_mousebindings({
+--    --awful.button({}, 4, awful.tag.viewprev),
+--    --awful.button({}, 5, awful.tag.viewnext)
+--    awful.button({}, 4, function () lain.util.useless_gaps_resize(-5) end),
+--    awful.button({}, 5, function () lain.util.useless_gaps_resize(5) end),
+--})
 
 -- Global Bindings
 awful.keyboard.append_global_keybindings(
@@ -56,7 +58,7 @@ awful.keyboard.append_global_keybindings(
               {description = "view  previous nonempty", group = "tag"}),
 
     awful.key({ modkey }, "v", function ()
-	   awesome.emit_signal("widgets::start::toggle") end,
+	   awesome.emit_signal("widget::panel::toggle") end,
               {description = "show panel (left)", group = "awesome"}),
 
     -- Default client focus
@@ -152,8 +154,11 @@ awful.keyboard.append_global_keybindings(
 --              {description = "pop up scratchpad", group = "tag"}),
 
 -- coin_scratch (Anim)
-    awful.key({ modkey}, "c", function () open_coin() end,
-              {description = "pop up scratchpad", group = "tag"}),
+--    awful.key({ modkey}, "c", function () open_coin() end,
+--              {description = "pop up scratchpad", group = "tag"}),
+    awful.key({ modkey }, "c", function ()
+	   awesome.emit_signal("widget::panel::toggle") end,
+              {description = "show panel (left)", group = "awesome"}),
 -- pape_scratch (Anim)
 --    awful.key({ modkey, "Shift" }, "n", function () pape_scratch:toggle() end,
 --              {description = "pop up pape scratch", group = "tag"}),

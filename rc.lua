@@ -517,8 +517,11 @@ root.buttons(my_table.join(
 --    awful.button({ }, 4, awful.tag.viewnext),
 --    awful.button({ }, 5, awful.tag.viewprev)
 -- only scroll through occupied tags
-    awful.button({ }, 4, function () lain.util.tag_view_nonempty(-1) end),
-    awful.button({ }, 5, function () lain.util.tag_view_nonempty(1) end)
+    --awful.button({ }, 4, function () lain.util.tag_view_nonempty(-1) end),
+    --awful.button({ }, 5, function () lain.util.tag_view_nonempty(1) end)
+-- change gaps size on scroll
+    awful.button({}, 4, function () lain.util.useless_gaps_resize(-5) end),
+    awful.button({}, 5, function () lain.util.useless_gaps_resize(5) end)
 
 ))
 

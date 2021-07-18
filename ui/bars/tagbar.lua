@@ -8,30 +8,31 @@ local xresources = require("beautiful.xresources") local dpi = xresources.apply_
 local tagbar = require('extra.slidebars.tagbar')
 local ddcshift = require('extra.bars.ddcshift')
 local redshift = require('extra.bars.redshift')
+local side_toggle = require('extra.toggleside')
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 
----------------------------------- [[Setting up ddcshift and redshift ]]---------------------------
-local cornershifter = gears.color({
-	type = "linear",
-	from = { dpi(12), 0},
-	to   = { dpi(182), 20},
-	stops = { {0.15, "#A75374" .. "30"}, {0.85, "#FFF577" .. "95"} } -- deep red to gold gradient
-})
-local silverbar  = gears.color({
-    type  = "linear",
-    from  = { dpi(32), dpi(32) },
-    to    = { dpi(32), 0 },
-    stops = {{5.9, "#9c9c9c" }, {0.1, "#bbbbbb" }} -- a bit more matte.
-})
-local ddcshiftholder = wibox.container.margin(ddcshift({
-     main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}),
-      dpi(4), dpi(4), dpi(12), dpi(12)) -- 1080p
-local redshiftholder = wibox.container.margin(redshift({
-     main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}),
-      dpi(4), dpi(4), dpi(12), dpi(12)) -- 1080p
-
--------------------------------- [[ Creating the actual tag system ]] ------------------------------
+------------------------------------ [[Setting up ddcshift and redshift ]]---------------------------
+--local cornershifter = gears.color({
+--	type = "linear",
+--	from = { dpi(12), 0},
+--	to   = { dpi(182), 20},
+--	stops = { {0.15, "#A75374" .. "30"}, {0.85, "#FFF577" .. "95"} } -- deep red to gold gradient
+--})
+--local silverbar  = gears.color({
+--    type  = "linear",
+--    from  = { dpi(32), dpi(32) },
+--    to    = { dpi(32), 0 },
+--    stops = {{5.9, "#9c9c9c" }, {0.1, "#bbbbbb" }} -- a bit more matte.
+--})
+--local ddcshiftholder = wibox.container.margin(ddcshift({
+--     main_color = silverbar, background_color = "#343434", margins=6, shape = 'rectangle',}),
+--      dpi(4), dpi(4), dpi(12), dpi(12)) -- 1080p
+--local redshiftholder = wibox.container.margin(redshift({
+--     main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}),
+--      dpi(4), dpi(4), dpi(12), dpi(12)) -- 1080p
+--
+---------------------------------- [[ Creating the actual tag system ]] ------------------------------
 
 function create_taglist(s)
 
@@ -41,12 +42,12 @@ end
 
 
 
-
 -- Create the func -----------------------------------------------------------
 function tagbar_horizontal(s)
 	if s.index == 1
 		then screen[1].mytagbar = tagbar {
      bg = gears.color.create_png_pattern(beautiful.tagbarbg),
+--     bg = gears.color.create_png_pattern(beautiful.tagbarbg_light),
      screen = s,
      position = "bottom",
      size = 40,
@@ -64,9 +65,11 @@ function tagbar_horizontal(s)
         },
         { -- Right widgets
            layout = wibox.layout.fixed.horizontal,
-            s.mytasklistholder, -- Middle widget
-	    ddcshiftholder,
-	    redshiftholder,
+           side_toggle,
+          s.mypromptbox,
+        --  s.mytasklistholder, -- Middle widget
+	    --ddcshiftholder,
+	    --redshiftholder,
         },
     }
 end

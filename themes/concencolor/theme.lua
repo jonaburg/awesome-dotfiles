@@ -123,8 +123,12 @@ theme.menu_width                                = dpi(160)
 theme.menu_icon_size                            = dpi(32)
 theme.awesome_icon                              = theme.icon_dir .. "/awesome_icon_white.png"
 theme.clock                                     = theme.icon_dir .. "/clock.png"
-theme.panelbg                                     = theme.icon_dir .. "/panel.png"
-theme.tagbarbg                                     = theme.icon_dir .. "/tagbar.png"
+theme.panelbg                                   = theme.icon_dir .. "/panel.png"
+theme.side_panelbg                              = theme.icon_dir .. "/side_panel.png"
+theme.side_panel_darker_bg                      = theme.icon_dir .. "/side_panel_darker.png"
+theme.tagbarbg                                  = theme.icon_dir .. "/tagbar.png"
+theme.tagbarbg_light                            = theme.icon_dir .. "/tagbar_light.png"
+theme.psoman                                    = theme.icon_dir .. "/psoman.png"
 theme.calendar                                  = theme.icon_dir .. "/cal.png"
 theme.layout_tile                               = theme.confdir .. "/icons/monomate.png"
 theme.layout_cascade                            = theme.confdir .. "/icons/magnifier.png"
@@ -590,7 +594,7 @@ s.mytaglistn = awful.widget.taglist {
 
  -- Create a tasklist widget
  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
- s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(50), dpi(30), dpi(20), dpi(20))
+ s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(20), dpi(20), dpi(10), dpi(10))
 
 
 -- calls main source for bar widgets. after this, still need to wait a little in order to call this tagbar for the main screen.
@@ -604,5 +608,6 @@ side_panel(s)
 -- create the bottom tagbar and its associated deps --
 gears.timer.delayed_call(create_taglist, s)
 gears.timer.delayed_call(tagbar_horizontal, s)
+
 end
 return theme
