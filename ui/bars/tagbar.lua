@@ -66,7 +66,6 @@ function tagbar_horizontal(s)
         { -- Right widgets
            layout = wibox.layout.fixed.horizontal,
            side_toggle,
-          s.mypromptbox,
         --  s.mytasklistholder, -- Middle widget
 	    --ddcshiftholder,
 	    --redshiftholder,

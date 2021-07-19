@@ -1,5 +1,5 @@
 --require("ui.notifs")
---require("ui.pop")
 require("ui.bars")
+--require("ui.pop")
 --require("ui.decorations")
 --require("ui.lockscreen")

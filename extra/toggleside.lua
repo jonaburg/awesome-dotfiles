@@ -17,12 +17,11 @@ side_toggle = wibox.widget {
     color              = beautiful.bg_normal,
     bg = gears.color.create_png_pattern(beautiful.psoman),
     border_width       = 3,
-    paddings           = 4,
-    border_color       = '#0000ff',
-    --check_color        = '#ff0000',
-    check_color = beautiful.psoman,
-    check_border_color = '#ffff00',
-    check_border_width = 1,
+    paddings           = 0,
+    border_color       = '#0000ff' .. '00',
+    check_color = gears.color.create_png_pattern(beautiful.psoman_active),
+    check_border_color = '#0000ff' .. '40',
+    check_border_width = 0,
     buttons = {awful.button({}, 1, function() awesome.emit_signal("widget::panel::toggle") end)}, -- toggles the click to open the panel.
     widget             = wibox.widget.checkbox,
 }
