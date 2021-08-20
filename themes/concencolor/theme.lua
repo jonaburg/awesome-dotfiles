@@ -58,12 +58,15 @@ theme.bg_urgent                                 = "#D9574F"
 --theme.fg_urgent                                 = "#CC9393"
 --theme.bg_urgent                                 = "#006B8E"
 
---theme.border_width                              = dpi(2) -- normal
-theme.border_width                              = 0 -- with smart_borders ((watchout with strutwide.lua [c.border_width]))
-theme.border_normal                             = "#252525" .. "0"
+theme.border_width                              = dpi(2) -- normal
+--theme.border_width                              = 0 -- with smart_borders ((watchout with strutwide.lua [c.border_width]))
+--theme.border_normal                             = "#252525" .. "0"
+theme.border_normal                             = "#252525"
 --theme.border_focus                              = "#ADAFFF" .. "15"
 --theme.border_focus                              = "#c3c997" .. "15"
-theme.border_focus                              = "#7289DA" .. "0"
+--theme.border_focus                              = "#7289DA" .. "0"
+--theme.border_focus                              = "#424242"
+theme.border_focus                              = "#292929"
 --theme.border_focus                              = "#9fb0a6"
 
 -- widget value colors

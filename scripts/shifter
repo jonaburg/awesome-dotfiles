@@ -53,7 +53,9 @@ then echo "$((num2+=10))" > $value_path/BV
 sudo ddcutil setvcp --bus 1 10 $num2
 sudo ddcutil setvcp --bus 2 10 $num2
 sudo ddcutil setvcp --bus 3 10 $num2
+sudo ddcutil setvcp --bus 5 10 $num2
 sudo ddcutil setvcp --bus 7 10 $num2
+sudo ddcutil setvcp --bus 11 10 $num2
 	dunstify -r 454 -u low "Main Monitor Brightness :  $(<$value_path/BV)"
 fi
 }
@@ -69,7 +71,9 @@ then	echo "$((num2-=10))" > $value_path/BV
 sudo ddcutil setvcp --bus 1 10 $num2
 sudo ddcutil setvcp --bus 2 10 $num2
 sudo ddcutil setvcp --bus 3 10 $num2
+sudo ddcutil setvcp --bus 5 10 $num2
 sudo ddcutil setvcp --bus 7 10 $num2
+sudo ddcutil setvcp --bus 11 10 $num2
 	dunstify -r 454 -u low "Main Monitor Brightness :  $(<$value_path/BV)"
 fi
 }

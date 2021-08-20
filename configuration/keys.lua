@@ -35,10 +35,10 @@ end
 
 -- Mouse Bindings
 --awful.mouse.append_global_mousebindings({
---    --awful.button({}, 4, awful.tag.viewprev),
---    --awful.button({}, 5, awful.tag.viewnext)
---    awful.button({}, 4, function () lain.util.useless_gaps_resize(-5) end),
---    awful.button({}, 5, function () lain.util.useless_gaps_resize(5) end),
+--    awful.button({}, 6, awful.tag.viewprev),
+--    awful.button({}, 7, awful.tag.viewnext)
+--   -- awful.button({}, 4, function () lain.util.useless_gaps_resize(-5) end),
+--   -- awful.button({}, 5, function () lain.util.useless_gaps_resize(5) end),
 --})
 
 -- Global Bindings

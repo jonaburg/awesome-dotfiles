@@ -9,6 +9,7 @@ local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
 local email = require('themes.concencolor.extra.email')
+local starlprice = require('themes.concencolor.extra.starlprice')
 local vm = require('extra.vmhunter')
 local gpuhunter = require('themes.concencolor.extra.gpuhunter')
 local gputemps = require('themes.concencolor.extra.gputemps')
@@ -53,6 +54,9 @@ vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 v
 --gpuhunter.bg = "#ff0000"
 gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+
+-- starl price hodler
+starlpriceholder = wibox.container.margin(starlprice, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
 
 
@@ -187,6 +191,7 @@ mywibox = awful.wibar(
         gputempsholder,
         gpuholder,
         cpuwidget,
+	starlpriceholder,
 	    emailholder,
         volumewidget,
         s.mylayoutbox,

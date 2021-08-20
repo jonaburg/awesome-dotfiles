@@ -1,9 +1,23 @@
 #!/bin/env bash
 
+#set -x
+
 dogira() {
   curl -X GET "https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0x4b86e0295e7d32433ffa6411b82b4f4e56a581e1&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true" -H "accept: application/json" > ~/.config/awesome/tmp/dogira
 
   cat ~/.config/awesome/tmp/dogira | jq .'[] | .usd'
+}
+
+starl_price() {
+
+	curl -X GET "https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0x8e6cd950ad6ba651f6dd608dc70e5886b1aa6b24&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true" -H "accept: application/json" > ~/.config/awesome/tmp/starl
+
+	NUM=$(cat ~/.config/awesome/tmp/starl | jq .'[] | .usd')
+        pars=$(printf "%.8f" $NUM)
+	echo $pars > ~/.config/awesome/tmp/starl_price_parsed
+	cat ~/.config/awesome/tmp/starl_price_parsed
+
+
 }
 
 feg() {
@@ -31,6 +45,12 @@ feg_in_usd() {
 	#echo "$sn"
 	perl -e $('printf "%.4f\n", '$(cat feg)' * '$(cat feg_portfolio)'')
 
+}
+
+eth() {
+  #coinmon -f eth | tail -2 | head -1 | awk {'print $6'} > ~./config/awesome/tmp/eth_price
+  coinmon -f eth | tail -2 | head -1 | awk {'print $6'}  > ~/.config/awesome/tmp/ethprice
+  cat ~/.config/awesome/tmp/ethprice
 }
 
 
