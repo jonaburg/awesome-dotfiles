@@ -22,12 +22,15 @@ theme.wallpaper                                 = os.getenv("HOME") .. "/.config
 theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/concencolor"
 
 
-theme.font          = "Iosevka 12"
+--theme.font          = "Iosevka 12"
+theme.font = "Open Sans 12"
 theme.widget_font          = "Iosevka 13"
 theme.calfont          = "Iosevka 14"
-theme.taglist_font  = "Iosevka 12"
+--theme.taglist_font  = "Iosevka 12"
+theme.taglist_font  = "sf mono 12"
 theme.mpd_font  = "Open Sans 10"
 theme.tasklist_font = "sf mono 12"
+--theme.tasklist_font = "Open Sans 12"
 --theme.tasklist_font = "Iosevka 14"
 --theme.highlight = "#A3C784" -- google green
 theme.highlight = "#88A67D" -- google green
@@ -58,12 +61,14 @@ theme.bg_urgent                                 = "#D9574F"
 --theme.fg_urgent                                 = "#CC9393"
 --theme.bg_urgent                                 = "#006B8E"
 
---theme.border_width                              = dpi(2) -- normal
-theme.border_width                              = 0 -- with smart_borders ((watchout with strutwide.lua [c.border_width]))
-theme.border_normal                             = "#252525" .. "0"
+theme.border_width                              = dpi(2) -- normal
+--theme.border_width                              = 0 -- with smart_borders ((watchout with strutwide.lua [c.border_width]))
+--theme.border_normal                             = "#252525" .. "0"
+theme.border_normal                             = "#191919"
 --theme.border_focus                              = "#ADAFFF" .. "15"
 --theme.border_focus                              = "#c3c997" .. "15"
-theme.border_focus                              = "#7289DA" .. "0"
+--theme.border_focus                              = "#7289DA" .. "0"
+theme.border_focus                              = "#191919"
 --theme.border_focus                              = "#9fb0a6"
 
 -- widget value colors
@@ -140,7 +145,7 @@ theme.layout_strutcenter                        = theme.confdir .. "/icons/cente
 theme.layout_floating                           = theme.icon_dir .. "/floating.png"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
-theme.useless_gap                               = dpi(45)
+theme.useless_gap                               = dpi(25)
 theme.titlebar_close_button_normal              = theme.default_dir.."/titlebar/close_normal.png"
 theme.titlebar_close_button_focus               = theme.default_dir.."/titlebar/close_focus.png"
 theme.titlebar_minimize_button_normal           = theme.default_dir.."/titlebar/minimize_normal.png"
@@ -506,7 +511,8 @@ s.mytaglistn = awful.widget.taglist {
 
          fg_focus = "#c2c3c2" .. "80",
          fg_occupied = "#c2c3c2" .. "80",
-        bg_focus = "#b3b3b2",
+        --bg_focus = "#b3b3b2",
+        bg_focus = "#d3d2d3",
     },
     layout   = {
         spacing = 30,
@@ -601,7 +607,6 @@ s.mytaglistn = awful.widget.taglist {
 
 -- calls main source for bar widgets. after this, still need to wait a little in order to call this tagbar for the main screen.
 require("ui.bars")
-
 -- create the upper main horizontal bar --
 main_upper_bar(s)
 -- create the side panel(s) --

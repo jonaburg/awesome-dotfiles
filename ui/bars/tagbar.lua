@@ -8,6 +8,7 @@ local xresources = require("beautiful.xresources") local dpi = xresources.apply_
 local tagbar = require('extra.slidebars.tagbar')
 local ddcshift = require('extra.bars.ddcshift')
 local redshift = require('extra.bars.redshift')
+local starlportfolio = require('themes.concencolor.extra.starlportfolio')
 local side_toggle = require('extra.toggleside')
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
@@ -32,12 +33,15 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 --     main_color = cornershifter, background_color = "#343434", margins=6, shape = 'rectangle',}),
 --      dpi(4), dpi(4), dpi(12), dpi(12)) -- 1080p
 --
+
+starlportfolioholder = wibox.container.margin(starlportfolio, dpi(4), dpi(4), dpi(5),dpi(5)) -- c893c5 vm
+
 ---------------------------------- [[ Creating the actual tag system ]] ------------------------------
 
 function create_taglist(s)
 
     mytaglistcont2 = wibox.container.background(s.mytaglist3, "#ffffff" .. "00", gears.shape.rectangle)
-    s.mytag2 = wibox.container.margin(mytaglistcont2, dpi(15), dpi(15), dpi(15), dpi(10))
+    s.mytag2 = wibox.container.margin(mytaglistcont2, dpi(10), dpi(10), dpi(10), dpi(5))
 end
 
 
@@ -50,12 +54,12 @@ function tagbar_horizontal(s)
 --     bg = gears.color.create_png_pattern(beautiful.tagbarbg_light),
      screen = s,
      position = "bottom",
-     size = 40,
+     size = 22,
      ontop = true,
      show_delay = 0.25,
      hide_delay = 0.2,
      easing = 1,
-     delta = 50,
+     delta = 15,
 }
  screen[1].mytagbar:setup {
         layout = wibox.layout.align.horizontal,
@@ -66,6 +70,7 @@ function tagbar_horizontal(s)
         { -- Right widgets
            layout = wibox.layout.fixed.horizontal,
            side_toggle,
+           starlportfolioholder,
         --  s.mytasklistholder, -- Middle widget
 	    --ddcshiftholder,
 	    --redshiftholder,

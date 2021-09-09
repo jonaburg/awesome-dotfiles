@@ -9,9 +9,13 @@ local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
 local email = require('themes.concencolor.extra.email')
-local vm = require('extra.vmhunter')
-local gpuhunter = require('themes.concencolor.extra.gpuhunter')
-local gputemps = require('themes.concencolor.extra.gputemps')
+--local vm = require('extra.vmhunter')
+--local gpuhunter = require('themes.concencolor.extra.gpuhunter')
+local ethprice = require('themes.concencolor.extra.ethprice')
+local starlprice = require('themes.concencolor.extra.starlprice')
+local starlportfolio = require('themes.concencolor.extra.starlportfolio')
+local cputemps = require('themes.concencolor.extra.cputemps')
+local wattage = require('themes.concencolor.extra.wattage')
 
 
 
@@ -51,20 +55,22 @@ emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- em
 vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- GPU HOLDER(s)
 --gpuhunter.bg = "#ff0000"
-gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
-gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
-
-
+--gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+ethpriceholder = wibox.container.margin(ethprice, dpi(4), dpi(4), dpi(5),dpi(5)) -- c893c5 vm
+starlpriceholder = wibox.container.margin(starlprice, dpi(4), dpi(4), dpi(5),dpi(5)) -- c893c5 vm
+starlportfolioholder = wibox.container.margin(starlportfolio, dpi(4), dpi(4), dpi(5),dpi(5)) -- c893c5 vm
+cputempsholder = wibox.container.margin(cputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
 -- Battery
 local bat = lain.widget.bat({
     settings = function()
-        bat_header = " Bat "
+        bat_header = "🔋"
         bat_p      = bat_now.perc .. " "
         if bat_now.ac_status == 1 then
             bat_p = bat_p .. "Plugged "
         end
-        widget:set_markup(markup.font(beautiful.font, markup(blue, bat_header) .. bat_p))
+        --widget:set_markup(markup.font(beautiful.font, markup(blue, bat_header) .. bat_p))
+        widget:set_markup(markup.font(beautiful.font, markup(beautiful.blue, bat_header) .. markup(beautiful.blue,bat_p)))
     end
 })
 
@@ -72,7 +78,8 @@ local bat = lain.widget.bat({
 -- CPU
 local cpu = lain.widget.cpu({
 	settings = function()
-        widget:set_markup(markup.font(beautiful.widget_font, "  " .. cpu_now.usage .. "% "))
+        --widget:set_markup(markup.font(beautiful.widget_font, "  " .. cpu_now.usage .. "% "))
+        widget:set_markup(markup.font(beautiful.font, "  " .. cpu_now.usage .. "% "))
 	end
 })
 
@@ -102,7 +109,9 @@ local full_cpu_widget = wibox.widget {
     cpu_bg_handle,
 	layout = wibox.layout.fixed.horizontal,
 }
-local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(0), dpi(5), dpi(5))
+local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(4), dpi(5), dpi(5))
+
+local wattagewidget = wibox.container.margin(wattage, dpi(4), dpi(4), dpi(5), dpi(5))
 
 -- ALSA volume bar
 beautiful.volume = lain.widget.alsabar({
@@ -176,6 +185,8 @@ mywibox = awful.wibar(
             layout = wibox.layout.fixed.horizontal,
          mytagholder,
             s.mypromptbox,
+--        ethpriceholder,
+        --starlpriceholder,
             max_widget_size = 50,
         },
         {
@@ -184,10 +195,17 @@ mywibox = awful.wibar(
         },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-        gputempsholder,
-        gpuholder,
+        cputempsholder,
+        --gpuholder,
+--        ethpriceholder,
         cpuwidget,
+        ethpriceholder,
+        starlpriceholder,
+--        starlportfolioholder,
+--        ethpriceholder,
 	    emailholder,
+	wattagewidget,
+	bat.widget,
         volumewidget,
         s.mylayoutbox,
         systrayholder,
@@ -198,7 +216,8 @@ mywibox = awful.wibar(
     if s.index == 1
     then
         ----- {{ TOP BAR}}
-         mywibox.height = dpi(38)
+         --mywibox.height = dpi(38)
+         mywibox.height = dpi(32)
          --screen[1].mywibox.width = s.workarea.width - 50
          mywibox.width = s.workarea.width
          mywibox.y = 0

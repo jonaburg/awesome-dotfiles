@@ -14,6 +14,7 @@ local email = require('themes.concencolor.extra.email')
 local vm = require('extra.vmhunter')
 local gpuhunter = require('themes.concencolor.extra.gpuhunter')
 local gputemps = require('themes.concencolor.extra.gputemps')
+local verbosebat = require('themes.concencolor.extra.verbosebat')
 
 -- ddcshift and redshift --
 local ddcshift = require('extra.bars.ddcshift')
@@ -34,6 +35,7 @@ vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 v
 gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
+verbosebatholder = wibox.container.margin(verbosebat, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- Battery
 local bat = lain.widget.bat({
     settings = function()
@@ -106,7 +108,7 @@ local panel_anim = awestore.tweened(-1000, {
 awesome.connect_signal("widget::panel::toggle", function ()
 	if not mysidepanel.visible then
 		mysidepanel.visible = true
-		mysidepanel2.visible = true
+		--mysidepanel2.visible = true
 		panel_anim:set(0)
     else
 	panel_anim:set(-1000)
@@ -114,7 +116,7 @@ awesome.connect_signal("widget::panel::toggle", function ()
  unsub_panel = panel_anim.ended:subscribe (
  function()
 	      mysidepanel.visible = false
-          mysidepanel2.visible = false
+          --mysidepanel2.visible = false
 unsub_panel()
 end
 )
@@ -151,17 +153,19 @@ function side_panel(s)
                       },
                       { -- middle widgets
                           layout = wibox.layout.flex.vertical,
-                            cpuwidget,
+			   -- verbosebat,
               	           emailholder,
-                            s.mytasklistholder, -- Middle widget
+                           -- s.mytasklistholder, -- Middle widget
                            clockwidget,
                       },
                       { -- bottom widgets
                           layout = wibox.layout.flex.vertical,
                           --s.mytasklistholder, -- Middle widget
-                            side_toggle,
-			              ddcshiftholder,
-			              redshiftholder,
+                          side_toggle,
+                            s.mytasklistholder, -- Middle widget
+			    verbosebat,
+			  ddcshiftholder,
+			  redshiftholder,
                           max_widget_size = 50
                       },
                   }
@@ -171,46 +175,46 @@ mysidepanel.x = -1000
 panel_anim:subscribe(function(x) mysidepanel.x = x end)
 
 
- --side panel screen 2
-    if s.index == 2
-	    then
-             mysidepanel2 = wibox(
-                     {
-                      screen = s,
-                      height = s.workarea.height,
-                      width = s.workarea.width / 3,
-                      x = 0,
-                      y = 50,
-                      bg = gears.color.create_png_pattern(beautiful.side_panel_blue),
-                      visible = false,
-             	       ontop  = true,
-                      shape = gears.shape.rectangle
-                     }
-                 )
-                 mysidepanel2:setup {
-                     layout = wibox.layout.align.vertical,
-                     expand = 'none',
-                     { -- top widgets
-                         layout = wibox.layout.fixed.vertical,
-                     },
-                     { -- middle widgets
-                         layout = wibox.layout.flex.vertical,
-                           cpuwidget,
-             	           emailholder,
-                           s.mytasklistholder, -- Middle widget
-                          clockwidget,
-                     },
-                     { -- bottom widgets
-                         layout = wibox.layout.flex.vertical,
-                         --s.mytasklistholder, -- Middle widget
-                         side_toggle,
-		              ddcshiftholder,
-		              redshiftholder,
-                         max_widget_size = 50
-                     },
-                 }
-
- end
+-- --side panel screen 2
+--    if s.index == 2
+--	    then
+--             mysidepanel2 = wibox(
+--                     {
+--                      screen = s,
+--                      height = s.workarea.height,
+--                      width = s.workarea.width / 3,
+--                      x = 0,
+--                      y = 50,
+--                      bg = gears.color.create_png_pattern(beautiful.side_panel_blue),
+--                      visible = false,
+--             	       ontop  = true,
+--                      shape = gears.shape.rectangle
+--                     }
+--                 )
+--                 mysidepanel2:setup {
+--                     layout = wibox.layout.align.vertical,
+--                     expand = 'none',
+--                     { -- top widgets
+--                         layout = wibox.layout.fixed.vertical,
+--                     },
+--                     { -- middle widgets
+--                         layout = wibox.layout.flex.vertical,
+--                           cpuwidget,
+--             	           emailholder,
+--                           s.mytasklistholder, -- Middle widget
+--                          clockwidget,
+--                     },
+--                     { -- bottom widgets
+--                         layout = wibox.layout.flex.vertical,
+--                         --s.mytasklistholder, -- Middle widget
+--                         side_toggle,
+--		              ddcshiftholder,
+--		              redshiftholder,
+--                         max_widget_size = 50
+--                     },
+--                 }
+--
+-- end
 
 -- for some reason mysidepanel2 is not recognized. so far this config works with teh sidebar opening for just screen 1 (same screen as tagbar atm)
 

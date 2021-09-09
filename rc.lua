@@ -230,10 +230,11 @@ local themes = {
     "hunter",          -- 8
     "concencolor",     -- 9
     "focus-sensible",  -- 10
-    "pioneer",         -- 12
-    "google-2021",     -- 13
+    "pioneer",         -- 11
+    "google-2021",     -- 12
+    "megid",     -- 13
 }
-local chosen_theme = themes[9]
+local chosen_theme = themes[13]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "st"
