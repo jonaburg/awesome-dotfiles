@@ -526,6 +526,22 @@ client.connect_signal("request::default_keybindings", function()
 
 --            awful.key({ modkey}, "v", function (c) swap_shift() end,
 --                      {description = "swap_shift tags", group = "client"}),
+            awful.key({modkey, shift}, "v", function(c)
+                c.floating = not c.floating
+                c.width = 800
+                c.height = 500
+                awful.placement.bottom_right(c)
+                c.sticky = not c.sticky
+            end, {description = "toggle keep on top", group = "client"}),
+            awful.key({ modkey, "Shift" }, "u",
+            function (c)
+              c.floating = not c.floating
+              c.width = c.screen.geometry.width* 4/7
+              c.x = c.screen.geometry.x+(c.screen.geometry.width/5)
+              c.height = c.screen.geometry.height * 0.43
+              c.y = c.screen.geometry.height* 0.04
+            end),
+
 
             awful.key({modkey, shift}, "b", function(c)
                 c.floating = not c.floating

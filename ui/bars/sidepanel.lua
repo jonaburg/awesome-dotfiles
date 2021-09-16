@@ -139,7 +139,8 @@ function side_panel(s)
                        width = s.workarea.width / 3,
                        x = 0,
 		               y = 45,
-                       bg = gears.color.create_png_pattern(beautiful.side_panel_blue),
+			       --bg = gears.color.create_png_pattern(beautiful.side_panelbg),
+                       bg = "#121212",
                        visible = false,
               	       ontop  = true,
                        shape = gears.shape.rectangle
