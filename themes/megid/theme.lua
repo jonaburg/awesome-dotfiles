@@ -6,6 +6,7 @@ local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 local dpi   = require("beautiful.xresources").apply_dpi
 
 local theme_assets = require("beautiful.theme_assets")
@@ -39,9 +40,10 @@ theme.red = "#EEA2A2" -- google red
 theme.purp = "#A8A3EE" -- google purp
 theme.yellow = "#F4E8a8" -- google yellowish
 theme.blue = "#9ECDD2" -- google blue
---theme.highlight = "#b6bfd5" -- google whiteish
+theme.highlight = "#b6bfd5" -- google whiteish
 --theme.highlight = "#9ECDD2" -- blueish
-theme.highlight = "#5894C6" -- blueish
+--theme.highlight = "#5894C6" -- blueish
+--theme.highlight = "#FFB028" -- orange
 
 
 
@@ -128,6 +130,7 @@ theme.menu_height                               = dpi(20)
 theme.menu_width                                = dpi(160)
 theme.menu_icon_size                            = dpi(32)
 theme.awesome_icon                              = theme.icon_dir .. "/awesome_icon_white.png"
+theme.titlebar                                  = theme.icon_dir .. "/pat7.png"
 theme.clock                                     = theme.icon_dir .. "/clock.png"
 theme.panelbg                                   = theme.icon_dir .. "/panel.png"
 theme.side_panelbg                              = theme.icon_dir .. "/side_panel.png"
@@ -267,6 +270,22 @@ local xpsilver  = gears.color({
     stops = {{5.9, "#9f9fb0" }, {0.1, "#838383" .. "20" }} -- a bit more matte.
 })
 
+local sandgold  = gears.color({
+    type  = "linear",
+    from  = { dpi(32), dpi(32) },
+    to    = { dpi(32), 0 },
+    --stops = {{5.9, "#5e5e5e" }, {0.1, "#9D9F84" }} -- gold at the bottom
+    stops = {{5.9, "#9d9f84" }, {0.1, "#5e5e5e" }} -- gold at the top
+})
+
+local sandsilver  = gears.color({
+    type  = "linear",
+    from  = { dpi(32), dpi(32) },
+    to    = { dpi(32), 0 },
+    --stops = {{5.9, "#5e5e5e" }, {0.1, "#9D9F84" }} -- gold at the bottom
+    stops = {{5.9, "#9e9e9e" }, {0.1, "#353535" }} -- gold at the top
+})
+
 local occupiedblue  = gears.color({
     type  = "linear",
     from  = { dpi(32), dpi(32) },
@@ -278,7 +297,8 @@ local occupiedblue  = gears.color({
 })
 
 --Client Titlebar windows (taking gradient colors) --
-theme.titlebar_bg_focus = xpsilver
+theme.titlebar_bg_focus = sandsilver
+--theme.titlebar_bg_focus = gears.color.create_png_pattern(theme.titlebar)
 theme.titlebar_fg_focus = "#000000"
 
 function theme.at_screen_connect(s)
@@ -598,6 +618,53 @@ s.mytaglistn = awful.widget.taglist {
     buttons = awful.util.taglist_buttons
 }
 
+-------------------------------------------------------------------------------------------------------------------
+-- Create the titlebar
+-- Add a titlebar if titlebars_enabled is set to true in the rules.
+client.connect_signal("request::titlebars", function(c)
+    -- Custom
+    if beautiful.titlebar_fun then
+        beautiful.titlebar_fun(c)
+        return
+    end
+
+    -- Default
+    -- buttons for the titlebar
+    local buttons = my_table.join(
+        awful.button({ }, 1, function()
+            c:emit_signal("request::activate", "titlebar", {raise = true})
+            awful.mouse.client.move(c)
+        end),
+        awful.button({ }, 2, function() c:kill() end),
+        awful.button({ }, 3, function()
+            c:emit_signal("request::activate", "titlebar", {raise = true})
+            awful.mouse.client.resize(c)
+        end)
+    )
+
+    awful.titlebar(c, {size = dpi(20)}) : setup {
+        { -- Left
+          --  awful.titlebar.widget.iconwidget(c),
+            buttons = buttons,
+            layout  = wibox.layout.fixed.horizontal
+        },
+        { -- Middle
+            buttons = buttons,
+            layout  = wibox.layout.flex.horizontal
+        },
+        { -- Right
+            awful.titlebar.widget.floatingbutton (c),
+            awful.titlebar.widget.maximizedbutton(c),
+            --awful.titlebar.widget.stickybutton   (c),
+            --awful.titlebar.widget.ontopbutton    (c),
+            awful.titlebar.widget.closebutton    (c),
+            layout = wibox.layout.fixed.horizontal()
+        },
+        layout = wibox.layout.align.horizontal
+    }
+end)
+
+------
 
 ---------------------------------------------------------------------------------
 
