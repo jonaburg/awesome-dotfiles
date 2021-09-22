@@ -18,14 +18,11 @@ local gputemps = require('themes.concencolor.extra.gputemps')
 -- ddcshift and redshift --
 local ddcshift = require('extra.bars.ddcshift')
 local redshift = require('extra.bars.redshift')
+
 -- psoman toggle icon --
 local side_toggle = require('extra.toggleside')
--- environmental widgets --
-local airquality = require('extra.geographic.airquality')
-local humidity = require('extra.geographic.humidity')
-local temperature = require('extra.geographic.temperature')
 
---local clockwidget = wibox.container.margin(full_clock_widget, dpi(0), dpi(0), dpi(5), dpi(5))
+local clockwidget = wibox.container.margin(full_clock_widget, dpi(0), dpi(0), dpi(5), dpi(5))
 
 -- EMAIL
 emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
@@ -37,13 +34,7 @@ vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 v
 gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
--- temperature holder
-temperatureholder = wibox.container.margin(temperature, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
--- humidity holder
-humidityholder = wibox.container.margin(humidity, dpi(0), dpi(10), dpi(5),dpi(5)) -- c893c5 vm
--- Air quality holder
-airqualityholder = wibox.container.margin(airquality, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
-
+verbosebatholder = wibox.container.margin(verbosebat, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- Battery
 local bat = lain.widget.bat({
     settings = function()
@@ -116,7 +107,7 @@ local panel_anim = awestore.tweened(-1000, {
 awesome.connect_signal("widget::panel::toggle", function ()
 	if not mysidepanel.visible then
 		mysidepanel.visible = true
---		mysidepanel2.visible = true
+		--mysidepanel2.visible = true
 		panel_anim:set(0)
     else
 	panel_anim:set(-1000)
@@ -147,7 +138,8 @@ function side_panel(s)
                        width = s.workarea.width / 3,
                        x = 0,
 		               y = 45,
-                       bg = gears.color.create_png_pattern(beautiful.side_panel_blue),
+			       --bg = gears.color.create_png_pattern(beautiful.side_panelbg),
+                       bg = "#121212",
                        visible = false,
               	       ontop  = true,
                        shape = gears.shape.rectangle
@@ -157,24 +149,23 @@ function side_panel(s)
                       layout = wibox.layout.align.vertical,
                       expand = 'none',
                       { -- top widgets
-                          layout = wibox.layout.grid,
-                          airqualityholder,
-                          temperatureholder,
-                          humidityholder
+                          layout = wibox.layout.fixed.vertical,
                       },
                       { -- middle widgets
                           layout = wibox.layout.flex.vertical,
-                            cpuwidget,
+			   -- verbosebat,
               	           emailholder,
-                            s.mytasklistholder, -- Middle widget
+                           -- s.mytasklistholder, -- Middle widget
                            clockwidget,
                       },
                       { -- bottom widgets
                           layout = wibox.layout.flex.vertical,
                           --s.mytasklistholder, -- Middle widget
-                            side_toggle,
-			              ddcshiftholder,
-			              redshiftholder,
+                          side_toggle,
+                            s.mytasklistholder, -- Middle widget
+			    verbosebat,
+			  ddcshiftholder,
+			  redshiftholder,
                           max_widget_size = 50
                       },
                   }
