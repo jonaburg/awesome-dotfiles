@@ -8,11 +8,11 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
-local email = require('themes.concencolor.extra.email')
-local starlprice = require('themes.concencolor.extra.starlprice')
+local email = require('themes.megid.extra.email')
+local starlprice = require('themes.megid.extra.starlprice')
 local vm = require('extra.vmhunter')
-local gpuhunter = require('themes.concencolor.extra.gpuhunter')
-local gputemps = require('themes.concencolor.extra.gputemps')
+local gpuhunter = require('themes.megid.extra.gpuhunter')
+local gputemps = require('themes.megid.extra.gputemps')
 
 
 

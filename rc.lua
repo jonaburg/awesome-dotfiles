@@ -230,10 +230,11 @@ local themes = {
     "hunter",          -- 8
     "concencolor",     -- 9
     "focus-sensible",  -- 10
-    "pioneer",         -- 12
-    "google-2021",     -- 13
+    "pioneer",         -- 11
+    "google-2021",     -- 12
+    "megid",     -- 13
 }
-local chosen_theme = themes[9]
+local chosen_theme = themes[13]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "st"
@@ -605,7 +606,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
 			 c.shape = gears.shape.rounded_rect
 			 c.shape = function(cr,w,h)
-		      	gears.shape.rounded_rect(cr,w,h,0)
+		      	gears.shape.rounded_rect(cr,w,h,7)
      		 	end
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
@@ -619,51 +620,6 @@ client.connect_signal("manage", function (c)
     end
 end)
 
-
-
--- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-    -- Custom
-    if beautiful.titlebar_fun then
-        beautiful.titlebar_fun(c)
-        return
-    end
-
-    -- Default
-    -- buttons for the titlebar
-    local buttons = my_table.join(
-        awful.button({ }, 1, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 2, function() c:kill() end),
-        awful.button({ }, 3, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end)
-    )
-
-    awful.titlebar(c, {size = dpi(16)}) : setup {
-        { -- Left
-          --  awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            --awful.titlebar.widget.stickybutton   (c),
-            --awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
-end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
