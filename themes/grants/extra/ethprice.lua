@@ -1,5 +1,5 @@
 -------------------------------------------------
--- starl price tracker
+-- ethereum price tracker
 -------------------------------------------------
 local awful = require("awful")
 local wibox = require("wibox")
@@ -23,32 +23,31 @@ local textbox_notify_widget = wibox.widget {
 	}
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
-	--fg = "#D7FFB5",
-	fg = "#fdffb5",
+	fg = "#88a67d",
 	widget = wibox.container.background,
 }
-local starlprice = wibox.widget {
+local ethprice = wibox.widget {
 	textbox_notify_widget_box,
 	layout = wibox.layout.fixed.horizontal,
 }
 
 --local price = [[bash -c "tokens eth"]]
-local price = [[bash -c "cat ~/.config/awesome/tmp/starl_price_parsed"]]
-local update_starl = [[bash -c "tokens starl_price"]]
+local price = [[bash -c "cat ~/.config/awesome/tmp/ethprice"]]
+local update_eth = [[bash -c "tokens eth"]]
 
 -- call to update the function actually every 29 min 59 seconds.
 watch(
-update_starl, 599,
+update_eth, 1799,
 function() end
 )
 
 -- update indicator every 30 minutes
 watch(
-price, 600,
+price, 1800,
 function(widget, stdout, stderr, exitreason, exitcode)
   local output = tostring(stdout)
-            textbox_notify_widget:set_text(" " .. output)
+            textbox_notify_widget:set_text("  " .. output)
     end
 )
 
-return starlprice
+return ethprice

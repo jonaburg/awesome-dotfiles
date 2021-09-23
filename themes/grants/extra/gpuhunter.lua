@@ -1,5 +1,5 @@
 -------------------------------------------------
--- starl price tracker
+-- nvidia gpu monitor
 -------------------------------------------------
 local awful = require("awful")
 local wibox = require("wibox")
@@ -23,32 +23,29 @@ local textbox_notify_widget = wibox.widget {
 	}
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
-	--fg = "#D7FFB5",
-	fg = "#fdffb5",
+	fg = "#88a67d",
 	widget = wibox.container.background,
 }
-local starlprice = wibox.widget {
+local gpuhunter = wibox.widget {
 	textbox_notify_widget_box,
 	layout = wibox.layout.fixed.horizontal,
 }
 
---local price = [[bash -c "tokens eth"]]
-local price = [[bash -c "cat ~/.config/awesome/tmp/starl_price_parsed"]]
-local update_starl = [[bash -c "tokens starl_price"]]
+--local watchstatus = [[bash -c "nvidia-smi --format=csv --query-gpu=utilization.gpu | tail -1"]]
+--local watchstatus = [[bash -c "cat .config/awesome/tmp/ethprice"]]
+local watchstatus = [[bash -c "cat .config/awesome/tmp/ethprice"]]
 
--- call to update the function actually every 29 min 59 seconds.
-watch(
-update_starl, 599,
-function() end
-)
+-- ensuring the icon will have black fg text.
+--textbox_widget:set_markup(markup("#000000", "  "))
 
--- update indicator every 30 minutes
+-- automatically scans for gpu usage percentage..
 watch(
-price, 600,
+watchstatus, 60,
 function(widget, stdout, stderr, exitreason, exitcode)
-  local output = tostring(stdout)
-            textbox_notify_widget:set_text(" " .. output)
+  local util = tostring(stdout)
+            --textbox_notify_widget:set_text("  " .. util)
+            textbox_notify_widget:set_text("  " .. util)
     end
 )
 
-return starlprice
+return gpuhunter

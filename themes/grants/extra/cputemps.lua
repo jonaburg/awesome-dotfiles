@@ -1,10 +1,10 @@
 -------------------------------------------------
--- starl price tracker
+-- cpu temps intel based
 -------------------------------------------------
 local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
 local watch = require("awful.widget.watch")
+local beautiful = require("beautiful")
 local lain = require("lain")
 local markup = lain.util.markup
 local naughty = require("naughty")
@@ -13,42 +13,44 @@ local my_table = awful.util.table or gears.table
 local testwidget_widget = {}
 
 local textbox_widget = wibox.widget {
-    text = '  ',  -- fill with whatever icon
+    text = ' ♨ ', -- windows icon
 	font = "Iosevka 13",
 	widget = wibox.widget.textbox,
 	}
 local textbox_notify_widget = wibox.widget {
-	 font = "Iosevka 13",
+ --    text = '  ', --fa super
+	 --font = "Iosevka 13",
+	 font = beautiful.font,
 	 widget = wibox.widget.textbox,
 	}
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
-	--fg = "#D7FFB5",
-	fg = "#fdffb5",
+--	bg = "#c3c2c3", -- dark
+	--bg = "#A5A5A6", -- even darker
+	fg = "#a67d88",
 	widget = wibox.container.background,
 }
-local starlprice = wibox.widget {
+local cputempshunter = wibox.widget {
+--	textbox_widget,
 	textbox_notify_widget_box,
 	layout = wibox.layout.fixed.horizontal,
 }
 
---local price = [[bash -c "tokens eth"]]
-local price = [[bash -c "cat ~/.config/awesome/tmp/starl_price_parsed"]]
-local update_starl = [[bash -c "tokens starl_price"]]
+--local gputempshunter = wibox.container.background(mascarpone_widget, "#a67d88") -- brown
 
--- call to update the function actually every 29 min 59 seconds.
-watch(
-update_starl, 599,
-function() end
-)
+local watchstatus = [[bash -c "acpi -t | awk {'print $4'}"]]
 
--- update indicator every 30 minutes
+-- ensuring the icon will have black fg text.
+--textbox_widget:set_markup(markup("#000000", " ♨ "))
+
+-- automatically scans for VM status..
 watch(
-price, 600,
+watchstatus, 20,
 function(widget, stdout, stderr, exitreason, exitcode)
-  local output = tostring(stdout)
-            textbox_notify_widget:set_text(" " .. output)
+  local util = tostring(stdout)
+            textbox_notify_widget:set_text(" ♨ " .. util)
     end
 )
 
-return starlprice
+
+return cputempshunter

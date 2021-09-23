@@ -98,19 +98,69 @@ local redshiftholder = wibox.container.margin(redshift({
 	main_color = cornershifter, background_color = "#343434", margins=2, shape = 'rectangle',}),
 	dpi(20), dpi(40), dpi(2), dpi(2))
 
-local panel_anim = awestore.tweened(-1000, {
+
+
+	--- Volume --
+
+-- ALSA volume bar
+beautiful.volume = lain.widget.alsabar({
+    notification_preset = { font = "Monospace 14"},
+    width = dpi(150), height = dpi(1), border_width = dpi(0),ticks = false, tick_size=3, -- max width for all bars is equiv to this width.
+    colors = {
+        background = "#343434",
+        unmute     = "#7289DA",
+        mute       = "#FF9F9F"
+    },
+})
+beautiful.volume.bar.paddings = dpi(1)
+beautiful.volume.bar.margins = dpi(1)
+beautiful.volume.bar:buttons(awful.util.table.join(
+    awful.button({}, 3, function() -- left click
+        awful.spawn(string.format("%s -e alsamixer", terminal))
+    end),
+
+    awful.button({}, 2, function() -- middle click
+        awful.spawn(string.format("%s -e ncmpcpp", terminal))
+    end),
+
+    awful.button({}, 1, function() -- right click
+        os.execute(string.format("%s set %s toggle", beautiful.volume.cmd, beautiful.volume.togglechannel or beautiful.volume.channel))
+        beautiful.volume.update()
+    end),
+
+    awful.button({}, 4, function() -- scroll up
+        os.execute(string.format("%s set %s 1%%+", beautiful.volume.cmd, beautiful.volume.channel))
+        beautiful.volume.update()
+    end),
+
+    awful.button({}, 5, function() -- scroll down
+        os.execute(string.format("%s set %s 1%%-", beautiful.volume.cmd, beautiful.volume.channel))
+        beautiful.volume.update()
+    end)
+    ))
+
+local volumewidget = wibox.container.background(beautiful.volume.bar, beautiful.bg_focus, gears.shape.rectangle)
+volumewidget = wibox.container.margin(volumewidget, dpi(20), dpi(40), dpi(5), dpi(5))
+
+
+
+
+
+-- signal to connect to, in order to autohide/unhide when called with "keybind" ----------
+local panel_anim = awestore.tweened(3000, {
 	duration = 350,
 	easing = awestore.easing.cubic_in_out
 })
 
--- signal to connect to, in order to autohide/unhide when called with "keybind" ----------
 awesome.connect_signal("widget::panel::toggle", function ()
 	if not mysidepanel.visible then
 		mysidepanel.visible = true
 		--mysidepanel2.visible = true
-		panel_anim:set(0)
+		--panel_anim:set(1800)
+		--panel_anim:set(2050)
+		panel_anim:set(2050)
     else
-	panel_anim:set(-1000)
+	panel_anim:set(3000)
  local unsub_panel
  unsub_panel = panel_anim.ended:subscribe (
  function()
@@ -135,11 +185,11 @@ function side_panel(s)
                       {
                        screen = s,
                        height = s.workarea.height,
-                       width = s.workarea.width / 3,
+                       width = s.workarea.width / 5,
+		       y = 45,
                        x = 0,
-		               y = 45,
-			       --bg = gears.color.create_png_pattern(beautiful.side_panelbg),
-                       bg = "#121212",
+		       bg = gears.color.create_png_pattern(beautiful.side_panelbg),
+                       --bg = "#121212",
                        visible = false,
               	       ontop  = true,
                        shape = gears.shape.rectangle
@@ -166,12 +216,13 @@ function side_panel(s)
 			    verbosebat,
 			  ddcshiftholder,
 			  redshiftholder,
+			  volumewidget,
                           max_widget_size = 50
                       },
                   }
     end
 
-mysidepanel.x = -1000
+mysidepanel.x = 1000
 panel_anim:subscribe(function(x) mysidepanel.x = x end)
 
 

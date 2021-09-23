@@ -1,10 +1,10 @@
 -------------------------------------------------
--- starl price tracker
+-- battery wattage output (laptop)
 -------------------------------------------------
 local awful = require("awful")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
 local watch = require("awful.widget.watch")
+local beautiful = require("beautiful")
 local lain = require("lain")
 local markup = lain.util.markup
 local naughty = require("naughty")
@@ -12,43 +12,34 @@ local gears = require("gears")
 local my_table = awful.util.table or gears.table
 local testwidget_widget = {}
 
-local textbox_widget = wibox.widget {
-    text = '  ',  -- fill with whatever icon
-	font = "Iosevka 13",
-	widget = wibox.widget.textbox,
-	}
 local textbox_notify_widget = wibox.widget {
-	 font = "Iosevka 13",
+	--font = "Iosevka 13",
+	 font = beautiful.font,
 	 widget = wibox.widget.textbox,
 	}
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
-	--fg = "#D7FFB5",
-	fg = "#fdffb5",
+	fg = "#C9C785",
 	widget = wibox.container.background,
 }
-local starlprice = wibox.widget {
+local wattage = wibox.widget {
 	textbox_notify_widget_box,
 	layout = wibox.layout.fixed.horizontal,
 }
 
---local price = [[bash -c "tokens eth"]]
-local price = [[bash -c "cat ~/.config/awesome/tmp/starl_price_parsed"]]
-local update_starl = [[bash -c "tokens starl_price"]]
+--local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT1/power_now) / 100000)) | awk  '{printf( \"%.\" C \"f\n\", $1 / 10^C) }' C=1 | sed  's/$/ W/g' " ]]
 
--- call to update the function actually every 29 min 59 seconds.
-watch(
-update_starl, 599,
-function() end
-)
+local charge_status =  [[ bash -c "cat /sys/class/power_supply/BAT0/status" ]]
+local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT0/power_now) / 100000)) | awk  '{printf( \"%.\" C \"f\n\", $1 / 10^C) }' C=1 | sed  's/$/ W/g' " ]]
 
--- update indicator every 30 minutes
+-- polls for wattage and displays it on widget..
 watch(
-price, 600,
+watchstatus, 20,
 function(widget, stdout, stderr, exitreason, exitcode)
   local output = tostring(stdout)
-            textbox_notify_widget:set_text(" " .. output)
+            textbox_notify_widget:set_text(output)
     end
 )
 
-return starlprice
+
+return wattage

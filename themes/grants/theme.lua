@@ -1,5 +1,5 @@
 --[[
-	megid
+	grants
 --]]
 
 local gears = require("gears")
@@ -17,10 +17,10 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
-theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/megid"
-theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/megid/icons"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/megid/wall.png"
-theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/megid"
+theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/grants"
+theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/grants/icons"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/grants/wall.png"
+theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/grants"
 
 
 --theme.font          = "Iosevka 12"
@@ -218,7 +218,7 @@ local tagbarbutton  = gears.color({
     type  = "linear",
     from  = { 0, 120 },
     to    = { 0, 0 },
-    stops = { {0, "#4e78a3"}, {0.9, "#9e9e9e" .. "35"}}
+    stops = { {1.9, "#202020"}, {0.1, "#9e9e9e"}}
 })
 
 local tagbarselcolor  = gears.color({
@@ -240,6 +240,14 @@ local silverbar  = gears.color({
     stops = {{5.9, "#9c9c9c" }, {0.1, "#bbbbbb" }} -- a bit more matte.
 })
 
+local sel_active  = gears.color({
+    type  = "linear",
+    from  = { dpi(32), dpi(32) },
+    to    = { dpi(32), 0 },
+    --stops = {{0.3, "#8E8E8E"}, {0.65, "#BBBBBB"}} -- Light (top dark)
+--    stops = {{0.3, "#bbbbbb"}, {0.65, "#6b6b6b"}} -- A bit darker (bottom dark)
+    stops = {{1.9, "#828282" }, {0.1, "#BDDDFF" }} -- XP era silver gradient
+})
 local darksilverbar  = gears.color({
     type  = "linear",
     from  = { dpi(32), dpi(32) },
@@ -536,7 +544,9 @@ s.mytaglistn = awful.widget.taglist {
          fg_occupied = "#c2c3c2" .. "80",
         --bg_focus = "#b3b3b2",
         --bg_focus = "#d3d2d3",
-        bg_focus = "#8fA0FC",
+        --bg_focus = "#8fA0FC",
+        --bg_focus = gears.color.create_png_pattern(beautiful.side_panel_blue),
+        bg_focus = sel_active
     },
     layout   = {
         spacing = 30,
