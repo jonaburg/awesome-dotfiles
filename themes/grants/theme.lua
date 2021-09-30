@@ -137,8 +137,7 @@ theme.side_panelbg                                   = theme.icon_dir .. "/solpa
 --theme.side_panelbg                              = theme.icon_dir .. "/side_panel.png"
 theme.side_panel_darker_bg                      = theme.icon_dir .. "/side_panel_darker.png"
 theme.side_panel_blue                           = theme.icon_dir .. "/side_panel_blue.png"
-theme.tagbarbg                                  = theme.icon_dir .. "/solpan1.png"
---theme.tagbarbg                                  = theme.icon_dir .. "/tagbar.png"
+theme.tagbarbg                                  = theme.icon_dir .. "/tagbar.png"
 theme.tagbarbg_light                            = theme.icon_dir .. "/tagbar_light.png"
 theme.psoman                                    = theme.icon_dir .. "/psoman.png"
 theme.psoman_active                             = theme.icon_dir .. "/psoman_active.png"
@@ -292,8 +291,8 @@ local sandsilver  = gears.color({
     type  = "linear",
     from  = { dpi(32), dpi(32) },
     to    = { dpi(32), 0 },
-    --stops = {{5.9, "#5e5e5e" }, {0.1, "#9D9F84" }} -- gold at the bottom
-    stops = {{5.9, "#9e9e9e" }, {0.1, "#353535" }} -- gold at the top
+    stops = {{0.95, "#b9b9b9" }, {0.1, "#cececf" }, {0.1, "#e2e4e4" }, {0.95, "#e9ebea" }} -- macos (light bottom)
+    --stops = {{0.8, "#e9ebea" }, {0.2, "#e2e4e4" }, {0.3, "#cececf" }, {0.8, "#b9b9b9" }} -- macos
 })
 
 local occupiedblue  = gears.color({
