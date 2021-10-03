@@ -23,7 +23,7 @@ local textbox_notify_widget = wibox.widget {
 	}
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
-	fg = "#88a67d",
+	fg = beautiful.green_use,
 	widget = wibox.container.background,
 }
 local gpuhunter = wibox.widget {
@@ -31,9 +31,9 @@ local gpuhunter = wibox.widget {
 	layout = wibox.layout.fixed.horizontal,
 }
 
---local watchstatus = [[bash -c "nvidia-smi --format=csv --query-gpu=utilization.gpu | tail -1"]]
+local watchstatus = [[bash -c "nvidia-smi --format=csv --query-gpu=utilization.gpu | tail -1"]]
 --local watchstatus = [[bash -c "cat .config/awesome/tmp/ethprice"]]
-local watchstatus = [[bash -c "cat .config/awesome/tmp/ethprice"]]
+--local watchstatus = [[bash -c "cat .config/awesome/tmp/ethprice"]]
 
 -- ensuring the icon will have black fg text.
 --textbox_widget:set_markup(markup("#000000", "  "))
@@ -43,8 +43,8 @@ watch(
 watchstatus, 60,
 function(widget, stdout, stderr, exitreason, exitcode)
   local util = tostring(stdout)
-            --textbox_notify_widget:set_text("  " .. util)
-            textbox_notify_widget:set_text("  " .. util)
+            textbox_notify_widget:set_text(" " .. util)
+           -- textbox_notify_widget:set_text("  " .. util)
     end
 )
 

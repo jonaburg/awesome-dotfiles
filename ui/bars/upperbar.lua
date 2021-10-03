@@ -8,19 +8,24 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
-local email = require('themes.megid.extra.email')
-local starlprice = require('themes.megid.extra.starlprice')
+local email = require('themes.grants.extra.email')
+local starlprice = require('themes.grants.extra.starlprice')
 local vm = require('extra.vmhunter')
-local gpuhunter = require('themes.megid.extra.gpuhunter')
-local gputemps = require('themes.megid.extra.gputemps')
+local gpuhunter = require('themes.grants.extra.gpuhunter')
+local gputemps = require('themes.grants.extra.gputemps')
+
+local volume_widget = require('extra.volume-widget.volume')
+
 
 
 
 
 --- WIDGETS
 local space3 = markup.font("Roboto 3", " ")
-local mytextclock = wibox.widget.textclock(markup("#c3c2c3", "%a, %d. %b "))
-local mytextclock2 = wibox.widget.textclock(markup("#c3c2c3", " %H:%M" ))
+
+local mytextclock = wibox.widget.textclock(markup(beautiful.widget_value_fg, "%a, %d. %b "))
+local mytextclock2 = wibox.widget.textclock(markup(beautiful.widget_value_fg, " %H:%M" ))
+
 local clockbg = wibox.container.background(mytextclock, beautiful.widget_value_bg, gears.shape.rectangle)
 local clockbg2 = wibox.container.background(mytextclock2, beautiful.widget_value_bg, gears.shape.rectangle)
 local full_clock_widget = wibox.widget {
@@ -53,7 +58,9 @@ vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 v
 -- GPU HOLDER(s)
 --gpuhunter.bg = "#ff0000"
 gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
-gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+gpuholder_bright = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+
+gputempsholder_bright = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5))
 
 -- starl price hodler
 starlpriceholder = wibox.container.margin(starlprice, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
@@ -98,7 +105,8 @@ local cpu_bg_handle = wibox.widget {
 	cpu,
  --   bg = "#A5A5A6",
 	--fg = "#000000",
-	fg = "#7d88a6", -- purp
+	--fg = "#7d88a6", -- purp
+	fg = beautiful.blue_use, -- purp
 	widget = wibox.container.background,
 }
 local full_cpu_widget = wibox.widget {
@@ -188,32 +196,36 @@ mywibox = awful.wibar(
         },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-        gputempsholder,
-        gpuholder,
+	gputempsholder_bright,
+        gpuholder_bright,
         cpuwidget,
 	starlpriceholder,
-	    emailholder,
-        volumewidget,
+	emailholder,
+
+	volume_widget{
+          widget_type = 'arc'
+        }, -- self explanatory
+
+        --volumewidget, -- blue bar
         s.mylayoutbox,
         systrayholder,
         },
     }
 
 -- if main screen then indent topbar down. (specific to main 3k monitor)
-    if s.index == 1
-    then
-        ----- {{ TOP BAR}}
-         mywibox.height = dpi(38)
-         --screen[1].mywibox.width = s.workarea.width - 50
-         mywibox.width = s.workarea.width
-         mywibox.y = 0
-         --screen[1].mywibox.x = 20
-         mywibox.x = 0
-         --screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
-         mywibox:struts({left=0, right=0, top=45, bottom=0})
+--    if s.index == 1
+--    then
+--        ----- {{ TOP BAR}}
+--         mywibox.height = dpi(38)
+--         --screen[1].mywibox.width = s.workarea.width - 50
+--         mywibox.width = s.workarea.width
+--         mywibox.y = 0
+--         --screen[1].mywibox.x = 20
+--         mywibox.x = 0
+--         --screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
+--         mywibox:struts({left=0, right=0, top=45, bottom=0})
+--    end
 
-
-    end
 end
 
 

@@ -24,7 +24,8 @@ local textbox_notify_widget = wibox.widget {
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
 	--fg = "#D7FFB5",
-	fg = "#fdffb5",
+	--fg = "#fdffb5",
+	fg = beautiful.yellow_portfolio,
 	widget = wibox.container.background,
 }
 local starlprice = wibox.widget {

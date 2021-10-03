@@ -45,6 +45,14 @@ theme.highlight = "#b6bfd5" -- google whiteish
 --theme.highlight = "#5894C6" -- blueish
 --theme.highlight = "#FFB028" -- orange
 
+-- temp, gpu, cpu, starl, email etc colors
+--theme.red_temp = "#A67D88" -- RED
+--theme.red_temp = "#FDE4EB" -- RED
+theme.red_temp = "#E3D9D9" -- RED gputemp
+theme.green_use = "#DBE3D9" -- GREEN gpu hunter
+theme.blue_use = "#D9E3E3" -- BLUE cpu widget
+theme.yellow_portfolio = "#CBCCAD" -- yello portfolio
+
 
 
 theme.email_alert = "#6FFFCB"
@@ -59,6 +67,7 @@ theme.bg_focus                                  = "#141c29" -- midnight blue
 theme.bg_normal                                 = "#141414" .. "99"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#D9574F"
+theme.fg_notification                           = "#ffffff"
 --theme.bg_urgent                                 = "#B57582"
 
 --theme.fg_urgent                                 = "#CC9393"
@@ -78,6 +87,7 @@ theme.border_focus                              = "#191919"
 --theme.widget_value_bg = "#A5A5A6" -- greyish
 --theme.widget_value_bg = "#A5A5A6"
 theme.widget_value_bg = "#A5A5A6" .. "0"
+theme.widget_value_fg = "#ffffff"
 widget_value_bg = "#A5A5A6"
 theme.my_color = "#ff0000"
 
@@ -133,6 +143,7 @@ theme.awesome_icon                              = theme.icon_dir .. "/awesome_ic
 theme.titlebar                                  = theme.icon_dir .. "/pat7.png"
 theme.clock                                     = theme.icon_dir .. "/clock.png"
 theme.panelbg                                   = theme.icon_dir .. "/panel.png"
+--theme.panelbg                                   = theme.icon_dir .. "/panelnotreal.png"
 theme.side_panelbg                                   = theme.icon_dir .. "/solpan1.png"
 --theme.side_panelbg                              = theme.icon_dir .. "/side_panel.png"
 theme.side_panel_darker_bg                      = theme.icon_dir .. "/side_panel_darker.png"
@@ -151,26 +162,31 @@ theme.layout_floating                           = theme.icon_dir .. "/floating.p
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = dpi(25)
+
 theme.titlebar_close_button_normal              = theme.default_dir.."/titlebar/close_normal.png"
-theme.titlebar_close_button_focus               = theme.default_dir.."/titlebar/close_focus.png"
+theme.titlebar_close_button_focus               = theme.icon_dir.."/close_focus.png"
 theme.titlebar_minimize_button_normal           = theme.default_dir.."/titlebar/minimize_normal.png"
 theme.titlebar_minimize_button_focus            = theme.default_dir.."/titlebar/minimize_focus.png"
-theme.titlebar_ontop_button_normal_inactive     = theme.default_dir.."/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive      = theme.default_dir.."/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active       = theme.default_dir.."/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active        = theme.default_dir.."/titlebar/ontop_focus_active.png"
-theme.titlebar_sticky_button_normal_inactive    = theme.default_dir.."/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive     = theme.default_dir.."/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active      = theme.default_dir.."/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active       = theme.default_dir.."/titlebar/sticky_focus_active.png"
-theme.titlebar_floating_button_normal_inactive  = theme.default_dir.."/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive   = theme.default_dir.."/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active    = theme.default_dir.."/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active     = theme.default_dir.."/titlebar/floating_focus_active.png"
-theme.titlebar_maximized_button_normal_inactive = theme.default_dir.."/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = theme.default_dir.."/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
+
+theme.titlebar_ontop_button_normal_inactive     = theme.icon_dir.."/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive      = theme.icon_dir.."/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active       = theme.icon_dir.."/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active        = theme.icon_dir.."/ontop_focus_active.png"
+
+theme.titlebar_sticky_button_normal_inactive    = theme.icon_dir.."/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive     = theme.icon_dir.."/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active      = theme.icon_dir.."/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active       = theme.icon_dir.."/sticky_focus_active.png"
+
+theme.titlebar_floating_button_normal_inactive  = theme.icon_dir.."/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive   = theme.icon_dir.."/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active    = theme.icon_dir.."/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active     = theme.icon_dir.."/floating_focus_active.png"
+
+theme.titlebar_maximized_button_normal_inactive = theme.icon_dir.."/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = theme.icon_dir.."/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active   = theme.icon_dir.."/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active    = theme.icon_dir.."/maximized_focus_active.png"
 
 
 theme.musicplr = string.format("%s -e ncmpcpp", awful.util.terminal)
@@ -539,8 +555,8 @@ s.mytaglistn = awful.widget.taglist {
         bg_occupied = tagbarbutton,
         --bg_occupied = googlegreen,
 
-         fg_focus = "#c2c3c2" .. "80",
-         fg_occupied = "#c2c3c2" .. "80",
+         fg_focus = "#c2c3c2" .. "90",
+         fg_occupied = "#c2c3c2" .. "90",
         --bg_focus = "#b3b3b2",
         --bg_focus = "#d3d2d3",
         --bg_focus = "#8fA0FC",

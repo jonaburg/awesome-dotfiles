@@ -27,7 +27,7 @@ local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
 --	bg = "#c3c2c3", -- dark
 	--bg = "#A5A5A6", -- even darker
-	fg = "#a67d88",
+	fg = beautiful.red_temp,
 	widget = wibox.container.background,
 }
 local gputempshunter = wibox.widget {
