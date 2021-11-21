@@ -50,10 +50,10 @@ then echo 100 > $value_path/BV
 fi
 if (( $num2 < 100 ))
 then echo "$((num2+=10))" > $value_path/BV
-sudo ddcutil setvcp --bus 1 10 $num2
-sudo ddcutil setvcp --bus 2 10 $num2
-sudo ddcutil setvcp --bus 3 10 $num2
-sudo ddcutil setvcp --bus 7 10 $num2
+#sudo ddcutil setvcp --bus 1 10 $num2
+#sudo ddcutil setvcp --bus 2 10 $num2
+#sudo ddcutil setvcp --bus 3 10 $num2
+#sudo ddcutil setvcp --bus 7 10 $num2
 xbacklight -inc 10
 	dunstify -r 454 -u low "Main Monitor Brightness :  $(<$value_path/BV)"
 fi
@@ -67,10 +67,10 @@ fi
 
 if (( $num2 > 0 ))
 then	echo "$((num2-=10))" > $value_path/BV
-sudo ddcutil setvcp --bus 1 10 $num2
-sudo ddcutil setvcp --bus 2 10 $num2
-sudo ddcutil setvcp --bus 3 10 $num2
-sudo ddcutil setvcp --bus 7 10 $num2
+#sudo ddcutil setvcp --bus 1 10 $num2
+#sudo ddcutil setvcp --bus 2 10 $num2
+#sudo ddcutil setvcp --bus 3 10 $num2
+#sudo ddcutil setvcp --bus 7 10 $num2
 xbacklight -dec 10
 	dunstify -r 454 -u low "Main Monitor Brightness :  $(<$value_path/BV)"
 fi

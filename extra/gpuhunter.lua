@@ -43,7 +43,8 @@ local mascarpone_widget = wibox.widget {
 --local gpuhunter = wibox.container.background(mascarpone_widget, "#677a52") -- retro green 2
 local gpuhunter = wibox.container.background(mascarpone_widget, "#617d7d") -- retro green 2
 
-local watchstatus = [[bash -c "nvidia-smi --format=csv --query-gpu=utilization.gpu | tail -1"]]
+--local watchstatus = [[bash -c "nvidia-smi --format=csv --query-gpu=utilization.gpu | tail -1"]]
+local watchstatus = [[bash -c "nvidia-smi --format=csv --query-gpu=temperature.gpu | tail -1"]]
 
 -- ensuring the icon will have black fg text.
 textbox_widget:set_markup(markup("#000000", "  "))

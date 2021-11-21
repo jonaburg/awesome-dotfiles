@@ -8,14 +8,14 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
-local email = require('themes.concencolor.extra.email')
+local email = require('themes.megid.extra.email')
 --local vm = require('extra.vmhunter')
---local gpuhunter = require('themes.concencolor.extra.gpuhunter')
-local ethprice = require('themes.concencolor.extra.ethprice')
-local starlprice = require('themes.concencolor.extra.starlprice')
-local starlportfolio = require('themes.concencolor.extra.starlportfolio')
-local cputemps = require('themes.concencolor.extra.cputemps')
-local wattage = require('themes.concencolor.extra.wattage')
+--local gpuhunter = require('themes.megid.extra.gpuhunter')
+local ethprice = require('themes.megid.extra.ethprice')
+local starlprice = require('themes.megid.extra.starlprice')
+local starlportfolio = require('themes.megid.extra.starlportfolio')
+local cputemps = require('themes.megid.extra.cputemps')
+local wattage = require('themes.megid.extra.wattage')
 
 
 
@@ -196,17 +196,17 @@ mywibox = awful.wibar(
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
         cputempsholder,
-        --gpuholder,
 --        ethpriceholder,
         cpuwidget,
-        ethpriceholder,
-        starlpriceholder,
---        starlportfolioholder,
+--        gpuholder,
 --        ethpriceholder,
+--        starlpriceholder,
+--        starlportfolioholder,
+        ethpriceholder,
 	    emailholder,
 	wattagewidget,
 	bat.widget,
-        volumewidget,
+        volumewidget -- volume_bar {classic},
         s.mylayoutbox,
         systrayholder,
         },

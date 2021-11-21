@@ -32,14 +32,8 @@ local ethprice = wibox.widget {
 }
 
 --local price = [[bash -c "tokens eth"]]
-local price = [[bash -c "cat ~/.config/awesome/tmp/ethprice"]]
-local update_eth = [[bash -c "tokens eth"]]
+local price = [[bash -c "cointop price -c eth"]]
 
--- call to update the function actually every 29 min 59 seconds.
-watch(
-update_eth, 1799,
-function() end
-)
 
 -- update indicator every 30 minutes
 watch(

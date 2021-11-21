@@ -53,8 +53,10 @@ awful.keyboard.append_global_keybindings(
 
     -- Non-empty tag browsing
     awful.key({ modkey }, "g", function () lain.util.tag_view_nonempty(-1) end,
+--          awful.key({ modkey, "g",}, "Left",   awful.tag.viewprev,
               {description = "view  previous nonempty", group = "tag"}),
-    awful.key({ modkey }, ";", function () lain.util.tag_view_nonempty(1) end,
+     awful.key({ modkey }, ";", function () lain.util.tag_view_nonempty(1) end,
+--    awful.key({ modkey, ";", }, "Right",  awful.tag.viewnext,
               {description = "view  previous nonempty", group = "tag"}),
 
     awful.key({ modkey }, "v", function ()
