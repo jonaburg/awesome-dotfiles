@@ -12,9 +12,13 @@ local awestore = require("awestore")
 -- indicator --
 local email = require('themes.concencolor.extra.email')
 local vm = require('extra.vmhunter')
-local gpuhunter = require('themes.concencolor.extra.gpuhunter')
-local gputemps = require('themes.concencolor.extra.gputemps')
+--local gpuhunter = require('themes.concencolor.extra.gpuhunter')
+--local gputemps = require('themes.concencolor.extra.gputemps')
 
+
+-- additional
+local verbosebat = require('extra.verbosebat')
+local wattage = require('extra.wattage')
 -- ddcshift and redshift --
 local ddcshift = require('extra.bars.ddcshift')
 local redshift = require('extra.bars.redshift')
@@ -31,8 +35,8 @@ emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- em
 vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- GPU HOLDER(s)
 --gpuhunter.bg = "#ff0000"
-gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
-gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+--gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+--gputempsholder = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
 verbosebatholder = wibox.container.margin(verbosebat, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- Battery
@@ -158,9 +162,11 @@ awesome.connect_signal("widget::panel::toggle", function ()
 		--mysidepanel2.visible = true
 		--panel_anim:set(1800)
 		--panel_anim:set(2050)
-		panel_anim:set(2050)
+		panel_anim:set(2305)
+	--	panel_anim:set(700)
     else
 	panel_anim:set(3000)
+--	panel_anim:set(1300)
  local unsub_panel
  unsub_panel = panel_anim.ended:subscribe (
  function()
@@ -203,7 +209,6 @@ function side_panel(s)
                       },
                       { -- middle widgets
                           layout = wibox.layout.flex.vertical,
-			   -- verbosebat,
               	           emailholder,
                            -- s.mytasklistholder, -- Middle widget
                            clockwidget,
@@ -214,6 +219,7 @@ function side_panel(s)
                           side_toggle,
                             s.mytasklistholder, -- Middle widget
 			    verbosebat,
+			    wattage,
 			  ddcshiftholder,
 			  redshiftholder,
 			  volumewidget,

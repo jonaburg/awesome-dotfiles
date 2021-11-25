@@ -11,13 +11,11 @@ local markup = lain.util.markup
 local email = require('themes.grants.extra.email')
 local starlprice = require('themes.grants.extra.starlprice')
 local vm = require('extra.vmhunter')
-local gpuhunter = require('themes.grants.extra.gpuhunter')
-local gputemps = require('themes.grants.extra.gputemps')
+--local gpuhunter = require('themes.grants.extra.gpuhunter')
+--local gputemps = require('themes.grants.extra.gputemps')
+local cputemps = require('themes.grants.extra.cputemps')
 
 local volume_widget = require('extra.volume-widget.volume')
-
-
-
 
 
 --- WIDGETS
@@ -48,7 +46,9 @@ beautiful.cal = lain.widget.cal({
         font = "Iosevka 14"
     }
 })
-local clockwidget = wibox.container.margin(full_clock_widget, dpi(0), dpi(0), dpi(5), dpi(5))
+local clockwidget = wibox.container.margin(full_clock_widget, dpi(20), dpi(20), dpi(2), dpi(2))
+local clockwidget = wibox.container.background(clockwidget, beautiful.panelcolor, gears.shape.hexagon)
+--local clockwidget = wibox.container.background(clockwidget, beautiful.tagbarbutton, gears.shape.hexagon)
 
 -- EMAIL
 emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
@@ -57,10 +57,11 @@ emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- em
 vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- GPU HOLDER(s)
 --gpuhunter.bg = "#ff0000"
-gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
-gpuholder_bright = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+--gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+--gpuholder_bright = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
-gputempsholder_bright = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5))
+--gputempsholder_bright = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5))
+cputempsholder_bright = wibox.container.margin(cputemps, dpi(0), dpi(0), dpi(5),dpi(5))
 
 -- starl price hodler
 starlpriceholder = wibox.container.margin(starlprice, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
@@ -70,12 +71,14 @@ starlpriceholder = wibox.container.margin(starlprice, dpi(0), dpi(0), dpi(5),dpi
 -- Battery
 local bat = lain.widget.bat({
     settings = function()
-        bat_header = " Bat "
+        bat_header = "   "
         bat_p      = bat_now.perc .. " "
         if bat_now.ac_status == 1 then
-            bat_p = bat_p .. "Plugged "
+            bat_header =  " "
+            --bat_p = bat_p .. " "
         end
-        widget:set_markup(markup.font(beautiful.font, markup(blue, bat_header) .. bat_p))
+        --widget:set_markup(markup.font(beautiful.font, markup(blue, bat_header) .. bat_p))
+        widget:set_markup(markup.font(beautiful.font, markup(beautiful.blue, bat_header) .. markup(beautiful.blue,bat_p)))
     end
 })
 
@@ -83,35 +86,30 @@ local bat = lain.widget.bat({
 -- CPU
 local cpu = lain.widget.cpu({
 	settings = function()
-        widget:set_markup(markup.font(beautiful.widget_font, "  " .. cpu_now.usage .. "% "))
+        widget:set_markup(markup.font(beautiful.widget_font, " 💽" .. cpu_now.usage .. "% "))
 	end
 })
 
 local cpu_widget_icon = wibox.widget {
-	--text = " 💽 ",
-	text = "    ",
+	text = " 💽",
 	font = "Iosevka 10",
 	widget = wibox.widget.textbox,
 }
 local cpu_widget_icon_handle = wibox.widget {
 	cpu_widget_icon,
-	--bg = "#52677a", -- lighter blueish
-	--bg = "#52677a", -- purp
 	bg = "#7d88a6", -- purp
 	fg = "#000000",
 	widget = wibox.container.background,
 }
 local cpu_bg_handle = wibox.widget {
 	cpu,
- --   bg = "#A5A5A6",
-	--fg = "#000000",
-	--fg = "#7d88a6", -- purp
-	fg = beautiful.blue_use, -- purp
+	--fg = beautiful.blue_use, -- purp
+	fg = beautiful.purp, -- purp
 	widget = wibox.container.background,
 }
 local full_cpu_widget = wibox.widget {
-	--cpu_widget_icon_handle,
-    cpu_bg_handle,
+	--cpu_widget_icon_handle -- bluebg,
+        cpu_bg_handle,
 	layout = wibox.layout.fixed.horizontal,
 }
 local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(0), dpi(5), dpi(5))
@@ -167,7 +165,6 @@ function show_systray() mysystray.visible = true end
 function hide_systray() mysystray.visible = false end
 
 
-
 -- Create the func -----------------------------------------------------------
 function main_upper_bar(s)
 -- Create the main taskbar wibox.
@@ -186,8 +183,11 @@ mywibox = awful.wibar(
         expand = 'none',
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-         mytagholder,
+	    wibox.container.background(wibox.widget {
+            mytagholder,
             s.mypromptbox,
+	    layout = wibox.layout.fixed.horizontal,
+    }, beautiful.panelcolor, gears.shape.rect),
             max_widget_size = 50,
         },
         {
@@ -196,19 +196,23 @@ mywibox = awful.wibar(
         },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-	gputempsholder_bright,
-        gpuholder_bright,
-        cpuwidget,
-	starlpriceholder,
-	emailholder,
 
-	volume_widget{
-          widget_type = 'arc'
-        }, -- self explanatory
+            wibox.container.background(wibox.widget {
+            	cputempsholder_bright,
+                cpuwidget,
 
-        --volumewidget, -- blue bar
-        s.mylayoutbox,
-        systrayholder,
+            	--gputempsholder_bright,
+                --gpuholder_bright,
+
+            	emailholder,
+		bat.widget,
+            	volume_widget{
+                      widget_type = 'arc'
+                    }, -- self explanatory
+                s.mylayoutbox,
+                systrayholder,
+	     layout = wibox.layout.fixed.horizontal,
+            }, beautiful.panelcolor, gears.shape.rounded_rect),
         },
     }
 

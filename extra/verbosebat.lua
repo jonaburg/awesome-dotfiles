@@ -13,25 +13,23 @@ local my_table = awful.util.table or gears.table
 local testwidget_widget = {}
 
 local textbox_widget = wibox.widget {
-    text = ' ♨ ', -- windows icon
-	font = "Iosevka 13",
+    text = ' ', -- bat i
+	font = "Iosevka 23",
 	widget = wibox.widget.textbox,
 	}
 local textbox_notify_widget = wibox.widget {
  --    text = '  ', --fa super
-	 --font = "Iosevka 13",
-	 font = beautiful.font,
+	 font = "Iosevka 23",
 	 widget = wibox.widget.textbox,
 	}
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
 --	bg = "#c3c2c3", -- dark
 	--bg = "#A5A5A6", -- even darker
---	fg = "#a67d88",
-        fg = beautiful.red,
+	fg = "#a67d88",
 	widget = wibox.container.background,
 }
-local cputempshunter = wibox.widget {
+local verbosebat = wibox.widget {
 --	textbox_widget,
 	textbox_notify_widget_box,
 	layout = wibox.layout.fixed.horizontal,
@@ -39,7 +37,8 @@ local cputempshunter = wibox.widget {
 
 --local gputempshunter = wibox.container.background(mascarpone_widget, "#a67d88") -- brown
 
-local watchstatus = [[bash -c "acpi -t | awk {'print $4'}"]]
+local watchstatus = [[bash -c "acpi | awk {'print $4, $5'} | tail -n 1"]]
+--local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT0/power_now) / 100000)) | sed -e 's/\b[0-9]/&./g' " ]]
 
 -- ensuring the icon will have black fg text.
 --textbox_widget:set_markup(markup("#000000", " ♨ "))
@@ -49,9 +48,9 @@ watch(
 watchstatus, 20,
 function(widget, stdout, stderr, exitreason, exitcode)
   local util = tostring(stdout)
-            textbox_notify_widget:set_text(" ♨ " .. util)
+            textbox_notify_widget:set_text(" " .. util)
     end
 )
 
 
-return cputempshunter
+return verbosebat

@@ -41,6 +41,8 @@ theme.purp = "#A8A3EE" -- google purp
 theme.yellow = "#F4E8a8" -- google yellowish
 theme.blue = "#9ECDD2" -- google blue
 theme.highlight = "#b6bfd5" -- google whiteish
+
+theme.panelcolor = "#121212" .. 95 -- hexagonal background color
 --theme.highlight = "#9ECDD2" -- blueish
 --theme.highlight = "#5894C6" -- blueish
 --theme.highlight = "#FFB028" -- orange
@@ -142,8 +144,8 @@ theme.menu_icon_size                            = dpi(32)
 theme.awesome_icon                              = theme.icon_dir .. "/awesome_icon_white.png"
 theme.titlebar                                  = theme.icon_dir .. "/pat7.png"
 theme.clock                                     = theme.icon_dir .. "/clock.png"
-theme.panelbg                                   = theme.icon_dir .. "/panel.png"
---theme.panelbg                                   = theme.icon_dir .. "/panelnotreal.png"
+--theme.panelbg                                   = theme.icon_dir .. "/panel.png"
+theme.panelbg                                   = theme.icon_dir .. "/panelnotreal.png"
 theme.side_panelbg                                   = theme.icon_dir .. "/solpan1.png"
 --theme.side_panelbg                              = theme.icon_dir .. "/side_panel.png"
 theme.side_panel_darker_bg                      = theme.icon_dir .. "/side_panel_darker.png"
@@ -242,7 +244,6 @@ local tagbarselcolor  = gears.color({
     to    = { 0, 0 },
     --stops = { {0.9, "#b6Bd68" .. "80"}, {0, "#505050" .. "85"}} -- Green?
     stops = { {0.9, "#f9a256" .. "80"}, {0, "#f9a256" .. "25"}}
-
 })
 
 local silverbar  = gears.color({
