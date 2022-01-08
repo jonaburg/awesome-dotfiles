@@ -8,11 +8,11 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
-local email = require('themes.grants.extra.email')
-local starlprice = require('themes.grants.extra.starlprice')
+local email = require('themes.winter22.extra.email')
+local starlprice = require('themes.winter22.extra.starlprice')
 local vm = require('extra.vmhunter')
---local gpuhunter = require('themes.grants.extra.gpuhunter')
---local gputemps = require('themes.grants.extra.gputemps')
+--local gpuhunter = require('themes.winter22.extra.gpuhunter')
+--local gputemps = require('themes.winter22.extra.gputemps')
 local cputemps = require('extra.cputemps')
 
 local volume_widget = require('extra.volume-widget.volume')
@@ -206,7 +206,7 @@ mywibox = awful.wibar(
             	--gputempsholder_bright,
                 --gpuholder_bright,
 
-            	emailholder,
+            	email,
 		wattage,
 		bat.widget,
             	volume_widget{

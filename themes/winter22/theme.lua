@@ -52,7 +52,7 @@ theme.yellow_portfolio = "#CBCCAD" -- yello portfolio
 
 
 
-theme.email_alert = "#6FFFCB"
+theme.email_alert = "#ff0000"
 theme.fg_normal                                 = "#bababa"
 theme.fg_focus					= "#e33a6e"
 theme.bg_focus                                  = "#141c29" -- midnight blue
