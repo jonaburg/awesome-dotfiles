@@ -234,8 +234,9 @@ local themes = {
     "google-2021",     -- 12
     "megid",     -- 13
     "grants",     -- 14
+    "winter22",     -- 15
 }
-local chosen_theme = themes[14]
+local chosen_theme = themes[15]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "st"

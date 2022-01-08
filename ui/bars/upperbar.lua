@@ -13,7 +13,7 @@ local starlprice = require('themes.grants.extra.starlprice')
 local vm = require('extra.vmhunter')
 --local gpuhunter = require('themes.grants.extra.gpuhunter')
 --local gputemps = require('themes.grants.extra.gputemps')
-local cputemps = require('themes.grants.extra.cputemps')
+local cputemps = require('extra.cputemps')
 
 local volume_widget = require('extra.volume-widget.volume')
 local wattage = require('extra.wattage')
@@ -48,7 +48,7 @@ beautiful.cal = lain.widget.cal({
     }
 })
 local clockwidget = wibox.container.margin(full_clock_widget, dpi(20), dpi(20), dpi(2), dpi(2))
-local clockwidget = wibox.container.background(clockwidget, beautiful.panelcolor, gears.shape.rect)
+--local clockwidget = wibox.container.background(clockwidget, beautiful.panelcolor, gears.shape.rect) -- encapsulate for when running without bar present
 --local clockwidget = wibox.container.background(clockwidget, beautiful.tagbarbutton, gears.shape.hexagon)
 
 -- EMAIL
@@ -98,7 +98,8 @@ local cpu_widget_icon = wibox.widget {
 }
 local cpu_widget_icon_handle = wibox.widget {
 	cpu_widget_icon,
-	bg = "#7d88a6", -- purp
+--	bg = "#7d88a6", -- purp
+	bg = "#7E6EFF", -- purp
 	fg = "#000000",
 	widget = wibox.container.background,
 }
