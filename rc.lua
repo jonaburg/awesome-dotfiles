@@ -607,7 +607,8 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
 			 c.shape = gears.shape.rounded_rect
 			 c.shape = function(cr,w,h)
-		      	gears.shape.rounded_rect(cr,w,h,7)
+		      	--gears.shape.rounded_rect(cr,w,h,7)
+		      	gears.shape.rounded_rect(cr,w,h,0)
      		 	end
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.

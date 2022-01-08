@@ -17,6 +17,7 @@ local cputemps = require('themes.grants.extra.cputemps')
 
 local volume_widget = require('extra.volume-widget.volume')
 
+local wattage = require('extra.wattage')
 
 --- WIDGETS
 local space3 = markup.font("Roboto 3", " ")
@@ -47,7 +48,7 @@ beautiful.cal = lain.widget.cal({
     }
 })
 local clockwidget = wibox.container.margin(full_clock_widget, dpi(20), dpi(20), dpi(2), dpi(2))
-local clockwidget = wibox.container.background(clockwidget, beautiful.panelcolor, gears.shape.hexagon)
+local clockwidget = wibox.container.background(clockwidget, beautiful.panelcolor, gears.shape.rounded_rect)
 --local clockwidget = wibox.container.background(clockwidget, beautiful.tagbarbutton, gears.shape.hexagon)
 
 -- EMAIL
@@ -204,6 +205,7 @@ mywibox = awful.wibar(
             	--gputempsholder_bright,
                 --gpuholder_bright,
 
+		wattage,
             	emailholder,
 		bat.widget,
             	volume_widget{

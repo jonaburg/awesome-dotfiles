@@ -160,13 +160,14 @@ awesome.connect_signal("widget::panel::toggle", function ()
 	if not mysidepanel.visible then
 		mysidepanel.visible = true
 		--mysidepanel2.visible = true
-		--panel_anim:set(1800)
+		panel_anim:set(1550) -- full HD
 		--panel_anim:set(2050)
-		panel_anim:set(2305)
-	--	panel_anim:set(700)
+		--panel_anim:set(2305) -- normal only laptop mode
+--		panel_anim:set(700) -- d mode
     else
-	panel_anim:set(3000)
---	panel_anim:set(1300)
+		panel_anim:set(1800) -- full HD
+--	panel_anim:set(3000) -- normal nonly laptop mode
+--	panel_anim:set(1300) -- d moide
  local unsub_panel
  unsub_panel = panel_anim.ended:subscribe (
  function()
@@ -219,7 +220,7 @@ function side_panel(s)
                           side_toggle,
                             s.mytasklistholder, -- Middle widget
 			    verbosebat,
-			    wattage,
+			    --wattage,
 			  ddcshiftholder,
 			  redshiftholder,
 			  volumewidget,

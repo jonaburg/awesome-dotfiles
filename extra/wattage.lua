@@ -35,7 +35,7 @@ local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT0/curre
 
 -- polls for wattage and displays it on widget..
 watch(
-watchstatus, 20,
+watchstatus, 5,
 function(widget, stdout, stderr, exitreason, exitcode)
   local output = tostring(stdout)
             textbox_notify_widget:set_text(output)

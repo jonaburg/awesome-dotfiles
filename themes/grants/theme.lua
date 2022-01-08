@@ -322,8 +322,17 @@ local occupiedblue  = gears.color({
     stops = {{5.9, "#416081" }, {0.1, "#6c8797" }} -- a bit darker (bottom dark)
 })
 
+local xpblue  = gears.color({
+    type  = "linear",
+    from  = { 0, dpi(64) },
+    to    = { dpi(532), 0 },
+    --stops = {{5.9, "#000e9f" }, {0.1, "#6c8797" }}
+    stops = {{5.9, "#1050e2" }, {0.3, "#000e9f" } , { 0.1, "#002066" }}
+    --stops = {{5.9, "#1050e2" }, {0.3, "#093bac" } , { 0.1, "#002066" }}
+})
+
 --Client Titlebar windows (taking gradient colors) --
-theme.titlebar_bg_focus = sandsilver
+theme.titlebar_bg_focus = xpblue
 --theme.titlebar_bg_focus = gears.color.create_png_pattern(theme.titlebar)
 theme.titlebar_fg_focus = "#000000"
 
