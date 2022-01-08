@@ -63,8 +63,8 @@ fi
 
 
 darker(){
-if ! [ -f BV ]
-then echo 100 > BV
+if ! [ -f $value_path/BV ]
+then echo 100 > $value_path/BV
 fi
 
 if (( $num2 > 0 ))

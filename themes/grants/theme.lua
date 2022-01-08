@@ -144,8 +144,8 @@ theme.menu_icon_size                            = dpi(32)
 theme.awesome_icon                              = theme.icon_dir .. "/awesome_icon_white.png"
 theme.titlebar                                  = theme.icon_dir .. "/pat7.png"
 theme.clock                                     = theme.icon_dir .. "/clock.png"
---theme.panelbg                                   = theme.icon_dir .. "/panel.png"
-theme.panelbg                                   = theme.icon_dir .. "/panelnotreal.png"
+theme.panelbg                                   = theme.icon_dir .. "/panel.png"
+--theme.panelbg                                   = theme.icon_dir .. "/panelnotreal.png"
 theme.side_panelbg                                   = theme.icon_dir .. "/solpan1.png"
 --theme.side_panelbg                              = theme.icon_dir .. "/side_panel.png"
 theme.side_panel_darker_bg                      = theme.icon_dir .. "/side_panel_darker.png"
@@ -322,8 +322,27 @@ local occupiedblue  = gears.color({
     stops = {{5.9, "#416081" }, {0.1, "#6c8797" }} -- a bit darker (bottom dark)
 })
 
+local xpblue  = gears.color({
+    type  = "linear",
+    from  = { 0, dpi(64) },
+    to    = { dpi(532), 0 },
+    --stops = {{5.9, "#000e9f" }, {0.1, "#6c8797" }}
+    stops = {{5.9, "#1050e2" }, {0.3, "#000e9f" } , { 0.1, "#002066" }}
+    --stops = {{5.9, "#1050e2" }, {0.3, "#093bac" } , { 0.1, "#002066" }}
+})
+
+local xpsilver  = gears.color({
+    type  = "linear",
+    from  = { 0, dpi(64) },
+    to    = { dpi(532), 0 },
+    stops = {{5.9, "#a8a8a8" }, {0.3, "#828282" } , { 0.1, "#5e5e5e" }}
+})
+
+
+
 --Client Titlebar windows (taking gradient colors) --
-theme.titlebar_bg_focus = sandsilver
+--theme.titlebar_bg_focus = sandsilver
+theme.titlebar_bg_focus = xpsilver
 --theme.titlebar_bg_focus = gears.color.create_png_pattern(theme.titlebar)
 theme.titlebar_fg_focus = "#000000"
 
@@ -699,6 +718,7 @@ end)
 
  -- Create a tasklist widget
  s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
+ --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = darkbluebar, shape = gears.shape.rectangle, align = "center" })
  s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(20), dpi(20), dpi(10), dpi(10))
 
 
