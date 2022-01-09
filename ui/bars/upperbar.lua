@@ -11,8 +11,8 @@ local markup = lain.util.markup
 local email = require('themes.concencolor.extra.email')
 local starlprice = require('themes.grants.extra.starlprice')
 local vm = require('extra.vmhunter')
---local gpuhunter = require('themes.grants.extra.gpuhunter')
---local gputemps = require('themes.grants.extra.gputemps')
+--local gpuhunter = require('themes.winter22.extra.gpuhunter')
+--local gputemps = require('themes.winter22.extra.gputemps')
 local cputemps = require('extra.cputemps')
 
 local volume_widget = require('extra.volume-widget.volume')
@@ -207,7 +207,6 @@ mywibox = awful.wibar(
             	--gputempsholder_bright,
                 --gpuholder_bright,
 
-		--email,
             	emailholder,
 		wattage,
 		bat.widget,
