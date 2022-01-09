@@ -34,7 +34,7 @@ mascarpone_widget = wibox.widget {
 emailbg = wibox.container.background(mascarpone_widget, "#Bd78D2")
 
 
-local checkemails = [[bash -c 'ls ~/.local/share/mail/outlook/INBOX/new/ 2>/dev/null | wc -l']]
+local checkemails = [[bash -c 'ls ~/.local/share/mail/jon.burga@outlook.com/INBOX/new/ 2>/dev/null | wc -l']]
 --local reademails = [[ bash -c '  for i in $(ls); do cat $i | egrep "Subject|From" | grep -v h=From | grep -v X-MS; done']]
 --image_widget:connect_signal("mouse::enter", function() show_emails() end)
 --image_widget:connect_signal("mouse::enter", function() email_text() end)

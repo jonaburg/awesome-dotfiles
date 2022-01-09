@@ -13,13 +13,12 @@ local my_table = awful.util.table or gears.table
 local testwidget_widget = {}
 
 local textbox_notify_widget = wibox.widget {
-	--font = "Iosevka 13",
 	 font = beautiful.font,
 	 widget = wibox.widget.textbox,
 	}
 local textbox_notify_widget_box = wibox.widget {
 	textbox_notify_widget,
-	fg = "#FFFA5C",
+	fg = beautiful.yellow,
 	widget = wibox.container.background,
 }
 local wattage = wibox.widget {

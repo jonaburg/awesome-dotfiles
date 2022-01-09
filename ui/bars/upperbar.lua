@@ -8,7 +8,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
-local email = require('themes.grants.extra.email')
+local email = require('themes.concencolor.extra.email')
 local starlprice = require('themes.grants.extra.starlprice')
 local vm = require('extra.vmhunter')
 --local gpuhunter = require('themes.grants.extra.gpuhunter')
@@ -52,7 +52,7 @@ local clockwidget = wibox.container.margin(full_clock_widget, dpi(20), dpi(20), 
 --local clockwidget = wibox.container.background(clockwidget, beautiful.tagbarbutton, gears.shape.hexagon)
 
 -- EMAIL
-emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
+emailholder = wibox.container.margin(email, dpi(8), dpi(16), dpi(5),dpi(5)) -- email
 -- Computer stats Widgets --------------{{
 -- WINDOWS VM identifier.
 vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
@@ -175,7 +175,8 @@ mywibox = awful.wibar(
          screen = s,
          height = dpi(32),
          width = s.workarea.width,
-         bg = gears.color.create_png_pattern(beautiful.panelbg),
+         --bg = gears.color.create_png_pattern(beautiful.panelbg),
+         bg = beautiful.panelbggrad,
         visible = true,
          shape = gears.shape.rectangle
         }
@@ -206,6 +207,7 @@ mywibox = awful.wibar(
             	--gputempsholder_bright,
                 --gpuholder_bright,
 
+		--email,
             	emailholder,
 		wattage,
 		bat.widget,
@@ -215,7 +217,8 @@ mywibox = awful.wibar(
                 s.mylayoutbox,
                 systrayholder,
 	     layout = wibox.layout.fixed.horizontal,
-            }, beautiful.panelcolor, gears.shape.rounded_rect),
+            --}, beautiful.panelcolor, gears.shape.rounded_rect),
+            } ),
         },
     }
 

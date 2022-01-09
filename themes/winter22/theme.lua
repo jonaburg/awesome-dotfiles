@@ -17,10 +17,10 @@ local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
-theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/grants"
-theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/grants/icons"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/grants/wall.png"
-theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/grants"
+theme.confdir                                   = os.getenv("HOME") .. "/.config/awesome/themes/winter22"
+theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/winter22/icons"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/winter22/wall.png"
+theme.lain_icons                                = os.getenv("HOME") .. "/.config/awesome/themes/winter22"
 
 
 --theme.font          = "Iosevka 12"
@@ -39,7 +39,7 @@ theme.green = "#87afaf" -- google green
 theme.red = "#EB7400" -- google red
 theme.purp = "#B07234" -- google purp
 theme.yellow = "#F4E8a8" -- google yellowish
-theme.blue = "#FF9C3A" -- google blue
+theme.blue = "#E8FFAE" -- google blue
 --theme.highlight = "#b6bfd5" -- google whiteish
 
 theme.panelcolor = "#121212" .. 95 -- hexagonal background color
@@ -51,8 +51,7 @@ theme.blue_use = "#D9E3E3" -- BLUE cpu widget
 theme.yellow_portfolio = "#CBCCAD" -- yello portfolio
 
 
-
-theme.email_alert = "#6FFFCB"
+theme.email_alert = "#FF2500"
 theme.fg_normal                                 = "#bababa"
 theme.fg_focus					= "#e33a6e"
 theme.bg_focus                                  = "#141c29" -- midnight blue
@@ -317,6 +316,14 @@ local bg_occupado  = gears.color({
     to    = { dpi(532), 0 },
     stops = {{5.9, "#616161" }, {0.3, "#696969" } , { 0.1, "#404040" }}
 })
+
+theme.panelbggrad  = gears.color({
+    type  = "linear",
+    from  = { 0, dpi(64) },
+    to    = { dpi(532), dpi(100) },
+    stops = {{0.1, "#61616190" }, {0.1, "#00000040" } , { 0.8, "#40404080" }}
+})
+
 
 theme.highlight = brightsel
 theme.taglist_bg_occupied = bg_occupado

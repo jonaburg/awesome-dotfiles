@@ -10,7 +10,7 @@ local markup = lain.util.markup
 --local awestore = require("awestore")
 
 -- indicator --
-local email = require('themes.concencolor.extra.email')
+--local email = require('themes.concencolor.extra.email')
 local vm = require('extra.vmhunter')
 --local gpuhunter = require('themes.concencolor.extra.gpuhunter')
 --local gputemps = require('themes.concencolor.extra.gputemps')
@@ -29,7 +29,7 @@ local side_toggle = require('extra.toggleside')
 local clockwidget = wibox.container.margin(full_clock_widget, dpi(0), dpi(0), dpi(5), dpi(5))
 
 -- EMAIL
-emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
+--emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
 -- Computer stats Widgets --------------{{
 -- WINDOWS VM identifier.
 vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
@@ -209,7 +209,7 @@ function side_panel(s)
                       },
                       { -- middle widgets
                           layout = wibox.layout.flex.vertical,
-              	           emailholder,
+              	           --emailholder,
                            -- s.mytasklistholder, -- Middle widget
                            clockwidget,
                       },

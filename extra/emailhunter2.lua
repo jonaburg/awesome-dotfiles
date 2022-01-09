@@ -36,14 +36,7 @@ mascarpone_widget = wibox.widget {
 emailbg = wibox.container.background(mascarpone_widget, beautiful.somecolor)
 
 
-local checkemails = [[bash -c 'ls /home/jon/.local/share/mail/jon.burga@outlook.com/INBOX/new/ 2>/dev/null | wc -l']]
---local reademails = [[ bash -c '  for i in $(ls); do cat $i | egrep "Subject|From" | grep -v h=From | grep -v X-MS; done']]
---image_widget:connect_signal("mouse::enter", function() show_emails() end)
---image_widget:connect_signal("mouse::enter", function() email_text() end)
---image_widget:connect_signal("mouse::enter", function() image_widget:set_image(mailhover) end)
---image_widget:connect_signal("mouse::enter", function() textbox_widget:set_markup(markup("#ff0000", "📨 ")) end)
---image_widget:connect_signal("mouse::leave", function() image_widget:set_image(mailicon) end)
---image_widget:connect_signal("mouse::leave", function() naughty.destroy_all_notifications() end )
+local checkemails = [[bash -c 'ls ~/.local/share/mail/jon.burga@outlook.com/INBOX/new/ 2>/dev/null | wc -l']]
 
 
 -- automatically scans for emails and updates widget in background
@@ -52,14 +45,10 @@ checkemails, 10,
 function(widget, stdout, stderr, exitreason, exitcode)
   local unread_emails_num = tonumber(stdout) or 0
         if (unread_emails_num > 0) then
-	       -- textbox_widget:set_text( " 📨 ")
-	        --textbox_widget:set_markup(markup("#000000", " 📨 "))
-	        textbox_notify_widget:set_text( " 📨 " ..  stdout .. "  " )
-	        textbox_notify_widget:set_markup(markup(beautiful.email_alert, " 📨 " .. stdout .. " "))
+	        textbox_notify_widget:set_text( " ooo " ..  stdout .. "  " )
+	        textbox_notify_widget:set_markup(markup(beautiful.email_alert, " ooo " .. stdout .. " "))
         elseif (unread_emails_num == 0) then
-	        textbox_notify_widget:set_text("📨 ")
-	        --textbox_notify_widget:set_markup(markup("#000000", "__ "))
-         --   emailbg:set_bg(beautiful.somecolor) -- triadic pink
+	        textbox_notify_widget:set_text("_!! ")
         end
     end
 )
