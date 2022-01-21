@@ -7,7 +7,7 @@ local xresources = require("beautiful.xresources") local dpi = xresources.apply_
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
---local awestore = require("awestore")
+local awestore = require("awestore")
 
 -- indicator --
 --local email = require('themes.concencolor.extra.email')
@@ -151,10 +151,10 @@ volumewidget = wibox.container.margin(volumewidget, dpi(20), dpi(40), dpi(5), dp
 
 
 -- signal to connect to, in order to autohide/unhide when called with "keybind" ----------
---local panel_anim = awestore.tweened(3000, {
---	duration = 350,
---	easing = awestore.easing.cubic_in_out
---})
+local panel_anim = awestore.tweened(3000, {
+	duration = 350,
+	easing = awestore.easing.cubic_in_out
+})
 
 awesome.connect_signal("widget::panel::toggle", function ()
 	if not mysidepanel.visible then
@@ -162,19 +162,19 @@ awesome.connect_signal("widget::panel::toggle", function ()
 		--mysidepanel2.visible = true
 		--panel_anim:set(1800)
 		--panel_anim:set(2050)
-	--	panel_anim:set(2305) -- normal only laptop mode
+		panel_anim:set(2305) -- normal only laptop mode
 --		panel_anim:set(1540) -- d mode
     else
 --	panel_anim:set(3000) -- normal nonly laptop mode
 --	panel_anim:set(1300) -- d moide
---	panel_anim:set(2100) -- d moide
--- local unsub_panel
--- unsub_panel = panel_anim.ended:subscribe (
--- function()
+	panel_anim:set(1300) -- d moide
+ local unsub_panel
+ unsub_panel = panel_anim.ended:subscribe (
+ function()
 	      mysidepanel.visible = false
           --mysidepanel2.visible = false
---unsub_panel()
---end)
+unsub_panel()
+end)
 
 	end
 end)
@@ -228,7 +228,7 @@ function side_panel(s)
                   }
     end
 
-mysidepanel.x = 1000
+mysidepanel.x = 1700
 --panel_anim:subscribe(function(x) mysidepanel.x = x end)
 
 

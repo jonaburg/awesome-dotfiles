@@ -24,7 +24,7 @@ local scratch = require("extra.scratch")
 --local smart_borders = require('smart_borders') {show_button_tooltips = true}
 -- animation for scratch
 local bling = require("modules.bling")  -- required for [tag preview / sliding animations ]
---local awestore = require("awestore") -- required for modern async widget sidepanel sliding
+local awestore = require("awestore") -- required for modern async widget sidepanel sliding
 
 -- Import Daemons and Widgets
 --require("signal")
@@ -38,46 +38,46 @@ local bling = require("modules.bling")  -- required for [tag preview / sliding a
 --collectgarbage("setstepmul", 400)
 ------------------------------------------------------------------------------------------------------------------------------ ANIMATIONS
 ---- animation from left --
---local right_anim_y = awestore.tweened(-40, {
---	duration = 100,
---	--easing = awestore.easing.cubic_in_out
---	easing = awestore.easing.sine_in_out
---})
---local right_anim_x = awestore.tweened(-2000, {
---	duration = 100,
---	--easing = awestore.easing.cubic_in_out
---	easing = awestore.easing.sine_in_out
---})
---
----- animation from top left --
---local anim_y = awestore.tweened(-1000, {
---	duration = 100,
---	--easing = awestore.easing.cubic_in_out
---	easing = awestore.easing.sine_in_out
---})
---local anim_x = awestore.tweened(-20, {
---	duration = 100,
---	--easing = awestore.easing.cubic_in_out
---	easing = awestore.easing.sine_in_out
---})
----- animation from top left --
---local right_up_anim_y = awestore.tweened(-1000, {
---	duration = 140,
---	easing = awestore.easing.cubic_in_out
---})
---local right_up_anim_x = awestore.tweened(200, {
---	duration = 140,
---	easing = awestore.easing.cubic_in_out
---})
----- animation from right --
---local left_anim_y = awestore.tweened(0, {
---	duration = 140,
---	easing = awestore.easing.cubic_in_out
---})
---local left_anim_x = awestore.tweened(5000, {
---	duration = 140,
---	easing = awestore.easing.cubic_in_out
---})
+local right_anim_y = awestore.tweened(-40, {
+	duration = 100,
+	--easing = awestore.easing.cubic_in_out
+	easing = awestore.easing.sine_in_out
+})
+local right_anim_x = awestore.tweened(-2000, {
+	duration = 100,
+	--easing = awestore.easing.cubic_in_out
+	easing = awestore.easing.sine_in_out
+})
+
+-- animation from top left --
+local anim_y = awestore.tweened(-1000, {
+	duration = 100,
+	--easing = awestore.easing.cubic_in_out
+	easing = awestore.easing.sine_in_out
+})
+local anim_x = awestore.tweened(-20, {
+	duration = 100,
+	--easing = awestore.easing.cubic_in_out
+	easing = awestore.easing.sine_in_out
+})
+-- animation from top left --
+local right_up_anim_y = awestore.tweened(-1000, {
+	duration = 140,
+	easing = awestore.easing.cubic_in_out
+})
+local right_up_anim_x = awestore.tweened(200, {
+	duration = 140,
+	easing = awestore.easing.cubic_in_out
+})
+-- animation from right --
+local left_anim_y = awestore.tweened(0, {
+	duration = 140,
+	easing = awestore.easing.cubic_in_out
+})
+local left_anim_x = awestore.tweened(5000, {
+	duration = 140,
+	easing = awestore.easing.cubic_in_out
+})
 screen_width = awful.screen.focused().geometry.width
 screen_height = awful.screen.focused().geometry.height
 
@@ -90,7 +90,7 @@ local coin_scratch = bling.module.scratchpad:new {
     geometry = {x=25, y=50, height=300, width=1200}, -- The geometry in a floating state
     reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
---    awestore = {x = right_anim_x, y = right_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
+    awestore = {x = right_anim_x, y = right_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
 local pape_scratch = bling.module.scratchpad:new {
     command = "st -n papes",           -- How to spawn the scratchpad
@@ -101,7 +101,7 @@ local pape_scratch = bling.module.scratchpad:new {
     geometry = {x=25, y=50, height=900, width=1200}, -- The geometry in a floating state
     reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
- --   awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
+    awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
 local email_scratch = bling.module.scratchpad:new {
     command = "st -n email",           -- How to spawn the scratchpad
@@ -113,7 +113,7 @@ local email_scratch = bling.module.scratchpad:new {
     geometry = {x=screen_width / 5 , y=50, height=(screen_height / 2), width=screen_width * 3/5}, -- The geometry in a floating state
     reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
-  --  awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
+    awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
 local music_scratch = bling.module.scratchpad:new {
     command = "st -n music",           -- How to spawn the scratchpad
@@ -124,15 +124,20 @@ local music_scratch = bling.module.scratchpad:new {
     geometry = {x=25, y=500, height=900, width=1200}, -- The geometry in a floating state
     reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
-   -- awestore = {x = left_anim_x, y = left_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
+    awestore = {x = left_anim_x, y = left_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
 
 function open_email()
   local s_geo = awful.screen.focused().geometry
   email_scratch.geometry = {
-    x = s_geo.width/13,
-    y = 50,
-    width = s_geo.width * 5/6,
+    --x = s_geo.width/13,
+    --x = s_geo.width/13,
+    x = 0,
+    y = 30,
+    --y = 50,
+    --width = s_geo.width * 5/6,
+    width = s_geo.width,
+    --height = (s_geo.height) / 2
     height = (s_geo.height) / 2
   }
   email_scratch:toggle()
@@ -158,6 +163,31 @@ function open_coin()
   coin_scratch:toggle()
 end
 ------------------------------------------------------------------------------------------------------------------------- FIN ANIM
+
+--monitor switching with xrandr.. doesnt really work atm.. -----------------------------------------------------------------------
+tag.connect_signal("request::screen",
+  function(t)
+    local fallback_tag = nil
+    -- find tag with same name on any other screen
+    for other_screen in screen do
+      if other_screen ~= t.screen then
+        fallback_tag = awful.tag.find_by_name(other_screen, t.name)
+        if fallback_tag ~= nil then
+          break
+        end
+      end
+    end
+    -- no tag with same name exists, chose random one
+    if fallback_tag == nil then
+      fallback_tag = awful.tag.find_fallback()
+    end
+    -- delete the tag and move it to other screen
+    t:delete(fallback_tag, true)
+    screen.disconnect_signal("request::create", awful.screen.dpi.create_screen_handler)
+    screen.disconnect_signal("request::remove", awful.screen.dpi.remove_screen_handler)
+    screen.disconnect_signal("request::resize", awful.screen.dpi.resize_screen_handler)
+  end)
+----------------------------------------------------------------------------------------------------------------------------------
 
 -- expose addono
 --local revelation=require("revelation")
@@ -204,6 +234,11 @@ local function run_once(cmd_arr)
 end
 
 --run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+
+
+-- monitor switching...
+
+
 
 -- This function implements the XDG autostart specification
 --[[

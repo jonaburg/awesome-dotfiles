@@ -9,7 +9,7 @@ local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
 local email = require('themes.concencolor.extra.email')
-local starlprice = require('themes.grants.extra.starlprice')
+--local starlprice = require('themes.grants.extra.starlprice')
 local vm = require('extra.vmhunter')
 --local gpuhunter = require('themes.winter22.extra.gpuhunter')
 --local gputemps = require('themes.winter22.extra.gputemps')
@@ -49,7 +49,6 @@ beautiful.cal = lain.widget.cal({
 })
 local clockwidget = wibox.container.margin(full_clock_widget, dpi(20), dpi(20), dpi(2), dpi(2))
 --local clockwidget = wibox.container.background(clockwidget, beautiful.panelcolor, gears.shape.rect) -- encapsulate for when running without bar present
---local clockwidget = wibox.container.background(clockwidget, beautiful.tagbarbutton, gears.shape.hexagon)
 
 -- EMAIL
 emailholder = wibox.container.margin(email, dpi(8), dpi(16), dpi(5),dpi(5)) -- email
@@ -65,7 +64,7 @@ vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 v
 cputempsholder_bright = wibox.container.margin(cputemps, dpi(0), dpi(0), dpi(5),dpi(5))
 
 -- starl price hodler
-starlpriceholder = wibox.container.margin(starlprice, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+--starlpriceholder = wibox.container.margin(starlprice, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
 
 
