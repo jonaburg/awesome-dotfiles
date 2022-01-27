@@ -434,8 +434,6 @@ end
 
   -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
-
-
     s.mypromptbox = awful.widget.prompt()
     s.mylayoutbox = awful.widget.layoutbox(s)
     s.mylayoutbox:buttons(my_table.join(
@@ -545,7 +543,6 @@ s.mytaglistn = awful.widget.taglist {
     },
     buttons = awful.util.taglist_buttons
 }
-
 
 
     -- Create a taglist widget
@@ -705,17 +702,22 @@ client.connect_signal("request::titlebars", function(c)
 end)
 
 ---------------------------------------------------------------------------------
+--- for nice lil entrypoints about tasklist (NOT TAGLIST. YOU DERP.)
+ s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
+ s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(20), dpi(20), dpi(10), dpi(10))
 
 
 -- calls main source for bar widgets. after this, still need to wait a little in order to call this tagbar for the main screen.
 require("ui.bars")
+
+
+-- setup functions to run --------------------------------------------------
 -- create the upper main horizontal bar --
 main_upper_bar(s)
--- create the side panel(s) --
 side_panel(s)
-
 create_taglist(s)
 tagbaro_hor(s)
+
 ----- create the bottom tagbar and its associated deps -- -- testing rubato for new dock type
 --gears.timer.delayed_call(tagbaro_hor, s)
 --gears.timer.delayed_call(create_taglist, s)
