@@ -7,6 +7,7 @@ local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local rubato = require("modules.rubato")
 local dpi   = require("beautiful.xresources").apply_dpi
 
 local theme_assets = require("beautiful.theme_assets")
@@ -69,7 +70,8 @@ theme.border_focus                              = "#191919"
 -- widget value colors
 theme.widget_value_bg = "#A5A5A6" .. "0"
 theme.widget_value_fg = "#ffffff"
-widget_value_bg = "#A5A5A6"
+--widget_value_bg = "#A5A5A6" -- Whiteish
+widget_value_bg = "#000000"
 theme.my_color = "#ff0000"
 
 --taglist colors
@@ -320,9 +322,11 @@ local bg_occupado  = gears.color({
 
 theme.panelbggrad  = gears.color({
     type  = "linear",
-    from  = { 0, dpi(64) },
-    to    = { dpi(532), dpi(100) },
-    stops = {{0.1, "#61616190" }, {0.1, "#00000040" } , { 0.8, "#40404080" }}
+    from  = { dpi(64), dpi(64) },
+    --to    = { dpi(532), dpi(100) }, -- left to rigth
+    to    = { dpi(64), 0 },
+    --stops = {{0.1, "#61616190" }, {0.1, "#00000040" } , { 0.8, "#40404080" }} -- light greyish type
+    stops = {{0.1, "#616161" }, { 0.8, "#c1c1c1" }}
 })
 
 
@@ -665,7 +669,6 @@ client.connect_signal("request::titlebars", function(c)
         beautiful.titlebar_fun(c)
         return
     end
-
     -- Default
     -- buttons for the titlebar
     local buttons = my_table.join(
@@ -679,7 +682,6 @@ client.connect_signal("request::titlebars", function(c)
             awful.mouse.client.resize(c)
         end)
     )
-
     awful.titlebar(c, {size = dpi(20)}) : setup {
         { -- Left
           --  awful.titlebar.widget.iconwidget(c),
@@ -702,14 +704,7 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
-------
-
 ---------------------------------------------------------------------------------
-
- -- Create a tasklist widget
- s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = silverbar, shape = gears.shape.rectangle, align = "center" })
- --s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = darkbluebar, shape = gears.shape.rectangle, align = "center" })
- s.mytasklistholder = wibox.container.margin(s.mytasklist, dpi(20), dpi(20), dpi(10), dpi(10))
 
 
 -- calls main source for bar widgets. after this, still need to wait a little in order to call this tagbar for the main screen.
@@ -719,9 +714,12 @@ main_upper_bar(s)
 -- create the side panel(s) --
 side_panel(s)
 
--- create the bottom tagbar and its associated deps --
-gears.timer.delayed_call(create_taglist, s)
-gears.timer.delayed_call(tagbar_horizontal, s)
+create_taglist(s)
+tagbaro_hor(s)
+----- create the bottom tagbar and its associated deps -- -- testing rubato for new dock type
+--gears.timer.delayed_call(tagbaro_hor, s)
+--gears.timer.delayed_call(create_taglist, s)
+--gears.timer.delayed_call(tagbar_horizontal, s)
 
 end
 return theme

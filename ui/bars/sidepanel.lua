@@ -162,12 +162,11 @@ awesome.connect_signal("widget::panel::toggle", function ()
 		--mysidepanel2.visible = true
 		--panel_anim:set(1800)
 		--panel_anim:set(2050)
-		panel_anim:set(2305) -- normal only laptop mode
+		panel_anim:set(1305) -- normal only laptop mode
 --		panel_anim:set(1540) -- d mode
     else
---	panel_anim:set(3000) -- normal nonly laptop mode
+	panel_anim:set(3000) -- normal nonly laptop mode
 --	panel_anim:set(1300) -- d moide
-	panel_anim:set(1300) -- d moide
  local unsub_panel
  unsub_panel = panel_anim.ended:subscribe (
  function()
@@ -228,7 +227,7 @@ function side_panel(s)
                   }
     end
 
-mysidepanel.x = 1700
+mysidepanel.x = 1550
 --panel_anim:subscribe(function(x) mysidepanel.x = x end)
 
 

@@ -24,6 +24,7 @@ local scratch = require("extra.scratch")
 --local smart_borders = require('smart_borders') {show_button_tooltips = true}
 -- animation for scratch
 local bling = require("modules.bling")  -- required for [tag preview / sliding animations ]
+local rubato = require("modules.rubato")  -- required for [sliding animations ]
 local awestore = require("awestore") -- required for modern async widget sidepanel sliding
 
 -- Import Daemons and Widgets
@@ -164,29 +165,22 @@ function open_coin()
 end
 ------------------------------------------------------------------------------------------------------------------------- FIN ANIM
 
---monitor switching with xrandr.. doesnt really work atm.. -----------------------------------------------------------------------
-tag.connect_signal("request::screen",
-  function(t)
-    local fallback_tag = nil
-    -- find tag with same name on any other screen
-    for other_screen in screen do
-      if other_screen ~= t.screen then
-        fallback_tag = awful.tag.find_by_name(other_screen, t.name)
-        if fallback_tag ~= nil then
-          break
+-- PRESERVE TAG ON screen update (xrandr)
+-- https://github.com/awesomeWM/awesome/issues/1344
+tag.connect_signal("request::screen", function(t)
+    for s in screen do
+        if s ~= t.screen then
+            local t2 = awful.tag.find_by_name(s, t.name)
+            if t2 then
+                t:swap(t2)
+            else
+                t.screen = s
+            end
+            return
         end
-      end
     end
-    -- no tag with same name exists, chose random one
-    if fallback_tag == nil then
-      fallback_tag = awful.tag.find_fallback()
-    end
-    -- delete the tag and move it to other screen
-    t:delete(fallback_tag, true)
-    screen.disconnect_signal("request::create", awful.screen.dpi.create_screen_handler)
-    screen.disconnect_signal("request::remove", awful.screen.dpi.remove_screen_handler)
-    screen.disconnect_signal("request::resize", awful.screen.dpi.resize_screen_handler)
-  end)
+end)
+
 ----------------------------------------------------------------------------------------------------------------------------------
 
 -- expose addono
@@ -643,9 +637,9 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
 			 c.shape = gears.shape.rounded_rect
 			 c.shape = function(cr,w,h)
-		      	--gears.shape.rounded_rect(cr,w,h,7) -- normal rounded
+		      	gears.shape.rounded_rect(cr,w,h,7) -- normal rounded
 		      	--gears.shape.rounded_rect(cr,w,h,15)
-		      	gears.shape.rounded_rect(cr,w,h,0)
+		      	--gears.shape.rounded_rect(cr,w,h,0)
      		 	end
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.

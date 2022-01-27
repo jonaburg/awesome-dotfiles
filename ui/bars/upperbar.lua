@@ -18,6 +18,7 @@ local cputemps = require('extra.cputemps')
 local volume_widget = require('extra.volume-widget.volume')
 local wattage = require('extra.wattage')
 
+local rubato = require('modules.rubato')
 
 --- WIDGETS
 local space3 = markup.font("Roboto 3", " ")
@@ -174,8 +175,8 @@ mywibox = awful.wibar(
          screen = s,
          height = dpi(32),
          width = s.workarea.width,
-         --bg = gears.color.create_png_pattern(beautiful.panelbg),
-         bg = beautiful.panelbggrad,
+         bg = gears.color.create_png_pattern(beautiful.panelbg),
+         --bg = beautiful.panelbggrad,
         visible = true,
          shape = gears.shape.rectangle
         }
