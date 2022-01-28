@@ -16,6 +16,7 @@ side_toggle = wibox.widget {
     checked            = false,
     color              = beautiful.bg_normal,
     bg = gears.color.create_png_pattern(beautiful.psoman),
+    forced_width = 70,
     border_width       = 3,
     paddings           = 0,
     border_color       = '#0000ff' .. '00',

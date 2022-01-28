@@ -155,7 +155,7 @@ dock = awful.popup {
     widget = {
         {
           s.mytag2,
-	 -- side_toggle,
+	  side_toggle,
         forced_height = 50,
         --forced_width  = (screen.primary.geometry.width ) * 4/8,
          layout = wibox.layout.fixed.horizontal,
