@@ -24,7 +24,7 @@ local scratch = require("extra.scratch")
 --local smart_borders = require('smart_borders') {show_button_tooltips = true}
 -- animation for scratch
 local bling = require("modules.bling")  -- required for [tag preview / sliding animations ]
-local rubato = require("modules.rubato")  -- required for [sliding animations ]
+--local rubato = require("modules.rubato")  -- required for [sliding animations ]
 local awestore = require("awestore") -- required for modern async widget sidepanel sliding
 
 -- Import Daemons and Widgets
@@ -468,10 +468,11 @@ require("configuration")
 --- tag previews --
 bling.widget.tag_preview.enable {
 	show_client_content = true,
-	x = 20,
-	y = 100,
---	x = screen_width / 8,
---	y = 1050,
+--	x = 20,
+--	y = 100,
+	x = screen_width / 3,
+	--y = screen_height  - 420,
+	y = screen_height  - 420,
 	scale = 0.25,
 	honor_padding = true,
 	honor_workarea = false

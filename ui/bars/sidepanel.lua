@@ -8,6 +8,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
 local awestore = require("awestore")
+local rubato = require("modules.rubato")
 
 -- indicator --
 --local email = require('themes.concencolor.extra.email')
@@ -25,7 +26,6 @@ local redshift = require('extra.bars.redshift')
 
 -- psoman toggle icon --
 local side_toggle = require('extra.toggleside')
-
 local clockwidget = wibox.container.margin(full_clock_widget, dpi(0), dpi(0), dpi(5), dpi(5))
 
 -- EMAIL
@@ -103,9 +103,7 @@ local redshiftholder = wibox.container.margin(redshift({
 	dpi(20), dpi(40), dpi(2), dpi(2))
 
 
-
-	--- Volume --
-
+--- Volume --
 -- ALSA volume bar
 beautiful.volume = lain.widget.alsabar({
     notification_preset = { font = "Monospace 14"},
@@ -131,7 +129,6 @@ beautiful.volume.bar:buttons(awful.util.table.join(
         os.execute(string.format("%s set %s toggle", beautiful.volume.cmd, beautiful.volume.togglechannel or beautiful.volume.channel))
         beautiful.volume.update()
     end),
-
     awful.button({}, 4, function() -- scroll up
         os.execute(string.format("%s set %s 1%%+", beautiful.volume.cmd, beautiful.volume.channel))
         beautiful.volume.update()
@@ -148,40 +145,51 @@ volumewidget = wibox.container.margin(volumewidget, dpi(20), dpi(40), dpi(5), dp
 
 
 
+-- Create Rubato stuff -----------------------------------------------------------
+local fly_in_time = 0.1
+local fly_in = rubato.timed {
+	duration	= fly_in_time,
+	intro		= fly_in_time/2,
+	rate		= 90,
+	pos		= 1400,
+	easing		= rubato.quadratic
+}
 
 
--- signal to connect to, in order to autohide/unhide when called with "keybind" ----------
-local panel_anim = awestore.tweened(3000, {
-	duration = 350,
-	easing = awestore.easing.cubic_in_out
-})
 
+-- Create the main side panel func -----------------------------------------------------------
+function side_panel(s)
+
+--- version of the signla connect that relies on hidden state..
+--awesome.connect_signal("widget::panel::toggle", function ()
+--	if not mysidepanel.visible then
+--		mysidepanel.visible = true
+--	        fly_in.target = 1305
+--    else
+--     	      fly_in.target = 3300
+--	      mysidepanel.visible = false
+--	end
+--end)
+
+
+--- version of the signla that doesn't involve relying on hidden state..
+local bario = 0
 awesome.connect_signal("widget::panel::toggle", function ()
-	if not mysidepanel.visible then
-		mysidepanel.visible = true
-		--mysidepanel2.visible = true
-		--panel_anim:set(1800)
-		--panel_anim:set(2050)
-		panel_anim:set(1305) -- normal only laptop mode
---		panel_anim:set(1540) -- d mode
-    else
-	panel_anim:set(3000) -- normal nonly laptop mode
---	panel_anim:set(1300) -- d moide
- local unsub_panel
- unsub_panel = panel_anim.ended:subscribe (
- function()
-	      mysidepanel.visible = false
-          --mysidepanel2.visible = false
-unsub_panel()
-end)
-
+	if bario == 0 then
+            if screen.primary.geometry.width == 2560 then
+	        fly_in.target = 2050
+	    else
+	        fly_in.target = 1530
+	    end
+	bario = 1
+        else
+     	    fly_in.target = 3300
+	    bario = 0
 	end
 end)
 
 
 
--- Create the func -----------------------------------------------------------
-function side_panel(s)
     -- Create the first side_panel wibox. If there is only 1 monitor, there will only be this one..
     -- make sure this is on screen 1 only. --
     if s.index == 1
@@ -194,8 +202,7 @@ function side_panel(s)
 		       y = 30,
                        x = 0,
 		       bg = gears.color.create_png_pattern(beautiful.side_panelbg),
-                       --bg = "#121212",
-                       visible = false,
+                       visible = true,
               	       ontop  = true,
                        shape = gears.shape.rectangle
                       }
@@ -208,17 +215,13 @@ function side_panel(s)
                       },
                       { -- middle widgets
                           layout = wibox.layout.flex.vertical,
-              	           --emailholder,
-                           -- s.mytasklistholder, -- Middle widget
                            clockwidget,
                       },
                       { -- bottom widgets
                           layout = wibox.layout.flex.vertical,
-                          --s.mytasklistholder, -- Middle widget
                           side_toggle,
                             s.mytasklistholder, -- Middle widget
 			    verbosebat,
-			   -- wattage,
 			  ddcshiftholder,
 			  redshiftholder,
 			  volumewidget,
@@ -227,57 +230,17 @@ function side_panel(s)
                   }
     end
 
-mysidepanel.x = 1550
---panel_anim:subscribe(function(x) mysidepanel.x = x end)
 
 
--- --side panel screen 2
---    if s.index == 2
---	    then
---             mysidepanel2 = wibox(
---                     {
---                      screen = s,
---                      height = s.workarea.height,
---                      width = s.workarea.width / 3,
---                      x = 0,
---                      y = 50,
---                      bg = gears.color.create_png_pattern(beautiful.side_panel_blue),
---                      visible = false,
---             	       ontop  = true,
---                      shape = gears.shape.rectangle
---                     }
---                 )
---                 mysidepanel2:setup {
---                     layout = wibox.layout.align.vertical,
---                     expand = 'none',
---                     { -- top widgets
---                         layout = wibox.layout.fixed.vertical,
---                     },
---                     { -- middle widgets
---                         layout = wibox.layout.flex.vertical,
---                           cpuwidget,
---             	           emailholder,
---                           s.mytasklistholder, -- Middle widget
---                          clockwidget,
---                     },
---                     { -- bottom widgets
---                         layout = wibox.layout.flex.vertical,
---                         --s.mytasklistholder, -- Middle widget
---                         side_toggle,
---		              ddcshiftholder,
---		              redshiftholder,
---                         max_widget_size = 50
---                     },
---                 }
---
--- end
+fly_in:subscribe(function(pos)
+		mysidepanel:geometry({y = 20})
+		mysidepanel:geometry({x = pos})
+		mysidepanel:draw()
+	end
+)
 
--- for some reason mysidepanel2 is not recognized. so far this config works with teh sidebar opening for just screen 1 (same screen as tagbar atm)
-
---mysidepanel2.x = -1000
---panel_anim:subscribe(function(x) mysidepanel2.x = x end)
+fly_in.target = 3000 -- when awesome inits, get this out of teh way initially ;)
 
 
 end
-
 -- EOF ------------------------------------------------------------------------

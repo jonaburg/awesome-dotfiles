@@ -130,7 +130,7 @@ theme.layout_strutwide                        = theme.confdir .. "/icons/tile.pn
 theme.layout_strutcenter                        = theme.confdir .. "/icons/centerwork.png"
 theme.layout_floating                           = theme.icon_dir .. "/floating.png"
 theme.tasklist_plain_task_name                  = true
-theme.tasklist_disable_icon                     = true
+theme.tasklist_disable_icon                     = false
 theme.useless_gap                               = dpi(25)
 
 theme.titlebar_close_button_normal              = theme.default_dir.."/titlebar/close_normal.png"
@@ -349,14 +349,6 @@ function theme.at_screen_connect(s)
     end
     gears.wallpaper.maximized(wallpaper, s, true)
 
--- Eminent-like task filtering (( this makes sure that all tags are shown, regardless of being used ))
-local orig_filter = awful.widget.taglist.filter.all
--- Taglist label functions
-awful.widget.taglist.filter.all = function (t, args)
-    if t.selected or #t:clients() > 0 then
-        return orig_filter(t, args)
-    end
-end
 
 ---------------------------------------}}}}
 local cornershifter = gears.color({
@@ -447,7 +439,8 @@ end
 
 s.mytaglistn = awful.widget.taglist {
     screen  = s,
-    filter  = awful.widget.taglist.filter.all,
+    filter  = awful.widget.taglist.filter.noempty, -- shows only some ofthem
+    --filter  = awful.widget.taglist.filter.all, -- shows all of them
     style   = {
         shape = gears.shape.rectangle,
         bg_focus = theme.highlight, -- google green sel
@@ -543,9 +536,7 @@ s.mytaglistn = awful.widget.taglist {
     },
     buttons = awful.util.taglist_buttons
 }
-
-
-    -- Create a taglist widget
+    -- Create a taglist widget ( actually draw out tags upper right)
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, {
          bg_focus = "#B6BD68",
          spacing = 4,
@@ -553,109 +544,6 @@ s.mytaglistn = awful.widget.taglist {
         })
     s.mytag = wibox.container.margin(s.mytaglistn, dpi(3), dpi(3), dpi(3), dpi(3))
     mytagholder = wibox.container.background(s.mytag, theme.bg_normal, gears.shape.rectangle)
-
-
--- TAGBAR TAGLIST
-    s.mytaglist3 = awful.widget.taglist {
-    screen  = s,
-    --filter  = awful.widget.taglist.filter.all,
-    filter  = orig_filter,
-    style   = {
-         bg_empty = theme.taglist_bg_empty_base .. "00",
-         fg_empty = "#c2c3c2" .. "80",
-        bg_occupied = tagbarbutton,
-        --bg_occupied = googlegreen,
-
-         fg_focus = "#c2c3c2" .. "90",
-         fg_occupied = "#c2c3c2" .. "90",
-        --bg_focus = "#b3b3b2",
-        --bg_focus = "#d3d2d3",
-        --bg_focus = "#8fA0FC",
-        --bg_focus = gears.color.create_png_pattern(beautiful.side_panel_blue),
-        bg_focus = sel_active
-    },
-    layout   = {
-        spacing = 30,
-        spacing_widget = {
-            color  = '#dddddd' .. "00",
-            bg  = '#ff0000' .. "00",
-            widget = wibox.widget.separator,
-        },
-        layout  = wibox.layout.fixed.horizontal
-    },
-
-       widget_template = {
-        {
-            {
-               {
-                   text = " ",
-                   font = "Iosevka 14",
-                   widget = wibox.widget.textbox,
-               },
-                {
-                    {
-                        {
-                            id     = 'index_role',
-                            widget = wibox.widget.textbox,
-                        },
-                        margins = 2,
-                        widget  = wibox.container.margin,
-                    },
-                    fg = '#dddddd' ..'50',
-            --        bg     = '#dddddd',
-            --       shape  = gears.shape.circle,
-                    widget = wibox.container.background,
-                },
-                {
-                    {
-                        id     = 'icon_role',
-                        widget = wibox.widget.imagebox,
-                    },
-                    margins = 3,
-                    widget  = wibox.container.margin,
-                },
-                layout = wibox.layout.fixed.horizontal,
-            },
-            left  = 25,
-            right = 25,
-            widget = wibox.container.margin
-        },
-
-        id     = 'background_role',
-        widget = wibox.container.background,
-        -- Add support for hover colors and an index label
-        create_callback = function(self, c3, index, objects) --luacheck: no unused args
-            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
-            self:connect_signal('mouse::enter', function()
-
-                -- BLING: Only show widget when there are clients in the tag
-                if #c3:clients() > 0 then
-                    -- BLING: Update the widget with the new tag
-                    awesome.emit_signal("bling::tag_preview::update", c3)
-                    -- BLING: Show the widget
-                    awesome.emit_signal("bling::tag_preview::visibility", s, true)
-                end
-
-                if self.bg ~= '#B57582' then
-                    self.backup     = self.bg
-                    self.has_backup = true
-                end
-                self.bg = '#B57582'
-            end)
-            self:connect_signal('mouse::leave', function()
-
-		         -- BLING: Turn the widget off
-                awesome.emit_signal("bling::tag_preview::visibility", s, false)
-
-                if self.has_backup then self.bg = self.backup end
-            end)
-        end,
-        update_callback = function(self, c3, index, objects) --luacheck: no unused args
-            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
-        end,
-    },
-    buttons = awful.util.taglist_buttons
-}
 
 -------------------------------------------------------------------------------------------------------------------
 -- Create the titlebar

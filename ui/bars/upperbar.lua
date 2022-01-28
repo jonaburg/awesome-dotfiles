@@ -18,7 +18,7 @@ local cputemps = require('extra.cputemps')
 local volume_widget = require('extra.volume-widget.volume')
 local wattage = require('extra.wattage')
 
-local rubato = require('modules.rubato')
+--local rubato = require('modules.rubato')
 
 --- WIDGETS
 local space3 = markup.font("Roboto 3", " ")
