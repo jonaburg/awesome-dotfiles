@@ -171,7 +171,6 @@ function side_panel(s)
 --	end
 --end)
 
-
 --- version of the signla that doesn't involve relying on hidden state..
 local bario = 0
 awesome.connect_signal("widget::panel::toggle", function ()

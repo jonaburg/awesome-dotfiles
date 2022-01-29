@@ -74,4 +74,4 @@ require("configuration.keys")
 --require("configuration.window")
 -- Scratchpad
 -- require("module.scratchpad")
---require("configuration.scratchpad")
+require("configuration.scratchpad")

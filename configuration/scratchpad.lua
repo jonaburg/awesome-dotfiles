@@ -1,54 +1,63 @@
 local awful = require("awful")
-local bling = require("module.bling")
+local bling = require("bling")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
-local awestore = require("awestore")
+local rubato = require("modules.rubato")
 
-local function check_if_alive(cmd)
-    awful.spawn.easy_async_with_shell("pgrep -u $USER -x " .. cmd,
-                                      function(stdout, stderr, reason, exit_code)
-        if exit_code == 1 then awful.spawn(cmd) end
-    end)
+
+local right_up_anim_y = rubato.timed {
+    pos = 2090,
+    rate = 90,
+    easing = rubato.linear,
+    intro = 0.05,
+    duration = 0.1,
+    awestore_compat = true -- This option must be set to true.
+}
+
+local right_up_anim_x = rubato.timed {
+    pos = -970,
+    rate = 90,
+    easing = rubato.linear,
+    intro = 0.05,
+    duration = 0.1,
+    awestore_compat = true -- This option must be set to true.
+}
+
+
+
+screen_width = awful.screen.focused().geometry.width
+screen_height = awful.screen.focused().geometry.height
+
+
+
+local email_scratch = bling.module.scratchpad:new {
+    command = "st -n emailo",
+    rule = { instance = "emailo" },
+    sticky = true,
+    autoclose = true,
+    floating = true,
+    --geometry = {x=0, y=50, height=awful.screen.focused(), width=awful.screen.focused()}, -- The geometry in a floating state
+    geometry = {x=400 , y=50, height=(screen_height / 2), width=screen_width * 3/5}, -- The geometry in a floating state
+    reapply = true,
+    dont_focus_before_close  = false,
+    rubato = {x = right_up_anim_x, y = right_up_anim_y}
+}
+
+function open_email()
+  local s_geo = awful.screen.focused().geometry
+  email_scratch.geometry = {
+    x = 0,
+    y = 30,
+    width = s_geo.width,
+    height = (s_geo.height) / 2
+  }
+  email_scratch:toggle()
 end
 
-local anim_x = awestore.tweened(-1010, {
-    duration = 300,
-    easing = awestore.easing.cubic_in_out
-})
-
-local music_scratch = bling.module.scratchpad:new{
-    command = music,
-    rule = {instance = "music"},
-    sticky = false,
-    autoclose = false,
-    floating = true,
-    geometry = {x = dpi(10), y = dpi(606), height = dpi(460), width = dpi(960)},
-    reapply = true,
-    awestore = {x = anim_x}
-
-}
-
-awesome.connect_signal("scratch::music", function()
-    check_if_alive("mopidy")
-    music_scratch:toggle()
-end)
-
-local anim_y = awestore.tweened(1090, {
-    duration = 300,
-    easing = awestore.easing.cubic_in_out
-})
-
-local discord_scratch = bling.module.scratchpad:new{
-    command = "discord",
-    rule = {instance = "discord"},
-    sticky = false,
-    autoclose = false,
-    floating = true,
-    geometry = {x = dpi(460), y = dpi(90), height = dpi(900), width = dpi(1000)},
-    reapply = true,
-    -- dont_focus_before_close = false,
-    awestore = {y = anim_y}
-}
-
-awesome.connect_signal("scratch::discord",
-                       function() discord_scratch:toggle() end)
+    local s_geo = awful.screen.focused().geometry
+  email_scratch.geometry = {
+    x = 0,
+    y = 3000,
+    width = s_geo.width,
+    height = (s_geo.height) / 2
+  }

@@ -24,7 +24,7 @@ local scratch = require("extra.scratch")
 --local smart_borders = require('smart_borders') {show_button_tooltips = true}
 -- animation for scratch
 local bling = require("modules.bling")  -- required for [tag preview / sliding animations ]
---local rubato = require("modules.rubato")  -- required for [sliding animations ]
+local rubato = require("modules.rubato")  -- required for [sliding animations ]
 local awestore = require("awestore") -- required for modern async widget sidepanel sliding
 
 -- Import Daemons and Widgets
@@ -104,18 +104,6 @@ local pape_scratch = bling.module.scratchpad:new {
     dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
     awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
-local email_scratch = bling.module.scratchpad:new {
-    command = "st -n email",           -- How to spawn the scratchpad
-    rule = { instance = "email" },                     -- The rule that the scratchpad will be searched by
-    sticky = true,                                    -- Whether the scratchpad should be sticky
-    autoclose = true,                                 -- Whether it should hide itself when losing focus
-    floating = true,                                  -- Whether it should be floating
-    --geometry = {x=0, y=50, height=awful.screen.focused(), width=awful.screen.focused()}, -- The geometry in a floating state
-    geometry = {x=screen_width / 5 , y=50, height=(screen_height / 2), width=screen_width * 3/5}, -- The geometry in a floating state
-    reapply = true,                                   -- Whether all those properties should be reapplied on every new opening of the scratchpad (MUST BE TRUE FOR ANIMATIONS)
-    dont_focus_before_close  = false,                 -- When set to true, the scratchpad will be closed by the toggle function regardless of whether its focused or not. When set to false, the toggle function will first bring the scratchpad into focus and only close it on a second call
-    awestore = {x = right_up_anim_x, y = right_up_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
-}
 local music_scratch = bling.module.scratchpad:new {
     command = "st -n music",           -- How to spawn the scratchpad
     rule = { instance = "music" },                     -- The rule that the scratchpad will be searched by
@@ -128,21 +116,6 @@ local music_scratch = bling.module.scratchpad:new {
     awestore = {x = left_anim_x, y = left_anim_y}               -- Optional. This is how you can pass in the stores for animations. If you don't want animations, you can ignore this option.
 }
 
-function open_email()
-  local s_geo = awful.screen.focused().geometry
-  email_scratch.geometry = {
-    --x = s_geo.width/13,
-    --x = s_geo.width/13,
-    x = 0,
-    y = 30,
-    --y = 50,
-    --width = s_geo.width * 5/6,
-    width = s_geo.width,
-    --height = (s_geo.height) / 2
-    height = (s_geo.height) / 2
-  }
-  email_scratch:toggle()
-end
 function open_music()
   local s_geo = awful.screen.focused().geometry
   music_scratch.geometry = {

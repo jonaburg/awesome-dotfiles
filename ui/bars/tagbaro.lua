@@ -192,9 +192,9 @@ fly_in:subscribe(function(pos)
 		dock:draw()
 	end
 )
+
 --for startup and stuff
 fly_in.target = screen.primary.geometry.height - beautiful.useless_gap + 20
---fly_in.target = 500
 
 
 
