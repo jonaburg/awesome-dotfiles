@@ -29,6 +29,7 @@ theme.font = "Open Sans 12"
 theme.widget_font          = "Iosevka 13"
 theme.calfont          = "Iosevka 14"
 --theme.taglist_font  = "Iosevka 12"
+theme.titlebar_font  = "sf mono 24"
 theme.taglist_font  = "sf mono 12"
 theme.mpd_font  = "Open Sans 10"
 theme.tasklist_font = "sf mono 12"
@@ -333,7 +334,6 @@ theme.panelbggrad  = gears.color({
 theme.highlight = brightsel
 theme.taglist_bg_occupied = bg_occupado
 
-
 --Client Titlebar windows (taking gradient colors) --
 theme.titlebar_bg_focus = xpblue
 --theme.titlebar_bg_focus = gears.color.create_png_pattern(theme.titlebar)
@@ -545,6 +545,7 @@ s.mytaglistn = awful.widget.taglist {
     s.mytag = wibox.container.margin(s.mytaglistn, dpi(3), dpi(3), dpi(3), dpi(3))
     mytagholder = wibox.container.background(s.mytag, theme.bg_normal, gears.shape.rectangle)
 
+
 -------------------------------------------------------------------------------------------------------------------
 -- Create the titlebar
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -567,7 +568,7 @@ client.connect_signal("request::titlebars", function(c)
             awful.mouse.client.resize(c)
         end)
     )
-    awful.titlebar(c, {size = dpi(20)}) : setup {
+    awful.titlebar(c, {size = dpi(24)}) : setup {
         { -- Left
           --  awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
@@ -602,9 +603,10 @@ require("ui.bars")
 -- setup functions to run --------------------------------------------------
 -- create the upper main horizontal bar --
 main_upper_bar(s)
+create_titlebar(s)
 side_panel(s)
 create_taglist(s)
-tagbaro_hor(s)
+create_tagbar(s)
 
 ----- create the bottom tagbar and its associated deps -- -- testing rubato for new dock type
 --gears.timer.delayed_call(tagbaro_hor, s)

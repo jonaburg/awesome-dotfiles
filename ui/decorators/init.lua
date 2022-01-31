@@ -1,0 +1,5 @@
+--require("ui.notifs")
+require("ui.decorators.tagview")
+--require("ui.pop")
+--require("ui.decorations")
+--require("ui.lockscreen")

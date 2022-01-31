@@ -26,6 +26,7 @@ local scratch = require("extra.scratch")
 local bling = require("modules.bling")  -- required for [tag preview / sliding animations ]
 local rubato = require("modules.rubato")  -- required for [sliding animations ]
 local awestore = require("awestore") -- required for modern async widget sidepanel sliding
+--local collision = require("modules.collision")
 
 -- Import Daemons and Widgets
 --require("signal")
@@ -255,10 +256,12 @@ awful.layout.layouts = {
 --    lain.layout.termfair.center,
 --    lain.layout.centerwork,
 --    awful.layout.suit.floating,
-    lain.layout.strutwide,
-    lain.layout.strutcenter,
---    lain.layout.uselesstilecenter,
-    awful.layout.suit.tile,
+--    lain.layout.strutwide,
+--    lain.layout.strutcenter,
+    lain.layout.tile,
+    lain.layout.uselesstile,
+--    awful.layout.suit.tile,
+--    awful.layout.suit.floating,
 ----    lain.layout.cascade,
 --    awful.layout.suit.spiral,
     --awful.layout.suit.magnifier,

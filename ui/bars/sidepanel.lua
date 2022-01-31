@@ -214,7 +214,8 @@ end)
                       },
                       { -- middle widgets
                           layout = wibox.layout.flex.vertical,
-                           clockwidget,
+                          s.mylayoutbox,
+                          max_widget_size = 50
                       },
                       { -- bottom widgets
                           layout = wibox.layout.flex.vertical,
