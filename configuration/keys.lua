@@ -50,9 +50,9 @@ awful.keyboard.append_global_keybindings(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Tab", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
-    awful.key({ altkey,           }, "Tab", function()awesome.emit_signal("bling::window_switcher::turn_on")
- end ,
-              {description = "go back", group = "tag"}),
+--    awful.key({ altkey,           }, "Tab", function()awesome.emit_signal("bling::window_switcher::turn_on")
+-- end ,
+ --             {description = "go back", group = "tag"}),
 
     -- Non-empty tag browsing
     awful.key({ modkey }, "g", function () lain.util.tag_view_nonempty(-1) end,

@@ -24,6 +24,53 @@ awful.widget.taglist.filter.all = function (t, args)
         return origa_filter(t, args)
 end
 end
+
+
+
+   s.uppertag = awful.widget.taglist {
+   screen  = s,
+   filter  = origa_filter,
+   style   = {
+        bg_empty = "#00000000",
+        bg_occupied = "#00000000",
+        bg_focus = "#00000000",
+
+       -- fg_empty = "#007fff00",
+        fg_focus = "#007fff00",
+       -- fg_focus = "#ff0000" .. "90",
+        fg_occupied = "#000759" .. "90",
+   },
+   layout   = {
+       spacing = 50,
+       layout  = wibox.layout.fixed.horizontal
+   },
+      widget_template = {
+       {
+           {
+            id     = 'text_role',
+            widget = wibox.widget.textbox,
+           },
+           left  = 20,
+           right = 20,
+           widget = wibox.container.margin
+       },
+       id     = 'background_role',
+       widget = wibox.container.background,
+   }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    s.mytaglist3 = awful.widget.taglist {
    screen  = s,
    filter  = origa_filter,
@@ -39,7 +86,7 @@ end
       -- bg_focus = sel_active
    },
    layout   = {
-       spacing = 30,
+       spacing = 20,
        spacing_widget = {
            color  = '#dddddd' .. "00",
            bg  = '#ff0000' .. "00",
@@ -49,6 +96,7 @@ end
    },
       widget_template = {
        {
+	 {
            {
               {
                   text = " ",
@@ -64,9 +112,8 @@ end
                        margins = 2,
                        widget  = wibox.container.margin,
                    },
-                   fg = '#dddddd' ..'50',
+                   fg = '#dddddd10',
            --        bg     = '#dddddd',
-           --       shape  = gears.shape.circle,
                    widget = wibox.container.background,
                },
                {
@@ -74,15 +121,25 @@ end
                        id     = 'icon_role',
                        widget = wibox.widget.imagebox,
                    },
-                   margins = 3,
+                   margins = 1,
                    widget  = wibox.container.margin,
                },
+	       {
+                    id     = 'text_role',
+                    widget = wibox.widget.textbox,
+                },
                layout = wibox.layout.fixed.horizontal,
            },
            left  = 25,
            right = 25,
-           widget = wibox.container.margin
+           widget = wibox.container.margin,
+         },
+	width = 300,
+	height= 500,
+	strategy = max,
+        widget = wibox.container.constraint,
        },
+
        id     = 'background_role',
        widget = wibox.container.background,
        -- Add support for hover colors and an index label
@@ -118,12 +175,25 @@ end
    buttons = awful.util.taglist_buttons
    }
 
---
---function create_taglist(s)
-    mytaglistcont2 = wibox.container.background(s.mytaglist3, "#ffffff" .. "00", gears.shape.rectangle)
-    s.mytag2 = wibox.container.margin(mytaglistcont2, dpi(15), dpi(15), dpi(15), dpi(10))
-end
 
+
+-- s.uppertag = wibox.container.background(s.uppertag, "#ffffff" .. "00", gears.shape.hexagon)
+ s.uppertag = wibox.container.margin(s.uppertag, dpi(15), dpi(15), dpi(0), dpi(15))
+--
+--containing the widget to go inside
+ mytaglistcont2 = wibox.container.background(s.mytaglist3, "#ffffff" .. "00", gears.shape.rectangle)
+ s.mytag2 = wibox.container.margin(mytaglistcont2, dpi(15), dpi(15), dpi(15), dpi(-30))
+
+tag_holder =  wibox.widget {
+     s.mytag2,
+--     s.uppertag,
+--     vertical_offset = 15,
+    layout  = wibox.layout.stack
+}
+
+tag_holder =  wibox.container.constraint(tag_holder, max, (screen.primary.geometry.width * 3 / 5 ), 500)
+
+end
 --------------------------------------------------------------------------------------------------------
 -- Create the func -----------------------------------------------------------
 function sleep(n)
@@ -154,9 +224,10 @@ function create_tagbar(s)
 dock = awful.popup {
     widget = {
         {
-          s.mytag2,
+	tag_holder,
+          --s.mytag2,
 	  side_toggle,
-        forced_height = 50,
+        forced_height = 64,
         --forced_width  = (screen.primary.geometry.width ) * 4/8,
          layout = wibox.layout.fixed.horizontal,
         },

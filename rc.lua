@@ -26,7 +26,7 @@ local scratch = require("extra.scratch")
 local bling = require("modules.bling")  -- required for [tag preview / sliding animations ]
 local rubato = require("modules.rubato")  -- required for [sliding animations ]
 local awestore = require("awestore") -- required for modern async widget sidepanel sliding
---local collision = require("modules.collision")
+--require("modules.collision")()
 
 -- Import Daemons and Widgets
 --require("signal")
