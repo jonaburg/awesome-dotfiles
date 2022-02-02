@@ -186,8 +186,25 @@ mywibox = awful.wibar(
         layout = wibox.layout.align.horizontal,
         expand = 'none',
         { -- Left widgets
+
             layout = wibox.layout.fixed.horizontal,
 	    wibox.container.background(wibox.widget {
+
+--            	emailholder,
+--                clockwidget,
+--            	cputempsholder_bright,
+--                cpuwidget,
+--		wattage,
+--		bat.widget,
+--            	volume_widget{
+--                      widget_type = 'horizontal_bar'
+--                    }, -- self explanatory
+--                --s.mylayoutbox,
+--                systrayholder,
+--		side_toggle,
+
+
+
  --           mytagholder,
             s.mypromptbox,
 	    layout = wibox.layout.fixed.horizontal,
@@ -203,19 +220,17 @@ mywibox = awful.wibar(
 
             wibox.container.background(wibox.widget {
             	emailholder,
-            clockwidget,
+                clockwidget,
             	cputempsholder_bright,
                 cpuwidget,
-
-
 		wattage,
 		bat.widget,
             	volume_widget{
                       widget_type = 'horizontal_bar'
                     }, -- self explanatory
                 --s.mylayoutbox,
-                systrayholder,
 		side_toggle,
+                systrayholder,
 	     layout = wibox.layout.fixed.horizontal,
             }, beautiful.panelcolor, gears.shape.rounded_rect),
     },

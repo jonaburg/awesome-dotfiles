@@ -6,7 +6,7 @@ local rubato = require("modules.rubato")
 
 
 local right_up_anim_y = rubato.timed {
-    pos = 2090,
+    pos = 3090,
     rate = 90,
     easing = rubato.linear,
     intro = 0.05,
@@ -15,7 +15,7 @@ local right_up_anim_y = rubato.timed {
 }
 
 local right_up_anim_x = rubato.timed {
-    pos = -970,
+    pos = 2970,
     rate = 90,
     easing = rubato.linear,
     intro = 0.05,
@@ -57,7 +57,7 @@ end
     local s_geo = awful.screen.focused().geometry
   email_scratch.geometry = {
     x = 0,
-    y = 3000,
+    y = 2000,
     width = s_geo.width,
     height = (s_geo.height) / 2
   }

@@ -6,9 +6,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources") local dpi = xresources.apply_dpi
 local rubato = require ("modules.rubato")
-local tagbarog = require('extra.slidebars.tagbar')
-local ddcshift = require('extra.bars.ddcshift')
-local redshift = require('extra.bars.redshift')
+local bling = require("modules.bling")  -- required for [tag preview / sliding animations ]
 local side_toggle = require('extra.toggleside')
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
@@ -27,66 +25,22 @@ end
 
 
 
-   s.uppertag = awful.widget.taglist {
-   screen  = s,
-   filter  = origa_filter,
-   style   = {
-        bg_empty = "#00000000",
-        bg_occupied = "#00000000",
-        bg_focus = "#00000000",
-
-       -- fg_empty = "#007fff00",
-        fg_focus = "#007fff00",
-       -- fg_focus = "#ff0000" .. "90",
-        fg_occupied = "#000759" .. "90",
-   },
-   layout   = {
-       spacing = 50,
-       layout  = wibox.layout.fixed.horizontal
-   },
-      widget_template = {
-       {
-           {
-            id     = 'text_role',
-            widget = wibox.widget.textbox,
-           },
-           left  = 20,
-           right = 20,
-           widget = wibox.container.margin
-       },
-       id     = 'background_role',
-       widget = wibox.container.background,
-   }}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    s.mytaglist3 = awful.widget.taglist {
    screen  = s,
-   filter  = origa_filter,
-   --filter  = awful.widget.taglist.filter.all,
+   filter  = origa_filter, -- shows ALL tags.
+   --filter  = awful.widget.taglist.filter.all, -- ONLY shows the occupied tags.
    style   = {
-        bg_empty = beautiful.taglist_bg_empty_base .. "00",
-        fg_empty = "#c2c3c2" .. "80",
-        bg_occupied = beautiful.tagbarbutton,
-        fg_focus = "#c2c3c2" .. "90",
-        fg_occupied = "#c2c3c2" .. "90",
-       bg_focus = "#8fA0FC",
-       --bg_focus = gears.color.create_png_pattern(beautiful.side_panel_blue),
-      -- bg_focus = sel_active
+                    bg_empty = "#00000000",
+                    bg_occupied = beautiful.tagbar_occupied, -- ocupied block suqare
+                    bg_focus = "#8fA0FC", -- highlighted block square
+
+                    fg_empty = "#00000000", --should ideally match bg empty
+                    fg_occupied = "#c3c2c3", -- ocupied txt font
+                    fg_focus = "#000000", --- highlghtedf txt font
+                    font = "Iosevka 08",
    },
    layout   = {
-       spacing = 20,
+       spacing = 30,
        spacing_widget = {
            color  = '#dddddd' .. "00",
            bg  = '#ff0000' .. "00",
@@ -99,8 +53,8 @@ end
 	 {
            {
               {
-                  text = " ",
-                  font = "Iosevka 14",
+                  text = "           ",
+                  font = "Iosevka 08",
                   widget = wibox.widget.textbox,
               },
                {
@@ -109,7 +63,7 @@ end
                            id     = 'index_role',
                            widget = wibox.widget.textbox,
                        },
-                       margins = 2,
+                       margins = 4,
                        widget  = wibox.container.margin,
                    },
                    fg = '#dddddd10',
@@ -128,13 +82,14 @@ end
                     id     = 'text_role',
                     widget = wibox.widget.textbox,
                 },
-               layout = wibox.layout.fixed.horizontal,
+	       vertical_offset = 3,
+               layout = wibox.layout.stack,
            },
-           left  = 25,
-           right = 25,
+           left  = 15,
+           right = 15,
            widget = wibox.container.margin,
          },
-	width = 300,
+	width = 80,
 	height= 500,
 	strategy = max,
         widget = wibox.container.constraint,
@@ -177,21 +132,10 @@ end
 
 
 
--- s.uppertag = wibox.container.background(s.uppertag, "#ffffff" .. "00", gears.shape.hexagon)
- s.uppertag = wibox.container.margin(s.uppertag, dpi(15), dpi(15), dpi(0), dpi(15))
---
 --containing the widget to go inside
  mytaglistcont2 = wibox.container.background(s.mytaglist3, "#ffffff" .. "00", gears.shape.rectangle)
  s.mytag2 = wibox.container.margin(mytaglistcont2, dpi(15), dpi(15), dpi(15), dpi(-30))
-
-tag_holder =  wibox.widget {
-     s.mytag2,
---     s.uppertag,
---     vertical_offset = 15,
-    layout  = wibox.layout.stack
-}
-
-tag_holder =  wibox.container.constraint(tag_holder, max, (screen.primary.geometry.width * 3 / 5 ), 500)
+ tag_holder =  wibox.container.constraint(s.mytag2, max, (screen.primary.geometry.width * 3 / 5 ), 500)
 
 end
 --------------------------------------------------------------------------------------------------------
@@ -225,7 +169,6 @@ dock = awful.popup {
     widget = {
         {
 	tag_holder,
-          --s.mytag2,
 	  side_toggle,
         forced_height = 64,
         --forced_width  = (screen.primary.geometry.width ) * 4/8,
@@ -249,7 +192,7 @@ local function adjust_x()
 if screen.primary.geometry.width == 2560 then
 	dock.x = (screen.primary.geometry.width)* 2/7
 else
-	dock.x = (screen.primary.geometry.width)* 1/5
+	dock.x = (screen.primary.geometry.width)* 1/4
 end
 end
 

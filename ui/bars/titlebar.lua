@@ -31,6 +31,10 @@ function create_titlebar(s)
    s.titlebar_tag = wibox.container.margin(s.titlebar_taglist, dpi(3), dpi(3), dpi(3), dpi(3))
    titlebar_tagholder = wibox.container.background(s.titlebar_tag, beautiful.bg_normal, gears.shape.rectangle)
 
+if s.index == 1
+then
+
+ s.mytasklistholder2 = wibox.container.margin(s.mytasklist, dpi(0), dpi(0), dpi(0), dpi(0))
 
 -- Create the main taskbar wibox.
 thetitlebar = awful.wibar(
@@ -43,7 +47,7 @@ thetitlebar = awful.wibar(
         visible = true,
         --visible = false,
 	ontop = true,
-         shape = gears.shape.rounded_rect
+         shape = gears.shape.rectangle
         }
     )
     thetitlebar:setup {
@@ -60,7 +64,8 @@ thetitlebar = awful.wibar(
             max_widget_size = 50,
         },
         { -- MIDDLE widgfets
-	    titlebar_tagholder,
+	s.mytasklistholder2,
+	    --titlebar_tagholder,
             layout = wibox.layout.fixed.horizontal,
         },
         { -- Right widgets
@@ -186,10 +191,11 @@ awful.screen.focused():connect_signal("tag::history::update", function()
   end)
 --
 --
+end
 
 
 
-  end
+end
 
 
 -- EOF ------------------------------------------------------------------------

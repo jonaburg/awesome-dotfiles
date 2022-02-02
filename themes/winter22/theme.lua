@@ -200,7 +200,7 @@ local tagbarcolor  = gears.color({
 --  to = { 40, 30, 5 },
 --  stops = { { 1, "#B2BECD" .. "30" }, { 0.2, "#B2BECD" .. "20" }}
 --})
-local tagbarbutton  = gears.color({
+local tagbar_occupied  = gears.color({
     type  = "linear",
     from  = { 0, 120 },
     to    = { 0, 0 },
@@ -547,7 +547,7 @@ s.mytaglistn = awful.widget.taglist {
 
 
 -------------------------------------------------------------------------------------------------------------------
--- Create the titlebar
+-- Create the titlebar (TITLEBAR)
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
     -- Custom
@@ -568,7 +568,7 @@ client.connect_signal("request::titlebars", function(c)
             awful.mouse.client.resize(c)
         end)
     )
-    awful.titlebar(c, {size = dpi(24)}) : setup {
+    awful.titlebar(c, {size = dpi(26)}) : setup {
         { -- Left
           --  awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
