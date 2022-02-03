@@ -29,8 +29,8 @@ local wattage = wibox.widget {
 --local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT1/power_now) / 100000)) | awk  '{printf( \"%.\" C \"f\n\", $1 / 10^C) }' C=1 | sed  's/$/ W/g' " ]]
 
 local charge_status =  [[ bash -c "cat /sys/class/power_supply/BAT0/status" ]]
---local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT0/power_now) / 100000)) | awk  '{printf( \"%.\" C \"f\n\", $1 / 10^C) }' C=1 | sed  's/$/ W/g' " ]]
-local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT0/current_now) / 10000)) | awk  '{printf( \"%.\" C \"f\n\", $1 / 10^C) }' C=1 | sed  's/$/ W/g' " ]]
+local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT0/power_now) / 100000)) | awk  '{printf( \"%.\" C \"f\n\", $1 / 10^C) }' C=1 | sed  's/$/ W/g' " ]]
+--local watchstatus = [[bash -c " echo $(($(cat /sys/class/power_supply/BAT0/current_now) / 10000)) | awk  '{printf( \"%.\" C \"f\n\", $1 / 10^C) }' C=1 | sed  's/$/ W/g' " ]]
 
 -- polls for wattage and displays it on widget..
 watch(
