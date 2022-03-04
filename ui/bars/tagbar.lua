@@ -23,6 +23,26 @@ awful.widget.taglist.filter.all = function (t, args)
 end
 end
 
+local tagbar_occupied  = gears.color({
+    type  = "linear",
+    from  = { 0, 0 },
+    to    = { 0, 32 },
+    stops = { {1.9, "#b1b1b1"}, {0.5, "#777777"}}
+})
+
+local tagbarsel  = gears.color({ type  = "linear",
+    from  = { dpi(32), 0 },
+    to    = { dpi(32), dpi(32) },
+   -- stops = { {1.9, "#8fa9fc"},{0.1, "#777777"}}
+    stops = { {1.9, "#769095"},{0.3, "#8fa9fc"}}
+   -- stops = { {0.1, "#777777"},{l.9, "#8fa9fc"}}
+})
+
+barcoloro  = gears.color({ type  = "linear",
+    from  = { dpi(32), 0 },
+    to    = { dpi(32), dpi(32) },
+    stops = { {1.9, "#232323"},{0.1, "#5F6262"}, {0.1, "#243D9A"}}
+})
 
 
    s.mytaglist3 = awful.widget.taglist {
@@ -31,8 +51,11 @@ end
    --filter  = awful.widget.taglist.filter.all, -- ONLY shows the occupied tags.
    style   = {
                     bg_empty = "#00000000",
-                    bg_occupied = beautiful.tagbar_occupied, -- ocupied block suqare
-                    bg_focus = "#8fA0FC", -- highlighted block square
+                    bg_occupied = tagbar_occupied, -- ocupied block suqare
+                    bg_focus = "#66c1be", -- highlighted block square
+                    --bg_focus = beautiful.teal_gradient, -- highlighted block square
+                    --bg_focus = tagbarsel, -- highlighted block square
+                    --bg_focus = "#8fA0FC", -- highlighted block square
 
                     fg_empty = "#00000000", --should ideally match bg empty
                     fg_occupied = "#c3c2c3", -- ocupied txt font
@@ -145,11 +168,6 @@ function sleep(n)
 	while os.clock() - t0 <= n do end
 end
 
-local barcoloro  = gears.color({ type  = "linear",
-    from  = { dpi(32), 0 },
-    to    = { dpi(32), dpi(32) },
-    stops = { {0, beautiful.bg_focus .. "70"}, {0.25, "#202020"}}
-})
 
 
 local fly_in_time = 0.2
@@ -170,7 +188,7 @@ dock = awful.popup {
         {
 	tag_holder,
 	  side_toggle,
-        forced_height = 64,
+        forced_height = 40,
         --forced_width  = (screen.primary.geometry.width ) * 4/8,
          layout = wibox.layout.fixed.horizontal,
         },
@@ -178,14 +196,16 @@ dock = awful.popup {
         widget  = wibox.container.background,
 	shape = gears.shape.rounded_rect
     },
-	--bg = "#ff000020",
-	bg = barcoloro,
+	--bg = "#ff000070",
+	--bg = barcoloro,
+	bg = beautiful.dockbar,
 	border_width = 5,
         x = 0,
 	screen = screen.primary,
 	ontop = true,
 	type = "dock",
-	border_color = "#00000000",
+	border_color = "#00000060",
+	shape = gears.shape.rounded_rect
 }
 
 local function adjust_x()
@@ -236,9 +256,6 @@ end
 	fly_in.target = screen.primary.geometry.height - beautiful.useless_gap + 20
 	open = false
       end)
-
-
-
 
 
 

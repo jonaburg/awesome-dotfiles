@@ -7,7 +7,7 @@ local xresources = require("beautiful.xresources") local dpi = xresources.apply_
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
-local awestore = require("awestore")
+--local awestore = require("awestore")
 local rubato = require("modules.rubato")
 local bling = require("bling")
 

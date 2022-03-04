@@ -185,35 +185,6 @@ local upper_titlebarcolor = gears.color({
   })
 
 
-local tagbarcolor  = gears.color({
-    type  = "linear",
-    from  = { 0, 120 },
-    to    = { 0, 0 },
-    stops = { {0, "#000000"}, {0.9, "#141c29" .. "98"}} -- grey
---    stops = { {0, "#000000"}, {0.9, "#505050" .. "95"}} -- grey
---    stops = { {0, "#000000"}, {0.9, "#4E78A3" .. "75"}} -- blueish (light)
-})
-
---local tagbarbutton = gears.color({
---  type = "radial",
---  from = { 30, 30, 30 },
---  to = { 40, 30, 5 },
---  stops = { { 1, "#B2BECD" .. "30" }, { 0.2, "#B2BECD" .. "20" }}
---})
-local tagbar_occupied  = gears.color({
-    type  = "linear",
-    from  = { 0, 120 },
-    to    = { 0, 0 },
-    stops = { {1.9, "#202020"}, {0.1, "#9e9e9e"}}
-})
-
-local tagbarselcolor  = gears.color({
-    type  = "linear",
-    from  = { 0, 120 },
-    to    = { 0, 0 },
-    --stops = { {0.9, "#b6Bd68" .. "80"}, {0, "#505050" .. "85"}} -- Green?
-    stops = { {0.9, "#f9a256" .. "80"}, {0, "#f9a256" .. "25"}}
-})
 
 local silverbar  = gears.color({
     type  = "linear",
@@ -307,6 +278,21 @@ local xpsilver  = gears.color({
     stops = {{5.9, "#a8a8a8" }, {0.3, "#828282" } , { 0.1, "#5e5e5e" }}
 })
 
+local halflifeorange  = gears.color({
+    type  = "linear",
+    from  = { 0, dpi(64) },
+    to    = { dpi(532), 0 },
+    stops = {{5.9, "#E95404" }, {0.3, "#672800" } , { 0.1, "#4A3423" }}
+})
+
+theme.teal_gradient  = gears.color({
+    type  = "linear",
+    from  = { 0, dpi(64) },
+    to    = { dpi(532), 0 },
+    stops = {{5.9, "#66C1BE" }, {0.3, "#005867" } , { 0.1, "#234A43" }}
+})
+
+
 local brightsel  = gears.color({
     type  = "linear",
     from  = { 0, dpi(64) },
@@ -335,7 +321,9 @@ theme.highlight = brightsel
 theme.taglist_bg_occupied = bg_occupado
 
 --Client Titlebar windows (taking gradient colors) --
-theme.titlebar_bg_focus = xpblue
+--theme.titlebar_bg_focus = xpblue
+--theme.titlebar_bg_focus = halflifeorange
+theme.titlebar_bg_focus = theme.teal_gradient
 --theme.titlebar_bg_focus = gears.color.create_png_pattern(theme.titlebar)
 theme.titlebar_fg_focus = "#000000"
 
@@ -558,7 +546,7 @@ client.connect_signal("request::titlebars", function(c)
     -- Default
     -- buttons for the titlebar
     local buttons = my_table.join(
-        awful.button({ }, 1, function()
+        awful.button({ },1, function()
             c:emit_signal("request::activate", "titlebar", {raise = true})
             awful.mouse.client.move(c)
         end),
@@ -568,10 +556,15 @@ client.connect_signal("request::titlebars", function(c)
             awful.mouse.client.resize(c)
         end)
     )
-    awful.titlebar(c, {size = dpi(26)}) : setup {
+    awful.titlebar(c, {size = dpi(20)}) : setup {
         { -- Left
           --  awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
+            awful.titlebar.widget.floatingbutton (c),
+            awful.titlebar.widget.maximizedbutton(c),
+            awful.titlebar.widget.stickybutton   (c),
+            awful.titlebar.widget.ontopbutton    (c),
+            awful.titlebar.widget.closebutton    (c),
             layout  = wibox.layout.fixed.horizontal
         },
         { -- Middle
@@ -579,11 +572,12 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },
         { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
+	buttons = buttons,
+            --awful.titlebar.widget.floatingbutton (c),
+            --awful.titlebar.widget.maximizedbutton(c),
+            --awful.titlebar.widget.stickybutton   (c),
+            --awful.titlebar.widget.ontopbutton    (c),
+            --awful.titlebar.widget.closebutton    (c),
             layout = wibox.layout.fixed.horizontal()
         },
         layout = wibox.layout.align.horizontal
@@ -603,8 +597,9 @@ require("ui.bars")
 -- setup functions to run --------------------------------------------------
 -- create the upper main horizontal bar --
 main_upper_bar(s)
-create_titlebar(s)
+--create_titlebar(s)
 side_panel(s)
+
 create_taglist(s)
 create_tagbar(s)
 

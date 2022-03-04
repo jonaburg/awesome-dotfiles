@@ -18,7 +18,7 @@ local cputemps = require('extra.cputemps')
 local volume_widget = require('extra.volume-widget.volume')
 local wattage = require('extra.wattage')
 
-local side_toggle = require('extra.toggleside')
+--local side_toggle = require('extra.toggleside')
 --local rubato = require('modules.rubato')
 
 --- WIDGETS
@@ -46,7 +46,7 @@ beautiful.cal = lain.widget.cal({
         fg = "#FFFFFF",
         bg = beautiful.bg_normal,
         position = "top_middle",
-        font = "Iosevka 14"
+        font = beautiful.widget_font
     }
 })
 local clockwidget = wibox.container.margin(full_clock_widget, dpi(20), dpi(20), dpi(2), dpi(2))
@@ -63,7 +63,7 @@ vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 v
 --gpuholder_bright = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
 --gputempsholder_bright = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5))
-cputempsholder_bright = wibox.container.margin(cputemps, dpi(0), dpi(0), dpi(5),dpi(5))
+cputempsholder_bright = wibox.container.margin(cputemps, dpi(0), dpi(2), dpi(5),dpi(5))
 
 -- starl price hodler
 --starlpriceholder = wibox.container.margin(starlprice, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
@@ -88,13 +88,14 @@ local bat = lain.widget.bat({
 -- CPU
 local cpu = lain.widget.cpu({
 	settings = function()
-        widget:set_markup(markup.font(beautiful.widget_font, " 💽" .. cpu_now.usage .. "% "))
+        --widget:set_markup(markup.font(beautiful.widget_font, " 💽" .. cpu_now.usage .. "% "))
+        widget:set_markup(markup.font(beautiful.widget_font, cpu_now.usage .. "% "))
 	end
 })
 
 local cpu_widget_icon = wibox.widget {
 	text = " 💽",
-	font = "Iosevka 10",
+	font = beautiful.widget_font,
 	widget = wibox.widget.textbox,
 }
 local cpu_widget_icon_handle = wibox.widget {
@@ -115,7 +116,7 @@ local full_cpu_widget = wibox.widget {
         cpu_bg_handle,
 	layout = wibox.layout.fixed.horizontal,
 }
-local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(0), dpi(0), dpi(5), dpi(5))
+local cpuwidget = wibox.container.margin(full_cpu_widget, dpi(5), dpi(2), dpi(2), dpi(2))
 
 -- ALSA volume bar
 beautiful.volume = lain.widget.alsabar({
@@ -159,66 +160,39 @@ volumewidget = wibox.container.margin(volumewidget, dpi(3), dpi(3), dpi(12), dpi
 
 -- System Tray --- this hides the system tray as its packed inside of this widget. --
 --systrayholder = wibox.container.margin(wibox.widget.systray0 dpi(16), dpi(16), dpi(7),dpi(7)) -- sytstray
-mysystray = wibox.widget.systray()
-mysystray.visible = false
-systrayholder = wibox.container.margin(mysystray, dpi(5), dpi(5), dpi(7),dpi(7)) -- sytstray
-systrayholder:connect_signal("mouse::enter", function() show_systray() end)
-systrayholder:connect_signal("mouse::leave", function() hide_systray() end)
-function show_systray() mysystray.visible = true end
-function hide_systray() mysystray.visible = false end
+--mysystray = wibox.widget.systray()
+--mysystray.visible = false
+--systrayholder = wibox.container.margin(mysystray, dpi(5), dpi(5), dpi(7),dpi(7)) -- sytstray
+--systrayholder:connect_signal("mouse::enter", function() show_systray() end)
+--systrayholder:connect_signal("mouse::leave", function() hide_systray() end)
+--function show_systray() mysystray.visible = true end
+--function hide_systray() mysystray.visible = false end
 
 
 -- Create the func -----------------------------------------------------------
 function main_upper_bar(s)
 -- Create the main taskbar wibox.
-mywibox = awful.wibar(
+mywibox = awful.wibox(
         {
          screen = s,
-         height = dpi(32),
-         width = s.workarea.width,
+         --height = dpi(32),
+         height = dpi(22),
+         width = s.workarea.width / 4,
          --bg = gears.color.create_png_pattern(beautiful.panelbg),
          bg = "#00000000",
         visible = true,
+        ontop = true,
          shape = gears.shape.rectangle
         }
     )
     mywibox:setup {
         layout = wibox.layout.align.horizontal,
         expand = 'none',
-        { -- Left widgets
-
-            layout = wibox.layout.fixed.horizontal,
-	    wibox.container.background(wibox.widget {
-
---            	emailholder,
---                clockwidget,
---            	cputempsholder_bright,
---                cpuwidget,
---		wattage,
---		bat.widget,
---            	volume_widget{
---                      widget_type = 'horizontal_bar'
---                    }, -- self explanatory
---                --s.mylayoutbox,
---                systrayholder,
---		side_toggle,
-
-
-
- --           mytagholder,
-            s.mypromptbox,
-	    layout = wibox.layout.fixed.horizontal,
-    }, beautiful.panelcolor, gears.shape.rect),
-            max_widget_size = 50,
-        },
-        {
-            layout = wibox.layout.flex.horizontal,
-           -- clockwidget,
-        },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
 
             wibox.container.background(wibox.widget {
+                s.mypromptbox,
             	emailholder,
                 clockwidget,
             	cputempsholder_bright,
@@ -226,15 +200,19 @@ mywibox = awful.wibar(
 		wattage,
 		bat.widget,
             	volume_widget{
-                      widget_type = 'horizontal_bar'
+                      widget_type = 'arc'
                     }, -- self explanatory
                 --s.mylayoutbox,
-		side_toggle,
-                systrayholder,
+		--side_toggle,
+                --systrayholder,
 	     layout = wibox.layout.fixed.horizontal,
-            }, beautiful.panelcolor, gears.shape.rounded_rect),
+            --}, beautiful.panelcolor, gears.shape.rounded_rect),
+            }, beautiful.panelcolor, gears.shape.hexagon),
+
     },
     }
+
+
 
 -- if main screen then indent topbar down. (specific to main 3k monitor)
 --    if s.index == 1
@@ -245,12 +223,23 @@ mywibox = awful.wibar(
 --         mywibox.width = s.workarea.width
 --         mywibox.y = 0
 --         --screen[1].mywibox.x = 20
---         mywibox.x = 0
 --         --screen[1].mywibox:struts({left=0, right=0, top=85, bottom=0})
---         mywibox:struts({left=0, right=0, top=45, bottom=0})
+
+--mywibox.x = 2100
+
+if screen.primary.geometry.width == 2560 then
+        mywibox.width = screen.primary.geometry.width / 6
+	mywibox.x = 2120
+else
+        mywibox.width = screen.primary.geometry.width / 4
+	mywibox.x = 1500
+end
+
+mywibox:struts({left=0, right=0, top=0, bottom=0}) -- allow more of the screen
 --    end
 
 end
+
 
 
 -- EOF ------------------------------------------------------------------------

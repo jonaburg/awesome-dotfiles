@@ -147,9 +147,9 @@ awful.keyboard.append_global_keybindings(
 
 
     -- On the fly useless gaps change
-    awful.key({ modkey, }, "s", function () lain.util.useless_gaps_resize(5) end,
+    awful.key({ modkey, }, "s", function () lain.util.useless_gaps_resize(10) end,
               {description = "increment useless gaps", group = "tag"}),
-    awful.key({ modkey, "Shift" }, "s", function () lain.util.useless_gaps_resize(-5) end,
+    awful.key({ modkey, "Shift" }, "s", function () lain.util.useless_gaps_resize(-10) end,
               {description = "decrement useless gaps", group = "tag"}),
 
 -- Scratch

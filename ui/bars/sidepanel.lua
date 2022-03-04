@@ -7,12 +7,12 @@ local xresources = require("beautiful.xresources") local dpi = xresources.apply_
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
-local awestore = require("awestore")
+--local awestore = require("awestore")
 local rubato = require("modules.rubato")
 
 -- indicator --
 --local email = require('themes.concencolor.extra.email')
-local vm = require('extra.vmhunter')
+--local vm = require('extra.vmhunter')
 --local gpuhunter = require('themes.concencolor.extra.gpuhunter')
 --local gputemps = require('themes.concencolor.extra.gputemps')
 
@@ -32,7 +32,7 @@ local clockwidget = wibox.container.margin(full_clock_widget, dpi(0), dpi(0), dp
 --emailholder = wibox.container.margin(email, dpi(8), dpi(0), dpi(5),dpi(5)) -- email
 -- Computer stats Widgets --------------{{
 -- WINDOWS VM identifier.
-vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+--vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- GPU HOLDER(s)
 --gpuhunter.bg = "#ff0000"
 --gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
@@ -198,7 +198,7 @@ end)
                        screen = s,
                        height = s.workarea.height,
                        width = s.workarea.width / 5,
-		       y = 30,
+		       y = 20,
                        x = 0,
 		       bg = gears.color.create_png_pattern(beautiful.side_panelbg),
                        visible = true,
@@ -215,6 +215,7 @@ end)
                       { -- middle widgets
                           layout = wibox.layout.flex.vertical,
                           s.mylayoutbox,
+			  wibox.widget.systray(),
                           max_widget_size = 50
                       },
                       { -- bottom widgets
