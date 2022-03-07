@@ -321,9 +321,9 @@ theme.highlight = brightsel
 theme.taglist_bg_occupied = bg_occupado
 
 --Client Titlebar windows (taking gradient colors) --
---theme.titlebar_bg_focus = xpblue
+theme.titlebar_bg_focus = xpblue
 --theme.titlebar_bg_focus = halflifeorange
-theme.titlebar_bg_focus = theme.teal_gradient
+--theme.titlebar_bg_focus = theme.teal_gradient
 --theme.titlebar_bg_focus = gears.color.create_png_pattern(theme.titlebar)
 theme.titlebar_fg_focus = "#000000"
 

@@ -232,7 +232,7 @@ if screen.primary.geometry.width == 2560 then
 	mywibox.x = 2120
 else
         mywibox.width = screen.primary.geometry.width / 4
-	mywibox.x = 1500
+	mywibox.x = 1450
 end
 
 mywibox:struts({left=0, right=0, top=0, bottom=0}) -- allow more of the screen

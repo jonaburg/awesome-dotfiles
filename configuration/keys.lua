@@ -28,8 +28,6 @@ function swap_shift ()
 --	if awful.tag.selected(1).name == "1" then
 --          screen[1].tags[1]:swap(screen[2].tags[1])
      screen[1].selected_tag:swap(screen[2].selected_tag)
-
-
 end
 
 
@@ -50,9 +48,9 @@ awful.keyboard.append_global_keybindings(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Tab", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
---    awful.key({ altkey,           }, "Tab", function()awesome.emit_signal("bling::window_switcher::turn_on")
--- end ,
- --             {description = "go back", group = "tag"}),
+    --awful.key({ altkey,           }, "Tab", function()awesome.emit_signal("widget::tagview::turn_on") end,
+    awful.key({ altkey,           }, "Tab", function()awesome.emit_signal("tag_previewz::visibility::toggle") end,
+              {description = "go back", group = "tag"}),
 
     -- Non-empty tag browsing
     awful.key({ modkey }, "g", function () lain.util.tag_view_nonempty(-1) end,

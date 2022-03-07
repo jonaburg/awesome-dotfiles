@@ -138,13 +138,25 @@ barcoloro  = gears.color({ type  = "linear",
                end
                self.bg = '#B57582'
            end)
-           self:connect_signal('mouse::leave', function()
 
+           self:connect_signal('mouse::leave', function()
        	         -- BLING: Turn the widget off
                awesome.emit_signal("bling::tag_preview::visibility", s, false)
-
                if self.has_backup then self.bg = self.backup end
            end)
+
+--           self:connect_signal('widget::tagview::turn_on', function()
+--                   awesome.emit_signal("bling::tag_preview::update", c3)
+--                   awesome.emit_signal("bling::tag_preview::visibility", s, true)
+---               if self.bg ~= '#B57582' then
+---                   self.backup     = self.bg
+---                   self.has_backup = true
+---               end
+---               self.bg = '#B57582'
+---	   end)
+
+
+
        end,
        update_callback = function(self, c3, index, objects) --luacheck: no unused args
            self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
