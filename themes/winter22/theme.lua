@@ -132,7 +132,7 @@ theme.layout_strutcenter                        = theme.confdir .. "/icons/cente
 theme.layout_floating                           = theme.icon_dir .. "/floating.png"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = false
-theme.useless_gap                               = dpi(25)
+theme.useless_gap                               = dpi(10)
 
 theme.titlebar_close_button_normal              = theme.default_dir.."/titlebar/close_normal.png"
 theme.titlebar_close_button_focus               = theme.icon_dir.."/close_focus.png"
@@ -559,7 +559,6 @@ client.connect_signal("request::titlebars", function(c)
     awful.titlebar(c, {size = dpi(20)}) : setup {
         { -- Left
           --  awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
             awful.titlebar.widget.floatingbutton (c),
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.stickybutton   (c),
@@ -573,11 +572,6 @@ client.connect_signal("request::titlebars", function(c)
         },
         { -- Right
 	buttons = buttons,
-            --awful.titlebar.widget.floatingbutton (c),
-            --awful.titlebar.widget.maximizedbutton(c),
-            --awful.titlebar.widget.stickybutton   (c),
-            --awful.titlebar.widget.ontopbutton    (c),
-            --awful.titlebar.widget.closebutton    (c),
             layout = wibox.layout.fixed.horizontal()
         },
         layout = wibox.layout.align.horizontal

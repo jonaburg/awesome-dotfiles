@@ -228,8 +228,8 @@ mywibox = awful.wibox(
 --mywibox.x = 2100
 
 if screen.primary.geometry.width == 2560 then
-        mywibox.width = screen.primary.geometry.width / 6
-	mywibox.x = 2120
+        mywibox.width = screen.primary.geometry.width / 5
+	mywibox.x = 2050
 else
         mywibox.width = screen.primary.geometry.width / 4
 	mywibox.x = 1450

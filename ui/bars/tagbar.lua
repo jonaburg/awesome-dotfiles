@@ -240,32 +240,32 @@ fly_in:subscribe(function(pos)
 )
 
 --for startup and stuff
-fly_in.target = screen.primary.geometry.height - beautiful.useless_gap + 20
+fly_in.target = screen.primary.geometry.height - beautiful.useless_gap + 0
 
 
 
 ----- SIGNALS ------------------------------------------------------------------
 dock:connect_signal("mouse::enter", function()
 --	open = true
-	fly_in.target = screen.primary.geometry.height - (dock.height + beautiful.useless_gap) + 20
+	fly_in.target = screen.primary.geometry.height - (dock.height + beautiful.useless_gap) + 0
 	open = true
 end)
 dock:connect_signal("mouse::leave", function()
 --	open = false
-	fly_in.target = screen.primary.geometry.height - beautiful.useless_gap + 20
+	fly_in.target = screen.primary.geometry.height - beautiful.useless_gap + 0
 	open = false
 end)
 
 end
     awesome.connect_signal(
       "bringup", function()
-        fly_in.target = screen.primary.geometry.height - (dock.height + beautiful.useless_gap) + 20
+        fly_in.target = screen.primary.geometry.height - (dock.height + beautiful.useless_gap) + 0
 --	      gears.timer.start_new(0.2, function() fly_in.target = screen.primary.geometry.height - (dock.height + beautiful.useless_gap) + 20 end )
 	open = true
       end)
     awesome.connect_signal(
       "bringdown", function()
-	fly_in.target = screen.primary.geometry.height - beautiful.useless_gap + 20
+	fly_in.target = screen.primary.geometry.height - beautiful.useless_gap + 0
 	open = false
       end)
 
