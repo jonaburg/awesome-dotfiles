@@ -26,17 +26,17 @@ theme.lain_icons                                = os.getenv("HOME") .. "/.config
 local redshift = require('extra.bars.redshift')
 local ddcshift = require('extra.bars.ddcshift')
 -- sliding bars --
-local tagbar = require('extra.slidebars.tagbar')
-local upper_titlebar = require('extra.slidebars.titlebar')
+--local tagbar = require('extra.slidebars.tagbar')
+--local upper_titlebar = require('extra.slidebars.titlebar')
 -- indicator --
 local email = require('themes.google-2021.extra.email')
-local vm = require('extra.vmhunter')
-local gpuhunter = require('themes.google-2021.extra.gpuhunter')
+--local vm = require('extra.vmhunter')
+--local gpuhunter = require('themes.google-2021.extra.gpuhunter')
 local gputemps = require('themes.google-2021.extra.gputemps')
 -- geographic environment widgets --
-local airquality = require('extra.geographic.airquality')
-local humidity = require('extra.geographic.humidity')
-local temperature = require('extra.geographic.temperature')
+--local airquality = require('extra.geographic.airquality')
+--local humidity = require('extra.geographic.humidity')
+--local temperature = require('extra.geographic.temperature')
 
 
 --theme.font          = "sf mono 12"
@@ -77,7 +77,8 @@ theme.bg_urgent                                 = "#D9574F"
 theme.border_width                              = dpi(2) -- normal
 --theme.border_width                              = 0 -- with smart_borders
 theme.border_normal                             = "#252525"
-theme.border_focus                              = "#7289DA"
+--theme.border_focus                              = "#7289DA"
+theme.border_focus                              = "#797C85"
 
 -- widget value colors
 theme.widget_value_bg = "#A5A5A6" .. "0"
@@ -282,7 +283,7 @@ end)))
 -- Battery
 local bat = lain.widget.bat({
     settings = function()
-        bat_header = " Bat "
+        bat_header = "   "
         bat_p      = bat_now.perc .. " "
         if bat_now.ac_status == 1 then
             bat_p = bat_p .. "Plugged "
@@ -914,6 +915,7 @@ screen[1].mywibox = awful.wibar(
         cpuwidget,
 --        ------------------
 	    emailholder,
+	    bat,
 --	--    clockwidget,
         volumewidget,
         s.mylayoutbox,

@@ -175,8 +175,9 @@ function side_panel(s)
 local bario = 0
 awesome.connect_signal("widget::panel::toggle", function ()
 	if bario == 0 then
-            if screen.primary.geometry.width == 2560 then
-	        fly_in.target = 2050
+            --if screen.primary.geometry.width == 2560 then
+            if screen.primary.geometry.width == 2880 then
+	        fly_in.target = 2350
 	    else
 	        fly_in.target = 1530
 	    end
@@ -200,7 +201,9 @@ end)
                        width = s.workarea.width / 5,
 		       y = 20,
                        x = 0,
-		       bg = gears.color.create_png_pattern(beautiful.side_panelbg),
+		       bg = gears.color.create_png_pattern(beautiful.side_panel_red),
+		       --bg = gears.color.create_png_pattern(beautiful.side_panelbg),
+		       --bg = "#313131",
                        visible = true,
               	       ontop  = true,
                        shape = gears.shape.rectangle

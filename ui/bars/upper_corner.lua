@@ -16,7 +16,7 @@ local vm = require('extra.vmhunter')
 local cputemps = require('extra.cputemps')
 
 local volume_widget = require('extra.volume-widget.volume')
-local wattage = require('extra.wattage')
+--local wattage = require('extra.wattage')
 
 --local side_toggle = require('extra.toggleside')
 --local rubato = require('modules.rubato')
@@ -197,8 +197,8 @@ mywibox = awful.wibox(
                 clockwidget,
             	cputempsholder_bright,
                 cpuwidget,
-		wattage,
-		bat.widget,
+--		wattage,
+--		bat.widget,
             	volume_widget{
                       widget_type = 'arc'
                     }, -- self explanatory

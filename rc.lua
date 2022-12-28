@@ -235,11 +235,13 @@ local themes = {
     "focus-sensible",  -- 10
     "pioneer",         -- 11
     "google-2021",     -- 12
-    "megid",     -- 13
-    "grants",     -- 14
+    "megid",     -- 13 --broken
+    "grants",     -- 14 -- broken
     "winter22",     -- 15
+    "fall22",     -- 16
+    "nov22",     -- 17
 }
-local chosen_theme = themes[15]
+local chosen_theme = themes[17]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "st"
@@ -614,8 +616,8 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
 			 c.shape = gears.shape.rounded_rect
 			 c.shape = function(cr,w,h)
-		      	--gears.shape.rounded_rect(cr,w,h,7) -- normal rounded
-		      	gears.shape.rounded_rect(cr,w,h,15)
+		      	gears.shape.rounded_rect(cr,w,h,7) -- normal rounded
+		      	-- gears.shape.rounded_rect(cr,w,h,20)
 		      	--gears.shape.rounded_rect(cr,w,h,0)
      		 	end
     -- Set the windows at the slave,

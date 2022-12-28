@@ -40,6 +40,7 @@ local cputempshunter = wibox.widget {
 --local gputempshunter = wibox.container.background(mascarpone_widget, "#a67d88") -- brown
 
 local watchstatus = [[bash -c "acpi -t | awk {'print $4'}"]]
+--local watchstatus = [[bash -c "sensors | grep Package | awk {'print $4'}"]]
 
 -- ensuring the icon will have black fg text.
 --textbox_widget:set_markup(markup("#000000", " ♨ "))

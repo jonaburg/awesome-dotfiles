@@ -8,9 +8,9 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local lain = require("lain")
 local markup = lain.util.markup
 -- indicator --
-local email = require('themes.concencolor.extra.email')
+--local email = require('themes.concencolor.extra.email')
 --local starlprice = require('themes.grants.extra.starlprice')
-local vm = require('extra.vmhunter')
+--local vm = require('extra.vmhunter')
 --local gpuhunter = require('themes.winter22.extra.gpuhunter')
 --local gputemps = require('themes.winter22.extra.gputemps')
 local cputemps = require('extra.cputemps')
@@ -52,16 +52,16 @@ local clockwidget = wibox.container.margin(full_clock_widget, dpi(20), dpi(20), 
 --local clockwidget = wibox.container.background(clockwidget, beautiful.panelcolor, gears.shape.rect) -- encapsulate for when running without bar present
 
 -- EMAIL
-emailholder = wibox.container.margin(email, dpi(8), dpi(16), dpi(5),dpi(5)) -- email
+--emailholder = wibox.container.margin(email, dpi(8), dpi(16), dpi(5),dpi(5)) -- email
 -- Computer stats Widgets --------------{{
 -- WINDOWS VM identifier.
 vmholder = wibox.container.margin(vm, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 -- GPU HOLDER(s)
 --gpuhunter.bg = "#ff0000"
---gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
+gpuholder = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 --gpuholder_bright = wibox.container.margin(gpuhunter, dpi(0), dpi(0), dpi(5),dpi(5)) -- c893c5 vm
 
---gputempsholder_bright = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5))
+gputempsholder_bright = wibox.container.margin(gputemps, dpi(0), dpi(0), dpi(5),dpi(5))
 cputempsholder_bright = wibox.container.margin(cputemps, dpi(0), dpi(0), dpi(5),dpi(5))
 
 -- starl price hodler
@@ -87,7 +87,7 @@ local bat = lain.widget.bat({
 -- CPU
 local cpu = lain.widget.cpu({
 	settings = function()
-        widget:set_markup(markup.font(beautiful.widget_font, " 💽" .. cpu_now.usage .. "% "))
+        widget:set_markup(markup.font(beautiful.widget_font, " 💽 " .. cpu_now.usage .. "% "))
 	end
 })
 
@@ -201,13 +201,14 @@ mywibox = awful.wibar(
             layout = wibox.layout.fixed.horizontal,
 
             wibox.container.background(wibox.widget {
+
             	cputempsholder_bright,
                 cpuwidget,
 
             	--gputempsholder_bright,
-                --gpuholder_bright,
+                --gpuholder,
 
-            	emailholder,
+          --  	emailholder,
 		wattage,
 		bat.widget,
             	volume_widget{

@@ -46,16 +46,16 @@ awful.keyboard.append_global_keybindings(
               {description = "view previous", group = "tag"}),
     awful.key({ altkey,           }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Tab", awful.tag.history.restore,
+    awful.key({ "Control",           }, "Tab", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
     --awful.key({ altkey,           }, "Tab", function()awesome.emit_signal("widget::tagview::turn_on") end,
     awful.key({ altkey,           }, "Tab", function()awesome.emit_signal("tag_previewz::visibility::toggle") end,
               {description = "go back", group = "tag"}),
 
     -- Non-empty tag browsing
-    awful.key({ modkey }, "g", function () lain.util.tag_view_nonempty(-1) end,
+    awful.key({ "Control" }, "g", function () lain.util.tag_view_nonempty(-1) end,
               {description = "view  previous nonempty", group = "tag"}),
-    awful.key({ modkey }, ";", function () lain.util.tag_view_nonempty(1) end,
+    awful.key({ "Control" }, ";", function () lain.util.tag_view_nonempty(1) end,
               {description = "view  previous nonempty", group = "tag"}),
 
     awful.key({ modkey }, "v", function ()
@@ -183,7 +183,7 @@ awful.keyboard.append_global_keybindings(
               {description = "delete tag", group = "tag"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ "Control",           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -521,7 +521,7 @@ client.connect_signal("request::default_keybindings", function()
                 c:raise()
             end, {description = "toggle fullscreen", group = "client"}),
 
-            awful.key({modkey}, "q", function(c) c:kill() end,
+            awful.key({"Control"}, "q", function(c) c:kill() end,
                       {description = "close", group = "client"}),
 
             awful.key({ modkey, "Shift"}, "o", function (c) c:move_to_screen() end,
@@ -604,7 +604,7 @@ end)
 awful.keyboard.append_global_keybindings(
     {
         awful.key {
-            modifiers = {modkey},
+            modifiers = {"Control"},
             keygroup = "numrow",
             description = "only view tag",
             group = "tag",
